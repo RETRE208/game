@@ -28,7 +28,7 @@ public class Puck : MonoBehaviour {
         {
             movement = getNewDirectionAfterCollision(new Vector3(0,0,1));
         }
-        else if (other.tag == "LeftBorder")
+        else if (other.tag == "Stick")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
         }
