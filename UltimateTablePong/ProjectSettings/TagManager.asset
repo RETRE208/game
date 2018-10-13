@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - RightBorder
+  - LeftBorder
+  - BottomBorder
+  - TopBorder
+  - Puck
+  - Stick
   layers:
   - Default
   - TransparentFX
