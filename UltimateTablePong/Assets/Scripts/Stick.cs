@@ -11,8 +11,8 @@ public class Stick : MonoBehaviour {
     private void Start()
     {
         speed = 1500.0f;
-        topBoardBoundary = 425.0f;
-        bottomBoardBoundary = -425.0f;
+        topBoardBoundary = 775.0f;
+        bottomBoardBoundary = -775.0f;
     }
 
     void FixedUpdate () {
@@ -29,7 +29,7 @@ public class Stick : MonoBehaviour {
 
         GetComponent<Rigidbody>().position = new Vector3
         (
-            -450.0f,
+            -1500.0f,
             0.0f,
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, bottomBoardBoundary, topBoardBoundary)
         );
