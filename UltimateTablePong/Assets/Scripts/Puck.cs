@@ -7,19 +7,26 @@ public class Puck : MonoBehaviour {
 
     private Vector3 movement;
     private Rigidbody rb;
+    public GameController gameController;
 
     public float speed;
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
-
         moveRandomDirection();
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        rb.velocity = movement;
+        if (transform.position.x == 100)
+        {
+            rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            rb.velocity = movement;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -27,6 +34,11 @@ public class Puck : MonoBehaviour {
         if (other.tag == "RightBorder")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0,0,1));
+        }
+        else if (other.tag == "LeftBorder")
+        {
+            
+            movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
         }
         else if (other.tag == "Stick")
         {

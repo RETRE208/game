@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour {
+public class CameraController : MonoBehaviour {
 
-    static int defaultY = 1200;
+    static int defaultY = 1232;
 
     private int currentPlayer = 1;
     private Vector3 playerOnePosition = new Vector3(0, defaultY, 0);
@@ -17,13 +17,10 @@ public class Camera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown("space"))
-        {
-            MoveCameraToOtherPlayerField();
-        }
+		
 	}
 
-    void MoveCameraToOtherPlayerField()
+    public void MoveCameraToOtherPlayerField()
     {
         ChangePlayer();
         if (currentPlayer == 1)
