@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour {
 
     static int defaultY = 1232;
 
-    private int currentPlayer = 1;
+    public int currentPlayer = 1;
     private Vector3 playerOnePosition = new Vector3(0, defaultY, 0);
     private Vector3 playerTwoPosition = new Vector3(4900, defaultY, 0);
 

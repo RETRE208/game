@@ -53,6 +53,10 @@ public class GameController : MonoBehaviour {
         {
             ResumeGame();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     IEnumerator SpawnPucks()
@@ -157,7 +161,19 @@ public class GameController : MonoBehaviour {
 
     public void PuckIsDestroy(Puck puck)
     {
+        Debug.Log(puckList.Count);
         puckList.Remove(puck);
+        Debug.Log(puckList.Count);
+        if(puckList.Count == 0)
+        {
+            player1turn = true;
+            if (cam.currentPlayer != 1)
+            {
+                cam.MoveCameraToOtherPlayerField();
+            }
+            playerReadyText.gameObject.SetActive(true);
+            playerReadyText.text = "Player one's turn, \n Press 'F' to start!";
+        }
     }
 
 }
