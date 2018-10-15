@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,10 +44,14 @@ public class GameController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             playerReadyText.gameObject.SetActive(false);
             StartCoroutine(SpawnPucks());
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ResumeGame();
         }
     }
 
@@ -67,7 +72,6 @@ public class GameController : MonoBehaviour {
             break;
         }
         GetPucks();
-        
     }
 
     void UpdateScore () {
@@ -108,12 +112,20 @@ public class GameController : MonoBehaviour {
             playerReadyText.text = "Player two's turn, \n Press space to start!";
         }
         playerReadyText.gameObject.SetActive(true);
+    }
+
+    void ResumeGame()
+    {
+        puckList = new List<Puck>();
+        GetPucks();
         Debug.Log(puckList.Count);
+
         playerReadyText.gameObject.SetActive(false);
         for (int i = 0; i < puckList.Count; i++)
         {
             puckList[i].player1Turn = player1turn;
             puckList[i].puckIsReady = false;
+            Debug.Log("Puck Done " + i);
         }
     }
 
@@ -143,9 +155,9 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void PuckIsDestroy()
+    public void PuckIsDestroy(Puck puck)
     {
-
+        puckList.Remove(puck);
     }
 
 }

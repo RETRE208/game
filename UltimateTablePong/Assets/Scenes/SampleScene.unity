@@ -346,7 +346,7 @@ MonoBehaviour:
   playerReadyText: {fileID: 1304139700}
   scorePlayer1: 0
   scorePlayer2: 0
-  puckCount: 2
+  puckCount: 1
   puckReady: 0
   pucks: {fileID: 1552675274387758, guid: cc61e23747d390f43b81921f4e4e5ce7, type: 2}
   startWait: 1
@@ -883,7 +883,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Player One''s turn
 
-    Press space to start!'
+    Press ''F'' to start!'
 --- !u!222 &1304139701
 CanvasRenderer:
   m_ObjectHideFlags: 0

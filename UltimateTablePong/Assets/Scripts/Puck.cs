@@ -39,7 +39,7 @@ public class Puck : MonoBehaviour {
         {
             if (player1Turn)
             {
-                if (transform.position.x >= 2500)
+                if (transform.position.x >= 2600)
                 {
                     rb.velocity = Vector3.zero;
                     puckIsReady = true;
@@ -52,7 +52,7 @@ public class Puck : MonoBehaviour {
             }
             else
             {
-                if (transform.position.x <= 2300)
+                if (transform.position.x <= 2200)
                 {
                     rb.velocity = Vector3.zero;
                     puckIsReady = true;
@@ -71,10 +71,16 @@ public class Puck : MonoBehaviour {
         if (other.tag == "RightBorder")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
+            gameController.PuckIsDestroy(this);
+            gameController.AddScorePlayer2(100);
+            Destroy(gameObject);
         }
         else if (other.tag == "LeftBorder")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
+            gameController.PuckIsDestroy(this);
+            gameController.AddScorePlayer1(100);
+            Destroy(gameObject);
         }
         else if (other.tag == "Stick")
         {
@@ -119,7 +125,7 @@ public class Puck : MonoBehaviour {
         if (rb.position.x > pathWallLeftPosition && rb.position.x < pathWallRightPosition)
         {
             string s = "Puck : " + rb.position + "left : " + pathWallLeftPosition + "    Right : " + pathWallRightPosition + "  Bottom : " + pathWallBottomPosition + "    Top : " + pathWallTopPosition;
-            Debug.Log(s);
+            //Debug.Log(s);
             if (rb.position.z > pathWallPosition.z)
             {
                 movement = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
