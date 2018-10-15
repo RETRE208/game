@@ -347,6 +347,7 @@ MonoBehaviour:
   scorePlayer1: 0
   scorePlayer2: 0
   puckCount: 2
+  puckReady: 0
   pucks: {fileID: 1552675274387758, guid: cc61e23747d390f43b81921f4e4e5ce7, type: 2}
   startWait: 1
   spawnWait: 1

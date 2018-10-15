@@ -10,6 +10,7 @@ public class Puck : MonoBehaviour {
     private GameController gameController;
     public float speed;
     public bool player1Turn;
+    public bool puckIsReady;
 
 	// Use this for initialization
 	void Start () {
@@ -29,32 +30,38 @@ public class Puck : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         moveRandomDirection();
         player1Turn = true;
+        puckIsReady = false;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (player1Turn)
+        if (!puckIsReady)
         {
-            if (transform.position.x >= 2440)
+            if (player1Turn)
             {
-                rb.velocity = Vector3.zero;
-                gameController.PuckIsReady();
+                if (transform.position.x >= 2500)
+                {
+                    rb.velocity = Vector3.zero;
+                    puckIsReady = true;
+                    gameController.PuckIsReady();
+                }
+                else
+                {
+                    rb.velocity = movement;
+                }
             }
             else
             {
-                rb.velocity = movement;
-            }
-        }
-        else
-        {
-            if (transform.position.x <= 2440)
-            {
-                rb.velocity = Vector3.zero;
-                gameController.PuckIsReady();
-            }
-            else
-            {
-                rb.velocity = movement;
+                if (transform.position.x <= 2300)
+                {
+                    rb.velocity = Vector3.zero;
+                    puckIsReady = true;
+                    gameController.PuckIsReady();
+                }
+                else
+                {
+                    rb.velocity = movement;
+                }
             }
         }
     }

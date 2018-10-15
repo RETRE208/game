@@ -112,8 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9b940a69e3d314eaacced8c620315f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 150
+  speed: 350
   player1Turn: 0
+  puckIsReady: 0
 --- !u!136 &136061450881184510
 CapsuleCollider:
   m_ObjectHideFlags: 1

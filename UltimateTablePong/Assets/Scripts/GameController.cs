@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
     public int scorePlayer1;
     public int scorePlayer2;
     public int puckCount;
-    private int puckReady;
+    public int puckReady;
     public GameObject pucks;
     public float startWait;
     public float spawnWait;
@@ -48,12 +48,6 @@ public class GameController : MonoBehaviour {
             playerReadyText.gameObject.SetActive(false);
             StartCoroutine(SpawnPucks());
         }
-
-        if (puckReady == puckCount)
-        {
-            puckReady = 0;
-            ChangeSides();
-        }
     }
 
     IEnumerator SpawnPucks()
@@ -73,6 +67,7 @@ public class GameController : MonoBehaviour {
             break;
         }
         GetPucks();
+        
     }
 
     void UpdateScore () {
@@ -113,11 +108,12 @@ public class GameController : MonoBehaviour {
             playerReadyText.text = "Player two's turn, \n Press space to start!";
         }
         playerReadyText.gameObject.SetActive(true);
-        //Ajouter que le joueur 2 clique sur space
+        Debug.Log(puckList.Count);
         playerReadyText.gameObject.SetActive(false);
         for (int i = 0; i < puckList.Count; i++)
         {
             puckList[i].player1Turn = player1turn;
+            puckList[i].puckIsReady = false;
         }
     }
 
@@ -140,6 +136,11 @@ public class GameController : MonoBehaviour {
     public void PuckIsReady()
     {
         puckReady += 1;
+        if (puckReady == puckCount)
+        {
+            puckReady = 0;
+            ChangeSides();
+        }
     }
 
     public void PuckIsDestroy()
