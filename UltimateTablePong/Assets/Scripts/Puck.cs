@@ -7,25 +7,55 @@ public class Puck : MonoBehaviour {
 
     private Vector3 movement;
     private Rigidbody rb;
-    public GameController gameController;
-
+    private GameController gameController;
     public float speed;
+    public bool player1Turn;
 
 	// Use this for initialization
 	void Start () {
+        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController>();
+            if (gameController == null)
+            {
+                Debug.Log("Cannot find 'GameController' script");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot find 'GameController' object");
+        }
         rb = GetComponent<Rigidbody>();
         moveRandomDirection();
+        player1Turn = true;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (transform.position.x == 100)
+        if (player1Turn)
         {
-            rb.velocity = Vector3.zero;
+            if (transform.position.x >= 2440)
+            {
+                rb.velocity = Vector3.zero;
+                gameController.PuckIsReady();
+            }
+            else
+            {
+                rb.velocity = movement;
+            }
         }
         else
         {
-            rb.velocity = movement;
+            if (transform.position.x <= 2440)
+            {
+                rb.velocity = Vector3.zero;
+                gameController.PuckIsReady();
+            }
+            else
+            {
+                rb.velocity = movement;
+            }
         }
     }
 
@@ -37,7 +67,6 @@ public class Puck : MonoBehaviour {
         }
         else if (other.tag == "LeftBorder")
         {
-            
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
         }
         else if (other.tag == "Stick")

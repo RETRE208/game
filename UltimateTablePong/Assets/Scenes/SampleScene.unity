@@ -218,14 +218,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1047765927348236, guid: 5a4ad591257e998459d93799d7fa62e1, type: 2}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a4ad591257e998459d93799d7fa62e1, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &337422375 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1047765927348236, guid: 5a4ad591257e998459d93799d7fa62e1,
+--- !u!114 &263156614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114574386421363052, guid: 5a4ad591257e998459d93799d7fa62e1,
     type: 2}
   m_PrefabInternal: {fileID: 263156613}
+  m_Script: {fileID: 11500000, guid: 5c4894a9a5087cf49aabf05451f92231, type: 3}
 --- !u!1001 &357070718
 Prefab:
   m_ObjectHideFlags: 0
@@ -321,7 +326,7 @@ GameObject:
   - component: {fileID: 485884259}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,12 +346,14 @@ MonoBehaviour:
   playerReadyText: {fileID: 1304139700}
   scorePlayer1: 0
   scorePlayer2: 0
-  puckCount: 5
+  puckCount: 2
   pucks: {fileID: 1552675274387758, guid: cc61e23747d390f43b81921f4e4e5ce7, type: 2}
   startWait: 1
   spawnWait: 1
   spawnValues: {x: 0, y: 1, z: 0}
-  cam: {fileID: 337422375}
+  cam: {fileID: 263156614}
+  player1turn: 0
+  puckList: []
 --- !u!4 &485884260
 Transform:
   m_ObjectHideFlags: 0
