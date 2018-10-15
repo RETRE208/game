@@ -63,7 +63,7 @@ public class Puck : MonoBehaviour {
     {
         if (other.tag == "RightBorder")
         {
-            movement = getNewDirectionAfterCollision(new Vector3(0,0,1));
+            movement = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
         }
         else if (other.tag == "LeftBorder")
         {
@@ -83,9 +83,13 @@ public class Puck : MonoBehaviour {
         }
         else if (other.tag == "Puck")
         {
-           Puck otherPuck = other.gameObject.GetComponent<Puck>();
-           Vector3 normal = calculateNormal(otherPuck.getMovement());
-           movement = getNewDirectionAfterCollision(normal);
+            Puck otherPuck = other.gameObject.GetComponent<Puck>();
+            Vector3 normal = calculateNormal(otherPuck.getMovement());
+            movement = getNewDirectionAfterCollision(normal);
+        }
+        else if (other.tag == "PathWall")
+        {
+            getNewDirectionAfterCollisionWithPathWall(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size);
         }
     }
 
@@ -96,6 +100,39 @@ public class Puck : MonoBehaviour {
         movement.x = 100*randomX;
         movement.y = 0;
         movement.z = 100* valueZ;
+    }
+
+    void getNewDirectionAfterCollisionWithPathWall(Vector3 pathWallPosition, Vector3 pathWallSize)
+    {
+        float pathWallLeftPosition = pathWallPosition.x - (pathWallSize.x / 2) - 5;
+        float pathWallRightPosition = pathWallPosition.x + (pathWallSize.x / 2) - 5;
+        float pathWallTopPosition = pathWallPosition.z + (pathWallSize.z / 2) - 5;
+        float pathWallBottomPosition = pathWallPosition.z - (pathWallSize.z / 2) - 5;
+
+        if (rb.position.x > pathWallLeftPosition && rb.position.x < pathWallRightPosition)
+        {
+            string s = "Puck : " + rb.position + "left : " + pathWallLeftPosition + "    Right : " + pathWallRightPosition + "  Bottom : " + pathWallBottomPosition + "    Top : " + pathWallTopPosition;
+            Debug.Log(s);
+            if (rb.position.z > pathWallPosition.z)
+            {
+                movement = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
+            }
+            else
+            {
+                movement = getNewDirectionAfterCollision(new Vector3(-1, 0, 0));
+            }
+        }
+        else if (rb.position.z > pathWallBottomPosition && rb.position.z < pathWallTopPosition)
+        {
+            if (rb.position.x > pathWallPosition.x)
+            {
+                movement = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
+            }
+            else
+            {
+                movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
+            }
+        }
     }
 
     Vector3 getNewDirectionAfterCollision(Vector3 collisionNormal)
