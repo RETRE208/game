@@ -9,47 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1552675274387758}
+  m_RootGameObject: {fileID: 1053818972969158}
   m_IsPrefabAsset: 1
---- !u!1 &1552675274387758
+--- !u!1 &1053818972969158
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4859337623541856}
-  - component: {fileID: 33193626817026666}
-  - component: {fileID: 23819213305293662}
-  - component: {fileID: 54846836220476284}
-  - component: {fileID: 114656707915617270}
-  - component: {fileID: 136061450881184510}
+  - component: {fileID: 4652623687037932}
+  - component: {fileID: 33456265844973234}
+  - component: {fileID: 23809862033976038}
+  - component: {fileID: 65327629326194820}
+  - component: {fileID: 54850806158402484}
   m_Layer: 0
-  m_Name: Puck
-  m_TagString: Puck
+  m_Name: PathWall
+  m_TagString: PathWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4859337623541856
+--- !u!4 &4652623687037932
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552675274387758}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 75, y: 1, z: 75}
+  m_GameObject: {fileID: 1053818972969158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2440, y: 5, z: 460}
+  m_LocalScale: {x: 1500, y: 10, z: 175}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23819213305293662
+--- !u!23 &23809862033976038
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552675274387758}
+  m_GameObject: {fileID: 1053818972969158}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 278711eb70ec3a44fa1bd14f9a178bcb, type: 2}
+  - {fileID: 2100000, guid: 2de8de38416273644acc499b254203d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,19 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33193626817026666
+--- !u!33 &33456265844973234
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552675274387758}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54846836220476284
+  m_GameObject: {fileID: 1053818972969158}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54850806158402484
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552675274387758}
+  m_GameObject: {fileID: 1053818972969158}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -100,31 +99,16 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
---- !u!114 &114656707915617270
-MonoBehaviour:
+  m_CollisionDetection: 0
+--- !u!65 &65327629326194820
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552675274387758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9b940a69e3d314eaacced8c620315f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 350
-  player1Turn: 0
-  puckIsReady: 0
---- !u!136 &136061450881184510
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552675274387758}
+  m_GameObject: {fileID: 1053818972969158}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.50000006
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
