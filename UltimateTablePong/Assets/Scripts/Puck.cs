@@ -6,6 +6,7 @@ using System.IO;
 public class Puck : MonoBehaviour {
 
     private Vector3 movement;
+    private Vector3 gravity;
     private Rigidbody rb;
     private GameController gameController;
     public float speed;
@@ -31,6 +32,7 @@ public class Puck : MonoBehaviour {
         moveRandomDirection();
         player1Turn = true;
         puckIsReady = false;
+        gravity = new Vector3(-50.0f, 0.0f, 0.0f);
     }
 	
 	// Update is called once per frame
@@ -47,6 +49,7 @@ public class Puck : MonoBehaviour {
                 }
                 else
                 {
+                    addGravity();   
                     rb.velocity = movement;
                 }
             }
@@ -60,6 +63,7 @@ public class Puck : MonoBehaviour {
                 }
                 else
                 {
+                    addGravity();
                     rb.velocity = movement;
                 }
             }
@@ -78,13 +82,11 @@ public class Puck : MonoBehaviour {
         else if (other.tag == "LeftBorder")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
-            gameController.PuckIsDestroy(this);
-            gameController.AddScorePlayer1(100);
-            Destroy(gameObject);
         }
         else if (other.tag == "Stick")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
+            getStickBoost();
         }
         else if (other.tag == "TopBorder")
         {
@@ -108,11 +110,10 @@ public class Puck : MonoBehaviour {
 
     void moveRandomDirection()
     {
-        float randomX = Random.Range(1, 10);
-        float valueZ = Mathf.Sqrt(speed - (randomX * randomX));
-        movement.x = 100*randomX;
+        float randomZ = Random.Range(1, 10);
+        movement.x = 0;
         movement.y = 0;
-        movement.z = 100* valueZ;
+        movement.z = 100*randomZ;
     }
 
     void getNewDirectionAfterCollisionWithPathWall(Vector3 pathWallPosition, Vector3 pathWallSize)
@@ -124,8 +125,6 @@ public class Puck : MonoBehaviour {
 
         if (rb.position.x > pathWallLeftPosition && rb.position.x < pathWallRightPosition)
         {
-            string s = "Puck : " + rb.position + "left : " + pathWallLeftPosition + "    Right : " + pathWallRightPosition + "  Bottom : " + pathWallBottomPosition + "    Top : " + pathWallTopPosition;
-            //Debug.Log(s);
             if (rb.position.z > pathWallPosition.z)
             {
                 movement = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
@@ -178,4 +177,15 @@ public class Puck : MonoBehaviour {
     {
         return movement;
     }
+
+    private void addGravity()
+    {
+        movement.x += gravity.x;
+    }
+
+    private void getStickBoost()
+    {
+        movement.x = 4500;
+    }
+
 }

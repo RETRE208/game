@@ -10,7 +10,7 @@ public class Stick : MonoBehaviour {
 
     private void Start()
     {
-        speed = 1500.0f;
+        speed = 2000.0f;
         topBoardBoundary = 775.0f;
         bottomBoardBoundary = -775.0f;
     }
@@ -21,9 +21,9 @@ public class Stick : MonoBehaviour {
 
     private void move()
     {
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(0.0f, 0.0f, moveVertical);
+        Vector3 movement = new Vector3(0.0f, 0.0f, -moveHorizontal);
 
         GetComponent<Rigidbody>().velocity = movement * speed;
 

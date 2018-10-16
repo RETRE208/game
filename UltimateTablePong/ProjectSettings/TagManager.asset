@@ -10,6 +10,8 @@ TagManager:
   - TopBorder
   - Puck
   - Stick
+  - PathWall
+  - Ball
   layers:
   - Default
   - TransparentFX
