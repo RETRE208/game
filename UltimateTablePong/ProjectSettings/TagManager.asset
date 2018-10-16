@@ -12,6 +12,7 @@ TagManager:
   - Stick
   - PathWall
   - Ball
+  - Obstacle
   layers:
   - Default
   - TransparentFX
