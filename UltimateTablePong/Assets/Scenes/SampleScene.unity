@@ -247,12 +247,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a4ad591257e998459d93799d7fa62e1, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &263156614 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114574386421363052, guid: 5a4ad591257e998459d93799d7fa62e1,
-    type: 2}
-  m_PrefabInternal: {fileID: 263156613}
-  m_Script: {fileID: 11500000, guid: 5c4894a9a5087cf49aabf05451f92231, type: 3}
 --- !u!1001 &407895391
 Prefab:
   m_ObjectHideFlags: 0
@@ -262,7 +256,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4554163960122226, guid: 5d1c8ac6bfcbaa94998bf0e3303d03e8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2440
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 4554163960122226, guid: 5d1c8ac6bfcbaa94998bf0e3303d03e8, type: 2}
       propertyPath: m_LocalPosition.y
@@ -366,17 +360,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 729056912}
   playerReadyText: {fileID: 1304139700}
-  scorePlayer1: 0
-  scorePlayer2: 0
-  puckCount: 1
-  puckReady: 0
-  pucks: {fileID: 1552675274387758, guid: cc61e23747d390f43b81921f4e4e5ce7, type: 2}
-  startWait: 1
-  spawnWait: 1
-  spawnValues: {x: 0, y: 1, z: 0}
-  cam: {fileID: 263156614}
+  ballCount: 0
+  balls: {fileID: 1466569418429716, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
+  spawnValues: {x: 0, y: 50, z: 0}
   player1turn: 0
-  puckList: []
+  numberOfRounds: 1
 --- !u!4 &485884260
 Transform:
   m_ObjectHideFlags: 0
@@ -422,8 +410,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: 187}
-  m_SizeDelta: {x: 220, y: 30}
+  m_AnchoredPosition: {x: -250, y: 175}
+  m_SizeDelta: {x: 220, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &729056912
 MonoBehaviour:
@@ -446,10 +434,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -474,7 +462,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4359238261786118, guid: aa48743a3f2b2794cbb7f5ca8f4c46a5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2440
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 4359238261786118, guid: aa48743a3f2b2794cbb7f5ca8f4c46a5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -611,48 +599,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &916629580
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983703216630030, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9283b16907e87fa4fa8b8a0417393e70, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &978349372
 Prefab:
   m_ObjectHideFlags: 0
@@ -1068,7 +1014,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1076,7 +1022,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Player One''s turn
 
-    Press ''F'' to start!'
+    Press ''Space'' to start!'
 --- !u!222 &1304139701
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1093,7 +1039,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4344009611986544, guid: f33591df1020c4b43a86ba44adfb45e5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2440
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 4344009611986544, guid: f33591df1020c4b43a86ba44adfb45e5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1135,7 +1081,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4171604999335788, guid: 12c1499997f51684e923d5bad29634c3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2440
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 4171604999335788, guid: 12c1499997f51684e923d5bad29634c3, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1177,7 +1123,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4423720978984238, guid: 1fb596d3c0262a641b473c4efa48180c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2440
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 4423720978984238, guid: 1fb596d3c0262a641b473c4efa48180c, type: 2}
       propertyPath: m_LocalPosition.y

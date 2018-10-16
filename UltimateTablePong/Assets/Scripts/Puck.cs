@@ -45,7 +45,6 @@ public class Puck : MonoBehaviour {
                 {
                     rb.velocity = Vector3.zero;
                     puckIsReady = true;
-                    gameController.PuckIsReady();
                 }
                 else
                 {
@@ -59,7 +58,6 @@ public class Puck : MonoBehaviour {
                 {
                     rb.velocity = Vector3.zero;
                     puckIsReady = true;
-                    gameController.PuckIsReady();
                 }
                 else
                 {
@@ -76,7 +74,6 @@ public class Puck : MonoBehaviour {
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
             gameController.PuckIsDestroy(this);
-            gameController.AddScorePlayer2(100);
             Destroy(gameObject);
         }
         else if (other.tag == "LeftBorder")
@@ -86,15 +83,18 @@ public class Puck : MonoBehaviour {
         else if (other.tag == "Stick")
         {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
+            gameController.AddScorePlayer(2);
             getStickBoost();
         }
         else if (other.tag == "TopBorder")
         {
             movement = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
+            gameController.AddScorePlayer(1);
         }
         else if (other.tag == "BottomBorder")
         {
             movement = getNewDirectionAfterCollision(new Vector3(-1, 0, 0));
+            gameController.AddScorePlayer(1);
         }
         else if (other.tag == "Puck")
         {
