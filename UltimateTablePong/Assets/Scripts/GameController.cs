@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     public bool player1turn;
     public int numberOfRounds;
     private int currentRound;
+    private int numberOfHit;
 
     // Use this for initialization
     void Start () {
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour {
         ballCount = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         UpdateScore();
+        numberOfHit = 0;
     }
 
     void FixedUpdate()
@@ -58,11 +60,11 @@ public class GameController : MonoBehaviour {
     {
         if (player1turn)
         {
-            scorePlayer1 += newScoreValue;
+            scorePlayer1 += (newScoreValue * ballCount);
         }
         else
         {
-            scorePlayer2 += newScoreValue;
+            scorePlayer2 += (newScoreValue * ballCount);
         }
         
         UpdateScore();
@@ -88,12 +90,14 @@ public class GameController : MonoBehaviour {
             playerReadyText.text = "Player two's turn, \n Press space to start!";
         }
         playerReadyText.gameObject.SetActive(true);
+        numberOfHit = 0;
     }
 
     public void PuckIsDestroy(Puck puck)
     {
         ballCount -= 1;
-        if(ballCount <= 0)
+        numberOfHit = 0;
+        if (ballCount <= 0)
         {
             if (!player1turn)
             {
@@ -116,12 +120,27 @@ public class GameController : MonoBehaviour {
         string winner;
         if (scorePlayer1 > scorePlayer2)
         {
-            winner = "Félicitation\n Le joueur 1 gagne!";
+            winner = "Félicitation! \n Le joueur 1 gagne avec " + scorePlayer1 + "points";
         }
         else
         {
-            winner = "Félicitation\n Le joueur 2 gagne!";
+            winner = "Félicitation! \n Le joueur 2 gagne avec " + scorePlayer2 + "points";
         }
         return winner;
+    }
+
+    public void hitStick()
+    {
+        numberOfHit += 1;
+        if (ballCount == 1 && numberOfHit == 4)
+        {
+            SpawnBall();
+            numberOfHit = 0;
+        }
+        if (ballCount == 2 && numberOfHit == 9)
+        {
+            SpawnBall();
+            numberOfHit = 0;
+        }
     }
 }

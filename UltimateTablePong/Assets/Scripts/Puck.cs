@@ -85,6 +85,7 @@ public class Puck : MonoBehaviour {
             movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
             gameController.AddScorePlayer(2);
             getStickBoost();
+            gameController.hitStick();
         }
         else if (other.tag == "TopBorder")
         {
