@@ -8,12 +8,13 @@ public class GameController : MonoBehaviour {
 
     public Text scoreText;
     public Text playerReadyText;
+    public Text gameInfo;
     private int scorePlayer1;
     private int scorePlayer2;
-    public int ballCount;
+    private int ballCount;
     public GameObject balls;
     public Vector3 spawnValues;
-    public bool player1turn;
+    private bool player1turn;
     public int numberOfRounds;
     private int currentRound;
     private int numberOfHit;
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour {
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         UpdateScore();
         numberOfHit = 0;
+        getGameInfo();
     }
 
     void FixedUpdate()
@@ -41,6 +43,11 @@ public class GameController : MonoBehaviour {
         {
             Application.Quit();
         }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            restartGame();
+        }
     }
 
     void SpawnBall()
@@ -53,7 +60,7 @@ public class GameController : MonoBehaviour {
     }
 
     void UpdateScore () {
-        scoreText.text = "Score Player 1 : " + scorePlayer1 + " Player 2 : " + scorePlayer2;
+        scoreText.text = "Score \nPlayer 1 : " + scorePlayer1 + " \nPlayer 2 : " + scorePlayer2;
     }
 
     public void AddScorePlayer(int newScoreValue)
@@ -90,6 +97,7 @@ public class GameController : MonoBehaviour {
             playerReadyText.text = "Player two's turn, \n Press space to start!";
         }
         playerReadyText.gameObject.SetActive(true);
+        getGameInfo();
         numberOfHit = 0;
     }
 
@@ -142,5 +150,29 @@ public class GameController : MonoBehaviour {
             SpawnBall();
             numberOfHit = 0;
         }
+    }
+
+    private void restartGame()
+    {
+        player1turn = true;
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
+        currentRound = 1;
+        numberOfHit = 0;
+        ballCount = 0;
+        getGameInfo();
+    }
+
+    private void getGameInfo()
+    {
+        if (player1turn)
+        {
+            gameInfo.text = "Player one's turn\n";
+        }
+        else
+        {
+            gameInfo.text = "Player two's turn\n";
+        }
+        gameInfo.text += "Round " + currentRound + "/" + numberOfRounds;
     }
 }
