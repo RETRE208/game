@@ -10,7 +10,7 @@ public class Stick : MonoBehaviour {
 
     private void Start()
     {
-        speed = 2000.0f;
+        speed = 2500.0f;
         topBoardBoundary = 775.0f;
         bottomBoardBoundary = -775.0f;
     }
