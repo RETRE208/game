@@ -128,12 +128,17 @@ public class GameController : MonoBehaviour {
         string winner;
         if (scorePlayer1 > scorePlayer2)
         {
-            winner = "Félicitation! \n Le joueur 1 gagne avec " + scorePlayer1 + "points";
+            winner = "Congratulation! \n Player one win with " + scorePlayer1 + "points";
+        }
+        else if (scorePlayer2 > scorePlayer1)
+        {
+            winner = "Congratulation! \n Player two win with " + scorePlayer2 + "points";
         }
         else
         {
-            winner = "Félicitation! \n Le joueur 2 gagne avec " + scorePlayer2 + "points";
+            winner = " DRAW ";
         }
+        winner += "\nPress 'R' to restart";
         return winner;
     }
 
@@ -154,13 +159,15 @@ public class GameController : MonoBehaviour {
 
     private void restartGame()
     {
-        player1turn = true;
+        player1turn = false;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
         currentRound = 1;
         numberOfHit = 0;
         ballCount = 0;
         getGameInfo();
+        UpdateScore();
+        ChangeSides();
     }
 
     private void getGameInfo()
