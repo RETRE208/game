@@ -6,7 +6,7 @@ using System.IO;
 public class Puck : MonoBehaviour {
 
     private Vector3 position;
-    private Vector3 movement;
+    private Vector3 direction;
     private Vector3 gravity;
     private Rigidbody rb;
     private GameController gameController;
@@ -36,44 +36,43 @@ public class Puck : MonoBehaviour {
 	void FixedUpdate () {
         addGravity();
         position = rb.position;
-        rb.velocity = movement;
+        rb.velocity = direction;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "RightBorder")
         {
-            movement = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
             gameController.PuckIsDestroy(this);
             Destroy(gameObject);
         }
         else if (other.tag == "LeftBorder")
         {
-            movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
+            direction = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
         }
         else if (other.tag == "Stick")
         {
-            movement = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
+            direction = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
             gameController.AddScorePlayer(2);
             getStickBoost();
             gameController.hitStick();
         }
         else if (other.tag == "TopBorder")
         {
-            movement = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
+            direction = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
             gameController.AddScorePlayer(1);
         }
         else if (other.tag == "BottomBorder")
         {
-            movement = getNewDirectionAfterCollision(new Vector3(-1, 0, 0));
+            direction = getNewDirectionAfterCollision(new Vector3(-1, 0, 0));
             gameController.AddScorePlayer(1);
         }
         else if (other.tag == "Ball")
         {
             rb.position = position;
             Puck otherPuck = other.gameObject.GetComponent<Puck>();
-            Vector3 normal = calculateNormal(otherPuck.getMovement());
-            movement = getNewDirectionAfterCollision(normal);
+            Vector3 normal = calculateNormal(otherPuck.getDirection());
+            direction = getNewDirectionAfterCollision(normal);
         }
         else if (other.tag == "Obstacle")
         {
@@ -85,14 +84,15 @@ public class Puck : MonoBehaviour {
     void moveRandomDirection()
     {
         float randomZ = Random.Range(1, 10);
-        movement.x = 0;
-        movement.y = 0;
-        movement.z = 100*randomZ;
+        int signZ = 1; //Disabled randomness for the simulation (Random.value > 0.5f) ? 1 : -1;
+        direction.x = 0;
+        direction.y = 0;
+        direction.z = 100 * randomZ * signZ;
     }
 
     void getNewDirectionAfterCollisionWithObstacle(Vector3 obstaclePosition, float obstacleRay)
     {
-        Vector3 intersection = ClosestIntersection(obstaclePosition.z, obstaclePosition.x, obstacleRay, position, rb.position);
+        Vector3 intersection = getImpactPoint(obstaclePosition.z, obstaclePosition.x, obstacleRay, position, rb.position);
 
         Vector3 normal;
         normal.x = intersection.x - obstaclePosition.x;
@@ -101,63 +101,64 @@ public class Puck : MonoBehaviour {
         normal.Normalize();
 
         rb.position = position;
-        movement = getNewDirectionAfterCollision(normal);
+        direction = getNewDirectionAfterCollision(normal);
     }
 
     Vector3 getNewDirectionAfterCollision(Vector3 collisionNormal)
     {
         Vector3 newDirection;
 
-        float dotProduct = ((movement.x * collisionNormal.x)
-                        + (movement.y * collisionNormal.y)
-                        + (movement.z * collisionNormal.z));
+        float dotProduct = ((direction.x * collisionNormal.x)
+                        + (direction.y * collisionNormal.y)
+                        + (direction.z * collisionNormal.z));
 
-        newDirection.x = (2 * dotProduct * collisionNormal.x) - movement.x;
-        newDirection.y = (2 * dotProduct * collisionNormal.y) - movement.y;
-        newDirection.z = (2 * dotProduct * collisionNormal.z) - movement.z;
+        newDirection.x = (2 * dotProduct * collisionNormal.x) - direction.x;
+        newDirection.y = (2 * dotProduct * collisionNormal.y) - direction.y;
+        newDirection.z = (2 * dotProduct * collisionNormal.z) - direction.z;
 
         return newDirection;
     }
 
-    Vector3 calculateNormal(Vector3 otherMovement)
+    Vector3 calculateNormal(Vector3 otherDirection)
     {
         Vector3 normal;
 
         normal.x = 0;
-        normal.y = (movement.z * otherMovement.x) - (movement.x * otherMovement.z);
+        normal.y = (direction.z * otherDirection.x) - (direction.x * otherDirection.z);
         normal.z = 0;
 
         return normal;
     }
 
-    public Vector3 getMovement()
+    public Vector3 getDirection()
     {
-        return movement;
+        return direction;
     }
 
     private void addGravity()
     {
-        movement.x += gravity.x;
+        direction.x += gravity.x;
     }
 
     private void getStickBoost()
     {
-        movement.x = 4500;
+        direction.x = 4000;
     }
 
-    public Vector3 ClosestIntersection(float cx, float cy, float radius, Vector3 lineStart, Vector3 lineEnd)
+    public Vector3 getImpactPoint(float circleCenterX, float circleCenterY, float circleRadius, Vector3 lineStart, Vector3 lineEnd)
     {
         Vector3 intersection1;
         Vector3 intersection2;
-        int intersections = FindLineCircleIntersections(cx, cy, radius, lineStart.z, lineStart.x, lineEnd.z, lineEnd.x, out intersection1, out intersection2);
+        int numberIntersections = FindLineCircleIntersections(circleCenterX, circleCenterY, circleRadius, lineStart.z, lineStart.x, lineEnd.z, lineEnd.x, out intersection1, out intersection2);
 
-        if (intersections == 1)
-            return intersection1;//one intersection
+        if (numberIntersections == 1)
+            //Tangeant point, the ball direction is not modified.
+            return intersection1;
 
-        if (intersections == 2)
+        if (numberIntersections == 2)
         {
-            double dist1 = Distance(intersection1, lineStart);
-            double dist2 = Distance(intersection2, lineStart);
+            double dist1 = getDistanceBetween2Points(intersection1, lineStart);
+            double dist2 = getDistanceBetween2Points(intersection2, lineStart);
 
             if (dist1 < dist2)
                 return intersection1;
@@ -165,49 +166,54 @@ public class Puck : MonoBehaviour {
                 return intersection2;
         }
 
-        return new Vector3(0,0,0);// no intersections at all
+        // Should never come here. If the event is triggered, there is an impact point.
+        return new Vector3(0,0,0);
     }
 
-    private double Distance(Vector3 p1, Vector3 p2)
+    private double getDistanceBetween2Points(Vector3 p1, Vector3 p2)
     {
-        return Mathf.Pow(p2.x - p1.x, 2) + Mathf.Pow(p2.z - p1.z, 2);
+        return Mathf.Sqrt(Mathf.Pow(p2.x - p1.x, 2) + Mathf.Pow(p2.z - p1.z, 2));
     }
 
-
-    private int FindLineCircleIntersections(float cx, float cy, float radius, float point1X, float point1Y, float point2X, float point2Y, out Vector3 intersection1, out Vector3 intersection2)
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // The code to get the intersection of a circle with a line was found here : 
+    // http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private int FindLineCircleIntersections(float circleCentreX, float circleCentreY, float circleRadius, 
+                                            float point1X, float point1Y, float point2X, float point2Y, 
+                                            out Vector3 intersection1, out Vector3 intersection2)
     {
-        float dx, dy, A, B, C, det, t;
+        float deltaX, deltaY;
+        float A, B, C;
+        float det, t;
 
-        dx = point2X - point1X;
-        dy = point2Y - point1Y;
+        deltaX = point2X - point1X;
+        deltaY = point2Y - point1Y;
 
-        A = dx * dx + dy * dy;
-        B = 2 * (dx * (point1X - cx) + dy * (point1Y - cy));
-        C = (point1X - cx) * (point1X - cx) + (point1Y - cy) * (point1Y - cy) - radius * radius;
+        A = deltaX * deltaX + deltaY * deltaY;
+        B = 2 * (deltaX * (point1X - circleCentreX) + deltaY * (point1Y - circleCentreY));
+        C = (point1X - circleCentreX) * (point1X - circleCentreX) + (point1Y - circleCentreY) * (point1Y - circleCentreY) - circleRadius * circleRadius;
 
         det = B * B - 4 * A * C;
         if ((A <= 0.0000001) || (det < 0))
         {
-            // No real solutions.
             intersection1 = new Vector3(float.NaN, float.NaN, float.NaN);
             intersection2 = new Vector3(float.NaN, float.NaN, float.NaN);
             return 0;
         }
         else if (det == 0)
         {
-            // One solution.
             t = -B / (2 * A);
-            intersection1 = new Vector3(point1X + t * dx, point1Y + t * dy);
+            intersection1 = new Vector3(point1X + t * deltaX, point1Y + t * deltaY);
             intersection2 = new Vector3(float.NaN, float.NaN, float.NaN);
             return 1;
         }
         else
         {
-            // Two solutions.
             t = (float)((-B + Mathf.Sqrt(det)) / (2 * A));
-            intersection1 = new Vector3(point1X + t * dx, 50.0f, point1Y + t * dy);
+            intersection1 = new Vector3(point1X + t * deltaX, 50.0f, point1Y + t * deltaY);
             t = (float)((-B - Mathf.Sqrt(det)) / (2 * A));
-            intersection2 = new Vector3(point1X + t * dx, 50.0f, point1Y + t * dy);
+            intersection2 = new Vector3(point1X + t * deltaX, 50.0f, point1Y + t * deltaY);
             return 2;
         }
     }
