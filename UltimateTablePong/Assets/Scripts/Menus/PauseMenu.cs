@@ -7,11 +7,14 @@ public class PauseMenu : MonoBehaviour {
 
     private bool playerReadyState;
     private bool paused;
+
     private GameObject pauseTitle;
     private GameObject pausePanel; 
     private GameObject playerReady;
     private GameObject pauseMainMenuButton;
     private GameObject pauseResumeButton;
+
+    private float initialTimeScale;
 
     // Use this for initialization
     void Start () {
@@ -47,7 +50,9 @@ public class PauseMenu : MonoBehaviour {
 
     void DisplayPauseMenu()
     {
+        initialTimeScale = Time.timeScale;
         Time.timeScale = 0;
+
         paused = true;
         pauseTitle.SetActive(true);
         pausePanel.SetActive(true);
@@ -62,7 +67,8 @@ public class PauseMenu : MonoBehaviour {
 
     void HidePauseMenu()
     {
-        Time.timeScale = 1;
+        Time.timeScale = initialTimeScale;
+
         paused = false;
         pauseTitle.SetActive(false);
         pausePanel.SetActive(false);
