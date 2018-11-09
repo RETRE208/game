@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour {
     private int currentRound;
     private int numberOfHit;
 
+    private EndMenu endMenu;
+
     // Use this for initialization
     void Start () {
         currentRound = 1;
@@ -30,6 +32,8 @@ public class GameController : MonoBehaviour {
         UpdateScore();
         numberOfHit = 0;
         getGameInfo();
+
+        endMenu = FindObjectOfType<EndMenu>();
     }
 
     void FixedUpdate()
@@ -42,11 +46,6 @@ public class GameController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            restartGame();
         }
     }
 
@@ -79,6 +78,7 @@ public class GameController : MonoBehaviour {
 
     void ChangeSides()
     {
+
         if (player1turn)
         {
             player1turn = false;
@@ -113,8 +113,7 @@ public class GameController : MonoBehaviour {
             }
             if(currentRound > numberOfRounds)
             {
-                playerReadyText.text = GetWinner();
-                playerReadyText.gameObject.SetActive(true);
+                GetWinner();
             }
             else
             {
@@ -123,7 +122,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private string GetWinner()
+    private void GetWinner()
     {
         string winner;
         if (scorePlayer1 > scorePlayer2)
@@ -138,8 +137,8 @@ public class GameController : MonoBehaviour {
         {
             winner = " DRAW ";
         }
-        winner += "\nPress 'R' to restart";
-        return winner;
+
+        endMenu.DisplayEndMenu(restartGame, winner);
     }
 
     public void hitStick()
@@ -159,6 +158,8 @@ public class GameController : MonoBehaviour {
 
     private void restartGame()
     {
+        endMenu.HideEndMenu();
+
         player1turn = false;
         scorePlayer1 = 0;
         scorePlayer2 = 0;

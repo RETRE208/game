@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenuController : MonoBehaviour {
+public class PauseMenu : MonoBehaviour {
 
     private bool playerReadyState;
     private bool paused;
