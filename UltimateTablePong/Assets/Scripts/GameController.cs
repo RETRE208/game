@@ -19,7 +19,9 @@ public class GameController : MonoBehaviour {
     private int currentRound;
     private int numberOfHit;
 
+    private Stick stick;
     private EndMenu endMenu;
+    private PauseMenu pauseMenu;
 
     // Use this for initialization
     void Start () {
@@ -33,7 +35,13 @@ public class GameController : MonoBehaviour {
         numberOfHit = 0;
         getGameInfo();
 
+        pauseMenu = FindObjectOfType<PauseMenu>();
         endMenu = FindObjectOfType<EndMenu>();
+
+        pauseMenu.SetRestartGameAction(restartGame);
+        endMenu.SetRestartGameAction(restartGame);
+
+        stick = GameObject.Find("Stick").GetComponent<Stick>();
     }
 
     void FixedUpdate()
@@ -138,7 +146,8 @@ public class GameController : MonoBehaviour {
             winner = " DRAW ";
         }
 
-        endMenu.DisplayEndMenu(restartGame, winner);
+        
+        endMenu.DisplayEndMenu(winner);
     }
 
     public void hitStick()
@@ -159,6 +168,7 @@ public class GameController : MonoBehaviour {
     private void restartGame()
     {
         endMenu.HideEndMenu();
+        stick.transform.position = new Vector3(-1500, 0, 42);
 
         player1turn = false;
         scorePlayer1 = 0;

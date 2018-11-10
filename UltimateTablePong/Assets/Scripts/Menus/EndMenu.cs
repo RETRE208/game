@@ -13,8 +13,13 @@ public class EndMenu : MonoBehaviour {
     private GameObject backToMainMenuButton;
     private GameObject quitButton;
 
+    private MainMenu mainMenu;
+    private UnityAction restartGame;
+
     // Use this for initialization
     void Start () {
+        mainMenu = gameObject.GetComponent<MainMenu>();
+
         endPanel = GameObject.Find("EndPanel");
         endText = GameObject.Find("EndText");
         endContextText = GameObject.Find("EndContextText");
@@ -28,6 +33,9 @@ public class EndMenu : MonoBehaviour {
         quickRestartButton.SetActive(false);
         backToMainMenuButton.SetActive(false);
         quitButton.SetActive(false);
+
+        backToMainMenuButton.GetComponent<Button>().onClick.AddListener(DisplayMainMenu);
+        quitButton.GetComponent<Button>().onClick.AddListener(Application.Quit);
     }
 
     void Update()
@@ -35,7 +43,12 @@ public class EndMenu : MonoBehaviour {
         
     }
 
-    public void DisplayEndMenu(UnityAction restartGame, string displayText)
+    public void SetRestartGameAction(UnityAction restartGame)
+    {
+        this.restartGame = restartGame;
+    }
+
+    public void DisplayEndMenu(string displayText)
     {
         Time.timeScale = 0;
         endContextText.GetComponent<Text>().text = displayText;
@@ -47,7 +60,6 @@ public class EndMenu : MonoBehaviour {
         quitButton.SetActive(true);
 
         quickRestartButton.GetComponent<Button>().onClick.AddListener(restartGame);
-        quitButton.GetComponent<Button>().onClick.AddListener(Application.Quit);
     }
 
     public void HideEndMenu()
@@ -59,5 +71,12 @@ public class EndMenu : MonoBehaviour {
         quickRestartButton.SetActive(false);
         backToMainMenuButton.SetActive(false);
         quitButton.SetActive(false);
+    }
+
+    void DisplayMainMenu()
+    {
+        HideEndMenu();
+        restartGame();
+        mainMenu.DisplayMainMenu();
     }
 }

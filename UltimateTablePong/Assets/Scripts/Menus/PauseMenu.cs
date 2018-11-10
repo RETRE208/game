@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -14,10 +15,15 @@ public class PauseMenu : MonoBehaviour {
     private GameObject pauseMainMenuButton;
     private GameObject pauseResumeButton;
 
+    private MainMenu mainMenu;
+    private UnityAction restartGame;
+
     private float initialTimeScale;
 
     // Use this for initialization
     void Start () {
+        mainMenu = gameObject.GetComponent<MainMenu>();
+
         pauseTitle = GameObject.Find("PauseTitle");
         pausePanel = GameObject.Find("PausePanel");
         playerReady = GameObject.Find("PlayerReady");
@@ -48,6 +54,11 @@ public class PauseMenu : MonoBehaviour {
         }
 	}
 
+    public void SetRestartGameAction(UnityAction restartGame)
+    {
+        this.restartGame = restartGame;
+    }
+
     void DisplayPauseMenu()
     {
         initialTimeScale = Time.timeScale;
@@ -62,6 +73,7 @@ public class PauseMenu : MonoBehaviour {
         playerReadyState = playerReady.activeSelf;
         playerReady.SetActive(false);
 
+        pauseMainMenuButton.GetComponent<Button>().onClick.AddListener(DisplayMainMenu);
         pauseResumeButton.GetComponent<Button>().onClick.AddListener(HidePauseMenu);
     }
 
@@ -76,5 +88,12 @@ public class PauseMenu : MonoBehaviour {
         pauseResumeButton.SetActive(false);
 
         playerReady.SetActive(playerReadyState);
+    }
+
+    void DisplayMainMenu()
+    {
+        HidePauseMenu();
+        restartGame();
+        mainMenu.DisplayMainMenu();
     }
 }
