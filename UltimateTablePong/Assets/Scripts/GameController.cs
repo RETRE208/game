@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        endMenu = FindObjectOfType<EndMenu>();
+
         currentRound = 1;
         player1turn = true;
         scorePlayer1 = 0;
@@ -34,9 +37,7 @@ public class GameController : MonoBehaviour {
         UpdateScore();
         numberOfHit = 0;
         getGameInfo();
-
-        pauseMenu = FindObjectOfType<PauseMenu>();
-        endMenu = FindObjectOfType<EndMenu>();
+        
 
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
@@ -55,6 +56,11 @@ public class GameController : MonoBehaviour {
         {
             Application.Quit();
         }
+    }
+
+    public void SetNumberOfRounds(int numberOfRounds)
+    {
+        this.numberOfRounds = numberOfRounds;
     }
 
     void SpawnBall()
