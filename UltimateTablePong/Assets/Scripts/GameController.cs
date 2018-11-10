@@ -53,10 +53,6 @@ public class GameController : MonoBehaviour {
             playerReadyText.gameObject.SetActive(false);
             SpawnBall();
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
     }
 
     public void SetNumberOfRounds(int numberOfRounds)
