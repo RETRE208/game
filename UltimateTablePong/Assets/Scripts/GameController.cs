@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        getGameInfo();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerReadyText.gameObject.SetActive(false);
