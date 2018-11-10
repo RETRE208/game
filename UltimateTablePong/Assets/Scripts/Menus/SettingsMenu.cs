@@ -98,6 +98,7 @@ public class SettingsMenu : MonoBehaviour {
 
     void DisplayMainMenu()
     {
+        turnsSlider.GetComponent<Slider>().value = turnsSlider.GetComponent<Slider>().minValue;
         HideSettingsMenu();
         mainMenu.DisplayMainMenu();
     }
