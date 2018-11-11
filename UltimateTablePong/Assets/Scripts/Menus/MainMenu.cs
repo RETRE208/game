@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
     private GameObject mainText;
     private GameObject mainStartButton;
     private GameObject mainQuitButton;
+    private GameObject mainKeybindButton;
 
     private GameObject scoreText;
     private GameObject playerReady;
@@ -26,6 +27,7 @@ public class MainMenu : MonoBehaviour {
         mainText = GameObject.Find("MainText");
         mainStartButton = GameObject.Find("MainStartButton");
         mainQuitButton = GameObject.Find("MainQuitButton");
+        mainKeybindButton = GameObject.Find("MainKeybindButton");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -37,6 +39,7 @@ public class MainMenu : MonoBehaviour {
 
         mainStartButton.GetComponent<Button>().onClick.AddListener(DisplaySettingsMenu);
         mainQuitButton.GetComponent<Button>().onClick.AddListener(Application.Quit);
+        mainKeybindButton.GetComponent<Button>().onClick.AddListener(DisplaySettingKeybind);
     }
 	
 	// Update is called once per frame
@@ -71,6 +74,12 @@ public class MainMenu : MonoBehaviour {
     }
 
    void DisplaySettingsMenu()
+    {
+        HideMainMenu();
+        settingsMenu.DisplaySettingsMenu();
+    }
+
+    void DisplaySettingKeybind()
     {
         HideMainMenu();
         settingsMenu.DisplaySettingsMenu();
