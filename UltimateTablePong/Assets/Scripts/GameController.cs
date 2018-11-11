@@ -19,8 +19,15 @@ public class GameController : MonoBehaviour {
     private int currentRound;
     private int numberOfHit;
 
+    private Stick stick;
+    private EndMenu endMenu;
+    private PauseMenu pauseMenu;
+
     // Use this for initialization
     void Start () {
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        endMenu = FindObjectOfType<EndMenu>();
+
         currentRound = 1;
         player1turn = true;
         scorePlayer1 = 0;
@@ -30,24 +37,27 @@ public class GameController : MonoBehaviour {
         UpdateScore();
         numberOfHit = 0;
         getGameInfo();
+        
+
+        pauseMenu.SetRestartGameAction(restartGame);
+        endMenu.SetRestartGameAction(restartGame);
+
+        stick = GameObject.Find("Stick").GetComponent<Stick>();
     }
 
     void FixedUpdate()
     {
+        getGameInfo();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerReadyText.gameObject.SetActive(false);
             SpawnBall();
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            restartGame();
-        }
+    }
+
+    public void SetNumberOfRounds(int numberOfRounds)
+    {
+        this.numberOfRounds = numberOfRounds;
     }
 
     void SpawnBall()
@@ -79,6 +89,7 @@ public class GameController : MonoBehaviour {
 
     void ChangeSides()
     {
+
         if (player1turn)
         {
             player1turn = false;
@@ -113,8 +124,7 @@ public class GameController : MonoBehaviour {
             }
             if(currentRound > numberOfRounds)
             {
-                playerReadyText.text = GetWinner();
-                playerReadyText.gameObject.SetActive(true);
+                GetWinner();
             }
             else
             {
@@ -123,7 +133,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private string GetWinner()
+    private void GetWinner()
     {
         string winner;
         if (scorePlayer1 > scorePlayer2)
@@ -138,8 +148,9 @@ public class GameController : MonoBehaviour {
         {
             winner = " DRAW ";
         }
-        winner += "\nPress 'R' to restart";
-        return winner;
+
+        
+        endMenu.DisplayEndMenu(winner);
     }
 
     public void hitStick()
@@ -159,6 +170,10 @@ public class GameController : MonoBehaviour {
 
     private void restartGame()
     {
+        endMenu.HideEndMenu();
+        destroyAllBalls();
+        stick.transform.position = new Vector3(-1500, 0, 42);
+
         player1turn = false;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
@@ -181,5 +196,15 @@ public class GameController : MonoBehaviour {
             gameInfo.text = "Player two's turn\n";
         }
         gameInfo.text += "Round " + currentRound + "/" + numberOfRounds;
+    }
+
+    private void destroyAllBalls()
+    {
+        GameObject[]  balls = GameObject.FindGameObjectsWithTag("Ball");
+
+        foreach (GameObject ball in balls)
+        {
+            Destroy(ball);
+        }
     }
 }
