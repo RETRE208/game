@@ -5,14 +5,12 @@ using UnityEngine;
 public class Stick : MonoBehaviour {
 
     private float speed;
-    private float topBoardBoundary;
-    private float bottomBoardBoundary;
+    public float topBoardBoundary;
+    public float bottomBoardBoundary;
 
     private void Start()
     {
         speed = 2500.0f;
-        topBoardBoundary = 775.0f;
-        bottomBoardBoundary = -775.0f;
     }
 
     void FixedUpdate () {
