@@ -171,6 +171,7 @@ public class GameController : MonoBehaviour {
     private void restartGame()
     {
         endMenu.HideEndMenu();
+        destroyAllBalls();
         stick.transform.position = new Vector3(-1500, 0, 42);
 
         player1turn = false;
@@ -195,5 +196,15 @@ public class GameController : MonoBehaviour {
             gameInfo.text = "Player two's turn\n";
         }
         gameInfo.text += "Round " + currentRound + "/" + numberOfRounds;
+    }
+
+    private void destroyAllBalls()
+    {
+        GameObject[]  balls = GameObject.FindGameObjectsWithTag("Ball");
+
+        foreach (GameObject ball in balls)
+        {
+            Destroy(ball);
+        }
     }
 }
