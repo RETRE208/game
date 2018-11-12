@@ -30,8 +30,8 @@ public class SettingsMenu : MonoBehaviour {
         gameController = GameObject.FindObjectOfType<GameController>();
 
         Time.timeScale = 0;
-        settingsPanel = GameObject.FindGameObjectWithTag("SettingsPanel");
-        settingsText = GameObject.FindGameObjectWithTag("SettingsText");
+        settingsPanel = GameObject.Find("SettingsPanel");
+        settingsText = GameObject.Find("SettingsText");
         settingsStartButton = GameObject.Find("SettingsStartButton");
         settingsBackButton = GameObject.Find("SettingsBackButton");
         turnsSlider = GameObject.Find("TurnsSlider"); ;
@@ -75,9 +75,12 @@ public class SettingsMenu : MonoBehaviour {
         turnsText.SetActive(true);
         turnNumberText.SetActive(true);
 
-        scoreText.transform.localScale = new Vector3(0, 0, 0);
-        playerReady.transform.localScale = new Vector3(0, 0, 0);
-        gameInfo.transform.localScale = new Vector3(0, 0, 0);
+        scoreText.SetActive(false);
+        playerReady.SetActive(false);
+        gameInfo.SetActive(false);
+        //scoreText.transform.localScale = new Vector3(0, 0, 0);
+        //playerReady.transform.localScale = new Vector3(0, 0, 0);
+        //gameInfo.transform.localScale = new Vector3(0, 0, 0);
     }
 
     public void HideSettingsMenu()
@@ -91,9 +94,12 @@ public class SettingsMenu : MonoBehaviour {
         turnsText.SetActive(false);
         turnNumberText.SetActive(false);
 
-        scoreText.transform.localScale = new Vector3(1, 1, 1);
-        playerReady.transform.localScale = new Vector3(2, 2, 2);
-        gameInfo.transform.localScale = new Vector3(1, 1, 1);
+        scoreText.SetActive(true);
+        playerReady.SetActive(true);
+        gameInfo.SetActive(true);
+        //scoreText.transform.localScale = new Vector3(1, 1, 1);
+        //playerReady.transform.localScale = new Vector3(2, 2, 2);
+        //gameInfo.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void DisplayMainMenu()
