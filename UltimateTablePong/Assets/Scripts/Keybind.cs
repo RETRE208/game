@@ -20,12 +20,12 @@ public class Keybind : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        keys.Add("P1 Left", KeyCode.A);
-        keys.Add("P1 Right", KeyCode.D);
-        keys.Add("Pause", KeyCode.Escape);
-        keys.Add("P2 Left", KeyCode.LeftArrow);
-        keys.Add("P2 Right", KeyCode.RightArrow);
-
+        keys.Add("P1 Left", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("P1 Left", "A")));
+        keys.Add("P1 Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("P1 Right", "D")));
+        keys.Add("Pause", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pause", "Escape")));
+        keys.Add("P2 Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("P2 Left", "LeftArrow")));
+        keys.Add("P2 Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("P2 Right", "RightArrow")));
+        
         p1Left.text = keys["P1 Left"].ToString();
         p1Right.text = keys["P1 Right"].ToString();
         pause.text = keys["Pause"].ToString();
@@ -136,4 +136,12 @@ public class Keybind : MonoBehaviour {
         currentKey.GetComponent<Image>().color = selected;
     }
 
+    public void SaveKeys()
+    {
+        foreach (var key in keys)
+        {
+            PlayerPrefs.SetString(key.Key, key.Value.ToString());
+        }
+        PlayerPrefs.Save();
+    }
 }
