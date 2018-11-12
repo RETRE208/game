@@ -61,7 +61,7 @@ public class SettingsMenu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        turnNumberText.GetComponent<Text>().text = turnsSlider.GetComponent<Slider>().value.ToString();
+            turnNumberText.GetComponent<Text>().text = turnsSlider.GetComponent<Slider>().value.ToString();
     }
 
     public void DisplaySettingsMenu()
@@ -75,9 +75,12 @@ public class SettingsMenu : MonoBehaviour {
         turnsText.SetActive(true);
         turnNumberText.SetActive(true);
 
-        scoreText.transform.localScale = new Vector3(0, 0, 0);
-        playerReady.transform.localScale = new Vector3(0, 0, 0);
-        gameInfo.transform.localScale = new Vector3(0, 0, 0);
+        scoreText.SetActive(false);
+        playerReady.SetActive(false);
+        gameInfo.SetActive(false);
+        //scoreText.transform.localScale = new Vector3(0, 0, 0);
+        //playerReady.transform.localScale = new Vector3(0, 0, 0);
+        //gameInfo.transform.localScale = new Vector3(0, 0, 0);
     }
 
     public void HideSettingsMenu()
@@ -91,9 +94,12 @@ public class SettingsMenu : MonoBehaviour {
         turnsText.SetActive(false);
         turnNumberText.SetActive(false);
 
-        scoreText.transform.localScale = new Vector3(1, 1, 1);
-        playerReady.transform.localScale = new Vector3(2, 2, 2);
-        gameInfo.transform.localScale = new Vector3(1, 1, 1);
+        scoreText.SetActive(true);
+        playerReady.SetActive(true);
+        gameInfo.SetActive(true);
+        //scoreText.transform.localScale = new Vector3(1, 1, 1);
+        //playerReady.transform.localScale = new Vector3(2, 2, 2);
+        //gameInfo.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void DisplayMainMenu()

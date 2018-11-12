@@ -5,14 +5,14 @@ using UnityEngine;
 public class Stick : MonoBehaviour {
 
     private float speed;
-    private float topBoardBoundary;
-    private float bottomBoardBoundary;
+    public float topBoardBoundary;
+    public float bottomBoardBoundary;
+    private float moveHorizontal;
 
     private void Start()
     {
         speed = 2500.0f;
-        topBoardBoundary = 775.0f;
-        bottomBoardBoundary = -775.0f;
+        moveHorizontal = 0.0f;
     }
 
     void FixedUpdate () {
@@ -21,7 +21,19 @@ public class Stick : MonoBehaviour {
 
     private void move()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveHorizontal = 0.30f;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            moveHorizontal = -0.30f;
+        }
+        else
+        {
+            moveHorizontal = 0.0f;
+        }
 
         Vector3 movement = new Vector3(0.0f, 0.0f, -moveHorizontal);
 
@@ -33,6 +45,8 @@ public class Stick : MonoBehaviour {
             0.0f,
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, bottomBoardBoundary, topBoardBoundary)
         );
+        
+
     }
 
 

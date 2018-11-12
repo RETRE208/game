@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
 
-        stick = GameObject.Find("Stick").GetComponent<Stick>();
+        //stick = GameObject.Find("Stick").GetComponent<Stick>();
     }
 
     void FixedUpdate()
@@ -64,7 +64,15 @@ public class GameController : MonoBehaviour {
     {
         ballCount += 1;
         GameObject ball = balls;
-        Vector3 spawnPosition = new Vector3(spawnValues.x, spawnValues.y, spawnValues.z);
+        Vector3 spawnPosition;
+        if (player1turn)
+        {
+            spawnPosition = new Vector3(0.0f, 50.0f, 0.0f);
+        }
+        else
+        {
+            spawnPosition = new Vector3(0.0f, 50.0f, -8000.0f);
+        }
         Quaternion spawnRotation = Quaternion.identity;
         Instantiate(ball, spawnPosition, spawnRotation);
     }
@@ -172,7 +180,6 @@ public class GameController : MonoBehaviour {
     {
         endMenu.HideEndMenu();
         destroyAllBalls();
-        stick.transform.position = new Vector3(-1500, 0, 42);
 
         player1turn = false;
         scorePlayer1 = 0;
