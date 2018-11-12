@@ -13,6 +13,11 @@ TagManager:
   - PathWall
   - Ball
   - Obstacle
+  - KeybindController
+  - MainMenu
+  - SettingsMenu
+  - SettingsPanel
+  - SettingsText
   layers:
   - Default
   - TransparentFX

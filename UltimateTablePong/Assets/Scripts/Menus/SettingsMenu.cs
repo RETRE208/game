@@ -30,8 +30,8 @@ public class SettingsMenu : MonoBehaviour {
         gameController = GameObject.FindObjectOfType<GameController>();
 
         Time.timeScale = 0;
-        settingsPanel = GameObject.Find("SettingsPanel");
-        settingsText = GameObject.Find("SettingsText");
+        settingsPanel = GameObject.FindGameObjectWithTag("SettingsPanel");
+        settingsText = GameObject.FindGameObjectWithTag("SettingsText");
         settingsStartButton = GameObject.Find("SettingsStartButton");
         settingsBackButton = GameObject.Find("SettingsBackButton");
         turnsSlider = GameObject.Find("TurnsSlider"); ;
@@ -61,7 +61,7 @@ public class SettingsMenu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        turnNumberText.GetComponent<Text>().text = turnsSlider.GetComponent<Slider>().value.ToString();
+            turnNumberText.GetComponent<Text>().text = turnsSlider.GetComponent<Slider>().value.ToString();
     }
 
     public void DisplaySettingsMenu()

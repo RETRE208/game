@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
 
-        stick = GameObject.Find("Stick").GetComponent<Stick>();
+        //stick = GameObject.Find("Stick").GetComponent<Stick>();
     }
 
     void FixedUpdate()
