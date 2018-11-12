@@ -21,7 +21,6 @@ public class MainMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
         settingsMenu = gameObject.GetComponent<SettingsMenu>();
-        keybindsMenu = gameObject.GetComponent<Keybind>();
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
         if (keybindController != null)
         {
@@ -36,7 +35,6 @@ public class MainMenu : MonoBehaviour {
             Debug.Log("Cannot find 'KeybindController' object");
         }
 
-        
         Time.timeScale = 0;
         
         mainPanel = GameObject.Find("MainPanel");
