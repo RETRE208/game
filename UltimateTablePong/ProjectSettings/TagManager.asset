@@ -18,6 +18,7 @@ TagManager:
   - SettingsMenu
   - SettingsPanel
   - SettingsText
+  - Stick2
   layers:
   - Default
   - TransparentFX

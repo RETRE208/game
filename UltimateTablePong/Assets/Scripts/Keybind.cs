@@ -144,4 +144,29 @@ public class Keybind : MonoBehaviour {
         }
         PlayerPrefs.Save();
     }
+
+    public KeyCode GetP1LeftKey()
+    {
+        return keys["P1 Left"];
+    }
+
+    public KeyCode GetP1RightKey()
+    {
+        return keys["P1 Right"];
+    }
+
+    public KeyCode GetP2LeftKey()
+    {
+        return keys["P2 Left"];
+    }
+
+    public KeyCode GetP2RightKey()
+    {
+        return keys["P2 Right"];
+    }
+
+    public KeyCode GetPauseKey()
+    {
+        return keys["Pause"];
+    }
 }

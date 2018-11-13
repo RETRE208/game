@@ -3375,6 +3375,11 @@ Prefab:
       propertyPath: m_Name
       value: Stick
       objectReference: {fileID: 0}
+    - target: {fileID: 114374757439610886, guid: 9cbca6943ff445346824067d370c9d2d,
+        type: 2}
+      propertyPath: playerOne
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cbca6943ff445346824067d370c9d2d, type: 2}
   m_IsPrefabAsset: 0
@@ -6573,7 +6578,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1001781927663870, guid: 9cbca6943ff445346824067d370c9d2d, type: 2}
       propertyPath: m_Name
-      value: Stick
+      value: Stick2
       objectReference: {fileID: 0}
     - target: {fileID: 114374757439610886, guid: 9cbca6943ff445346824067d370c9d2d,
         type: 2}
@@ -6584,6 +6589,10 @@ Prefab:
         type: 2}
       propertyPath: bottomBoardBoundary
       value: -8600
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001781927663870, guid: 9cbca6943ff445346824067d370c9d2d, type: 2}
+      propertyPath: m_TagString
+      value: Stick2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cbca6943ff445346824067d370c9d2d, type: 2}

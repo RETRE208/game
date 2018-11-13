@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour {
     private int currentRound;
     private int numberOfHit;
 
-    private Stick stick;
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
 
@@ -42,7 +41,6 @@ public class GameController : MonoBehaviour {
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
 
-        //stick = GameObject.Find("Stick").GetComponent<Stick>();
     }
 
     void FixedUpdate()
@@ -50,6 +48,7 @@ public class GameController : MonoBehaviour {
         getGameInfo();
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            
             playerReadyText.gameObject.SetActive(false);
             SpawnBall();
         }
