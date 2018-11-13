@@ -20,6 +20,12 @@ public class SettingsMenu : MonoBehaviour {
 
     private MainMenu mainMenu;
     private GameController gameController;
+    private PauseMenu pauseMenu;
+
+    private GameObject stick;
+    private Stick stickScript;
+    private GameObject stick2;
+    private Stick stickScript2;
 
     private int numberOfRounds;
 
@@ -28,6 +34,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         mainMenu = gameObject.GetComponent<MainMenu>();
         gameController = GameObject.FindObjectOfType<GameController>();
+        pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
 
         Time.timeScale = 0;
         settingsPanel = GameObject.Find("SettingsPanel");
@@ -56,6 +63,17 @@ public class SettingsMenu : MonoBehaviour {
 
         settingsStartButton.GetComponent<Button>().onClick.AddListener(StartGame);
         settingsBackButton.GetComponent<Button>().onClick.AddListener(DisplayMainMenu);
+
+        GameObject stick = GameObject.FindGameObjectWithTag("Stick");
+        if (stick != null)
+        {
+            stickScript = stick.GetComponent<Stick>();
+        }
+        GameObject stick2 = GameObject.FindGameObjectWithTag("Stick2");
+        if (stick2 != null)
+        {
+            stickScript2 = stick2.GetComponent<Stick>();
+        }
     }
 
     // Update is called once per frame
@@ -97,6 +115,10 @@ public class SettingsMenu : MonoBehaviour {
         scoreText.SetActive(true);
         playerReady.SetActive(true);
         gameInfo.SetActive(true);
+
+        stickScript.UpdateControls();
+        stickScript2.UpdateControls();
+        pauseMenu.UpdatePauseButton();
         //scoreText.transform.localScale = new Vector3(1, 1, 1);
         //playerReady.transform.localScale = new Vector3(2, 2, 2);
         //gameInfo.transform.localScale = new Vector3(1, 1, 1);

@@ -17,7 +17,8 @@ public class PauseMenu : MonoBehaviour {
 
     private MainMenu mainMenu;
     private UnityAction restartGame;
-
+    private Keybind keybindsMenu;
+    private KeyCode pauseButton;
     private float initialTimeScale;
 
     // Use this for initialization
@@ -36,12 +37,24 @@ public class PauseMenu : MonoBehaviour {
         pauseMainMenuButton.SetActive(false);
         pauseResumeButton.SetActive(false);
 
-
+        GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
+        if (keybindController != null)
+        {
+            keybindsMenu = keybindController.GetComponent<Keybind>();
+            if (keybindsMenu == null)
+            {
+                Debug.Log("Cannot find 'Keybind' script");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot find 'KeybindController' object");
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(pauseButton))
         {
             if (paused == false)
             {
@@ -53,6 +66,11 @@ public class PauseMenu : MonoBehaviour {
             }
         }
 	}
+
+    public void UpdatePauseButton()
+    {
+        pauseButton = keybindsMenu.GetPauseKey();
+    }
 
     public void SetRestartGameAction(UnityAction restartGame)
     {

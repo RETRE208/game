@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        settingsMenu = gameObject.GetComponent<SettingsMenu>();
+        settingsMenu = GameObject.FindObjectOfType<SettingsMenu>();
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
         if (keybindController != null)
         {
