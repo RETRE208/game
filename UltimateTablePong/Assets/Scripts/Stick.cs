@@ -48,36 +48,51 @@ public class Stick : MonoBehaviour {
         move();
 	}
 
+    public void moveRight(float distance = 0.50f)
+    {
+        moveHorizontal = distance;
+    }
+
+    public void moveLeft(float distance = -0.50f)
+    {
+        moveHorizontal = distance;
+    }
+
+    public void moveNeutral()
+    {
+        moveHorizontal = 0.0f;
+    }
+
     private void move()
     {   
         if (playerOne)
         {
             if (Input.GetKey(p1MoveRight))
             {
-                moveHorizontal = 0.50f;
+                moveRight();
             }
             else if (Input.GetKey(p1MoveLeft))
             {
-                moveHorizontal = -0.50f;
+                moveLeft();
             }
             else
             {
-                moveHorizontal = 0.0f;
+                moveNeutral();
             }
         }
         else
         {
             if (Input.GetKey(p2MoveRight))
             {
-                moveHorizontal = 0.50f;
+                moveRight();
             }
             else if (Input.GetKey(p2MoveLeft))
             {
-                moveHorizontal = -0.50f;
+                moveLeft();
             }
             else
             {
-                moveHorizontal = 0.0f;
+                moveNeutral();
             }
         }
 
@@ -92,6 +107,4 @@ public class Stick : MonoBehaviour {
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, bottomBoardBoundary, topBoardBoundary)
         );
     }
-
-
 }

@@ -54,6 +54,11 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    private GameObject[] FindAllBalls()
+    {
+        return GameObject.FindGameObjectsWithTag("Ball");
+    }
+
     public void SetNumberOfRounds(int numberOfRounds)
     {
         this.numberOfRounds = numberOfRounds;

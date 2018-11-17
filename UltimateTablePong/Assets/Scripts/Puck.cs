@@ -218,4 +218,9 @@ public class Puck : MonoBehaviour {
         }
     }
 
+    public void setDirection(Vector3 direction)
+    {
+        this.direction = direction;
+    }
+
 }
