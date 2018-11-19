@@ -9,15 +9,22 @@ public class AI : MonoBehaviour {
     private Stick stick;
     private bool pause;
     private bool ballsOnField;
+    private List<System.Action> functionList;
 
     // Use this for initialization
     void Start() {
         UnpauseAI();
         ballsOnField = false;
+
         //Remove after testing
-        difficulty = "hard"; // Set to easy for testing purposes
+        difficulty = "easy"; // Set to easy for testing purposes
 
         stick = GameObject.Find("Stick2").GetComponent<Stick>();
+
+        functionList = new List<System.Action>();
+        functionList.Add(() => stick.moveLeft());
+        functionList.Add(() => stick.moveRight());
+        functionList.Add(() => stick.moveNeutral());
     }
 
     // Update is called once per frame
@@ -70,15 +77,13 @@ public class AI : MonoBehaviour {
 
     void ApplyEasyAI()
     {
-        float randomZ = Random.Range(1, 10);
-        int signZ = Random.Range(-1, 1);
-        float distance = 100 * randomZ * signZ;
-        stick.moveRight(distance);
+        int functionToExecute = Random.Range(0, functionList.Count);
+        Debug.Log(functionToExecute);
+        functionList[functionToExecute].Invoke();
     }
 
     void ApplyHardAI()
     {
-        
         if ((puck.transform.position.z - stick.transform.position.z) < 0)
         {
             Debug.Log("Moving right");
