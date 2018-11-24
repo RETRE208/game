@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
     private GameObject mainStartButton;
     private GameObject mainQuitButton;
     private GameObject mainKeybindButton;
+    private GameObject mainInitialKeyText;
 
     private GameObject scoreText;
     private GameObject playerReady;
@@ -17,6 +18,7 @@ public class MainMenu : MonoBehaviour {
 
     private SettingsMenu settingsMenu;
     private Keybind keybindsMenu;
+    private bool onTitleScreen = true;
 
     // Use this for initialization
     void Start () {
@@ -42,6 +44,7 @@ public class MainMenu : MonoBehaviour {
         mainStartButton = GameObject.Find("MainStartButton");
         mainQuitButton = GameObject.Find("MainQuitButton");
         mainKeybindButton = GameObject.Find("MainKeybindButton");
+        mainInitialKeyText = GameObject.Find("MainInitialKeyText");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -53,12 +56,23 @@ public class MainMenu : MonoBehaviour {
 
         mainStartButton.GetComponent<Button>().onClick.AddListener(DisplaySettingsMenu);
         mainQuitButton.GetComponent<Button>().onClick.AddListener(Application.Quit);
-        mainKeybindButton.GetComponent<Button>().onClick.AddListener(DisplayKeybindMenu);
+        mainKeybindButton.GetComponent<Button>().onClick.AddListener(DisplayKeybindMenu); 
+
+        mainStartButton.transform.localScale = new Vector3(0, 0, 0);
+        mainQuitButton.transform.localScale = new Vector3(0, 0, 0);
+        mainKeybindButton.transform.localScale = new Vector3(0, 0, 0);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if (Input.anyKey && onTitleScreen)
+        {
+            onTitleScreen = false;
+            mainInitialKeyText.SetActive(false);
+            mainStartButton.transform.localScale = new Vector3(1, 1, 1);
+            mainQuitButton.transform.localScale = new Vector3(1, 1, 1);
+            mainKeybindButton.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     public void DisplayMainMenu()
@@ -69,6 +83,7 @@ public class MainMenu : MonoBehaviour {
         mainStartButton.SetActive(true);
         mainQuitButton.SetActive(true);
         mainKeybindButton.SetActive(true);
+
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);

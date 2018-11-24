@@ -8,6 +8,10 @@ public class SettingsMenu : MonoBehaviour {
     private GameObject settingsPanel;
     private GameObject settingsText;
     private GameObject settingsStartButton;
+    private GameObject settingsCreateOnlineButton;
+    private GameObject settingsJoinOnlineButton;
+    private GameObject settingsStartAiEasyButton;
+    private GameObject settingsStartAiHardButton;
     private GameObject settingsBackButton;
 
     private GameObject turnsSlider;
@@ -29,6 +33,13 @@ public class SettingsMenu : MonoBehaviour {
 
     private int numberOfRounds;
 
+    /*
+    settingsCreateOnlineButton
+    settingsJoinOnlineButton
+    settingsStartAiEasyButton
+    settingsStartAiHardButton
+    */
+
     // Use this for initialization
     void Start()
     {
@@ -40,6 +51,10 @@ public class SettingsMenu : MonoBehaviour {
         settingsPanel = GameObject.Find("SettingsPanel");
         settingsText = GameObject.Find("SettingsText");
         settingsStartButton = GameObject.Find("SettingsStartButton");
+        settingsCreateOnlineButton = GameObject.Find("SettingsCreateOnlineButton");
+        settingsJoinOnlineButton = GameObject.Find("SettingsJoinOnlineButton");
+        settingsStartAiEasyButton = GameObject.Find("SettingsStartAiEasyButton");
+        settingsStartAiHardButton = GameObject.Find("SettingsStartAiHardButton");
         settingsBackButton = GameObject.Find("SettingsBackButton");
         turnsSlider = GameObject.Find("TurnsSlider"); ;
         turnsText = GameObject.Find("TurnsText"); ;
@@ -52,6 +67,7 @@ public class SettingsMenu : MonoBehaviour {
         settingsPanel.SetActive(false);
         settingsText.SetActive(false);
         settingsStartButton.SetActive(false);
+
         settingsBackButton.SetActive(false);
         turnsSlider.SetActive(false);
         turnsText.SetActive(false);
@@ -61,7 +77,11 @@ public class SettingsMenu : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
 
-        settingsStartButton.GetComponent<Button>().onClick.AddListener(StartGame);
+        settingsStartButton.GetComponent<Button>().onClick.AddListener(StartGameLocalPvP);
+        settingsCreateOnlineButton.GetComponent<Button>().onClick.AddListener(CreateOnlineGame);
+        settingsJoinOnlineButton.GetComponent<Button>().onClick.AddListener(JoinOnlineGame);
+        settingsStartAiEasyButton.GetComponent<Button>().onClick.AddListener(StartVsAiEasy);
+        settingsStartAiHardButton.GetComponent<Button>().onClick.AddListener(StartVsAiHard);
         settingsBackButton.GetComponent<Button>().onClick.AddListener(DisplayMainMenu);
 
         GameObject stick = GameObject.FindGameObjectWithTag("Stick");
@@ -88,6 +108,10 @@ public class SettingsMenu : MonoBehaviour {
         settingsPanel.SetActive(true);
         settingsText.SetActive(true);
         settingsStartButton.SetActive(true);
+        settingsCreateOnlineButton.SetActive(true);
+        settingsJoinOnlineButton.SetActive(true);
+        settingsStartAiEasyButton.SetActive(true);
+        settingsStartAiHardButton.SetActive(true);
         settingsBackButton.SetActive(true);
         turnsSlider.SetActive(true);
         turnsText.SetActive(true);
@@ -107,6 +131,10 @@ public class SettingsMenu : MonoBehaviour {
         settingsPanel.SetActive(false);
         settingsText.SetActive(false);
         settingsStartButton.SetActive(false);
+        settingsCreateOnlineButton.SetActive(false);
+        settingsJoinOnlineButton.SetActive(false);
+        settingsStartAiEasyButton.SetActive(false);
+        settingsStartAiHardButton.SetActive(false);
         settingsBackButton.SetActive(false);
         turnsSlider.SetActive(false);
         turnsText.SetActive(false);
@@ -119,9 +147,6 @@ public class SettingsMenu : MonoBehaviour {
         stickScript.UpdateControls();
         stickScript2.UpdateControls();
         pauseMenu.UpdatePauseButton();
-        //scoreText.transform.localScale = new Vector3(1, 1, 1);
-        //playerReady.transform.localScale = new Vector3(2, 2, 2);
-        //gameInfo.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void DisplayMainMenu()
@@ -131,10 +156,40 @@ public class SettingsMenu : MonoBehaviour {
         mainMenu.DisplayMainMenu();
     }
 
-    void StartGame()
+    void StartGameLocalPvP()
+    {
+        setGameSettings();
+        HideSettingsMenu();
+    }
+
+    void CreateOnlineGame()
+    {
+        setGameSettings();
+        //Create online game
+        HideSettingsMenu();
+    }
+
+    void JoinOnlineGame()
+    {
+        //Join online game
+        HideSettingsMenu();
+    }
+
+    void StartVsAiEasy()
+    {
+        setGameSettings();
+        HideSettingsMenu();
+    }
+
+    void StartVsAiHard()
+    {
+        setGameSettings();
+        HideSettingsMenu();
+    }
+
+    private void setGameSettings()
     {
         gameController.numberOfRounds = (int)(turnsSlider.GetComponent<Slider>().value);
         turnsSlider.GetComponent<Slider>().value = turnsSlider.GetComponent<Slider>().minValue;
-        HideSettingsMenu();
     }
 }
