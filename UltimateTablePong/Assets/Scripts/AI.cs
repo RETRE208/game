@@ -10,21 +10,27 @@ public class AI : MonoBehaviour {
     private bool pause;
     private bool ballsOnField;
     private List<System.Action> functionList;
+    private bool firstMove;
 
     // Use this for initialization
     void Start() {
         UnpauseAI();
         ballsOnField = false;
+        firstMove = true;
 
-        //Remove after testing
-        difficulty = "easy"; // Set to easy for testing purposes
-
-        stick = GameObject.Find("Stick2").GetComponent<Stick>();
-
-        functionList = new List<System.Action>();
-        functionList.Add(() => stick.moveLeft());
-        functionList.Add(() => stick.moveRight());
-        functionList.Add(() => stick.moveNeutral());
+        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("Stick2");
+        if (gameControllerObject != null)
+        {
+            stick = gameControllerObject.GetComponent<Stick>();
+            if (stick == null)
+            {
+                Debug.Log("Cannot find 'Stick' script");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot find 'Stick' object");
+        }
     }
 
     // Update is called once per frame
@@ -52,14 +58,13 @@ public class AI : MonoBehaviour {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
         if (balls.Length != 0)
         {
-            ballsOnField = true;
             this.puck = findLowestBall(balls);
         }
         else
         {
             ballsOnField = false;
+            PauseAIAndReturnToMiddle();
         }
-        Debug.Log(balls.Length);
     }
 
     Puck findLowestBall(GameObject[] balls)
@@ -67,9 +72,17 @@ public class AI : MonoBehaviour {
         GameObject lowestBall = balls[0];
         foreach (GameObject ball in balls)
         {
-            if (ball.GetComponent<Puck>().transform.position.x < lowestBall.GetComponent<Puck>().transform.position.x)
+            if (ball.GetComponent<Puck>().transform.position.z < -2000)
             {
-                lowestBall = ball;
+                ballsOnField = true;
+                if (pause)
+                {
+                    UnpauseAI();
+                }
+                if (ball.GetComponent<Puck>().transform.position.x < lowestBall.GetComponent<Puck>().transform.position.x)
+                {
+                    lowestBall = ball;
+                }
             }
         }
         return lowestBall.GetComponent<Puck>();
@@ -77,58 +90,59 @@ public class AI : MonoBehaviour {
 
     void ApplyEasyAI()
     {
-        int functionToExecute = Random.Range(0, functionList.Count);
-        Debug.Log(functionToExecute);
-        functionList[functionToExecute].Invoke();
+        Debug.Log(stick.transform.position.z);
+        if (firstMove)
+        {
+            stick.moveLeft();
+            firstMove = false;
+        }
+        else if (stick.transform.position.z < -8624)
+        {
+            stick.moveLeft();
+        }
+        else if (stick.transform.position.z > -6987)
+        {
+            stick.moveRight();
+        }
     }
 
     void ApplyHardAI()
     {
-        if ((puck.transform.position.z - stick.transform.position.z) < 0)
+        if (puck.transform.position.z < (stick.transform.position.z + 150) && puck.transform.position.z > (stick.transform.position.z - 150))
         {
-            Debug.Log("Moving right");
+            stick.moveNeutral();
+        }
+        else if ((puck.transform.position.z - stick.transform.position.z) < 0)
+        {
+            Debug.Log("Right");
             stick.moveRight();
         }
-        if ((puck.transform.position.z - stick.transform.position.z) > 0)
+        else if ((puck.transform.position.z - stick.transform.position.z) > 0)
         {
-            Debug.Log("Moving left");
+            Debug.Log("left");
             stick.moveLeft();
         }
         else
         {
-            Debug.Log("Under ball. Not moving");
+            Debug.Log("stop");
             stick.moveNeutral();
         }
     }
 
-    //private void returnToMiddle()
-    //{
-    //    float middlePosition = 254;
-    //    while (stick.transform.position.z != middlePosition)
-    //    {
-    //        if (stick.transform.position.z < middlePosition)
-    //        {
-    //            stick.moveRight();
-    //        }
-    //        if (stick.transform.position.z > middlePosition)
-    //        {
-    //            stick.moveLeft();
-    //        }
-    //        else
-    //        {
-    //            break;
-    //        }
-    //    }
-    //}
-
     public void PauseAIAndReturnToMiddle()
     {
-        //returnToMiddle();
+        stick.moveNeutral();
         pause = true;
     }
 
     public void UnpauseAI()
     {
         pause = false;
+        firstMove = true;
+    }
+
+    public void setDifficulty(string difficulty)
+    {
+        this.difficulty = difficulty;
     }
 }
