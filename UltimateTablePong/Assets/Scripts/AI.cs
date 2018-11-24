@@ -49,8 +49,22 @@ public class AI : MonoBehaviour {
         }
     }
 
-    public void setSimulation(string difficulty) {
-        this.difficulty = difficulty;
+    public void setSimulationEasy() {
+        difficulty = "easy";
+        stick.ai = true;
+    }
+
+    public void setSimulationHard()
+    {
+        difficulty = "hard";
+        stick.ai = true;
+    }
+
+    public void removeAi()
+    {
+
+        difficulty = "";
+        stick.ai = false;
     }
 
     void setCurrentPuck()
@@ -139,10 +153,5 @@ public class AI : MonoBehaviour {
     {
         pause = false;
         firstMove = true;
-    }
-
-    public void setDifficulty(string difficulty)
-    {
-        this.difficulty = difficulty;
     }
 }

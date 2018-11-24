@@ -25,6 +25,7 @@ public class SettingsMenu : MonoBehaviour {
     private MainMenu mainMenu;
     private GameController gameController;
     private PauseMenu pauseMenu;
+    private AI ai;
 
     private GameObject stick;
     private Stick stickScript;
@@ -46,6 +47,7 @@ public class SettingsMenu : MonoBehaviour {
         mainMenu = gameObject.GetComponent<MainMenu>();
         gameController = GameObject.FindObjectOfType<GameController>();
         pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
+        ai = GameObject.FindObjectOfType<AI>();
 
         Time.timeScale = 0;
         settingsPanel = GameObject.Find("SettingsPanel");
@@ -159,18 +161,21 @@ public class SettingsMenu : MonoBehaviour {
     void StartGameLocalPvP()
     {
         setGameSettings();
+        ai.removeAi();
         HideSettingsMenu();
     }
 
     void CreateOnlineGame()
     {
         setGameSettings();
+        ai.removeAi();
         //Create online game
         HideSettingsMenu();
     }
 
     void JoinOnlineGame()
     {
+        ai.removeAi();
         //Join online game
         HideSettingsMenu();
     }
@@ -178,12 +183,14 @@ public class SettingsMenu : MonoBehaviour {
     void StartVsAiEasy()
     {
         setGameSettings();
+        ai.setSimulationEasy();
         HideSettingsMenu();
     }
 
     void StartVsAiHard()
     {
         setGameSettings();
+        ai.setSimulationHard();
         HideSettingsMenu();
     }
 
