@@ -64,8 +64,8 @@ public class SettingsMenu : MonoBehaviour {
         settingsStartAiEasyButton = GameObject.Find("SettingsStartAiEasyButton");
         settingsStartAiHardButton = GameObject.Find("SettingsStartAiHardButton");
         settingsBackButton = GameObject.Find("SettingsBackButton");
-        turnsSlider = GameObject.Find("TurnsSlider"); ;
-        turnsText = GameObject.Find("TurnsText"); ;
+        turnsSlider = GameObject.Find("TurnsSlider");
+        turnsText = GameObject.Find("TurnsText");
         turnNumberText = GameObject.Find("TurnsNumberText");
 
         scoreText = GameObject.Find("ScoreText");

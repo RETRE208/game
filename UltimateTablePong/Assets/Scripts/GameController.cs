@@ -173,8 +173,6 @@ public class GameController : MonoBehaviour {
         {
             winner = " DRAW ";
         }
-
-        
         endMenu.DisplayEndMenu(winner);
     }
 
