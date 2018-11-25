@@ -2,14 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Stick : MonoBehaviour {
+public class Stick : NetworkBehaviour {
 
     private float speed;
     public float topBoardBoundary;
     public float bottomBoardBoundary;
     public bool playerOne;
     public bool ai;
+    public bool localPlayer;
     private float moveHorizontal;
 
     private Keybind keybindsMenu;
@@ -22,6 +24,7 @@ public class Stick : MonoBehaviour {
     {
         speed = 4000.0f;
         moveHorizontal = 0.0f;
+        localPlayer = true;
     }
 
     public void UpdateControls()
@@ -47,7 +50,18 @@ public class Stick : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        move();
+        NetworkIdentity ni = gameObject.GetComponent<NetworkIdentity>();
+        if (ni != null)
+        {
+            if (isLocalPlayer)
+            {
+                move();
+            }
+        }
+        else
+        {
+            move();
+        }
 	}
 
     public void moveRight(float distance = 0.50f)

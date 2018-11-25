@@ -27,8 +27,8 @@ GameObject:
   - component: {fileID: 114581624230052400}
   - component: {fileID: 114791654259675426}
   m_Layer: 0
-  m_Name: Stick1Online
-  m_TagString: Stick
+  m_Name: StickOnline
+  m_TagString: StickOnline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
