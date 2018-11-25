@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Keybind : MonoBehaviour {
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
-    public Text p1Left, p1Right, pause, p2Left, p2Right;
+    public Text p1Left, p1Right, pause, p2Left, p2Right, startButton;
     private GameObject currentKey;
     private Color32 normal = new Color32(255, 255, 255, 255);
     private Color32 selected = new Color32(176, 176, 176, 255);
@@ -25,12 +25,14 @@ public class Keybind : MonoBehaviour {
         keys.Add("Pause", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pause", "Escape")));
         keys.Add("P2 Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("P2 Left", "LeftArrow")));
         keys.Add("P2 Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("P2 Right", "RightArrow")));
-        
+        keys.Add("StartButton", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("StartButton", "Space")));
+
         p1Left.text = keys["P1 Left"].ToString();
         p1Right.text = keys["P1 Right"].ToString();
         pause.text = keys["Pause"].ToString();
         p2Left.text = keys["P2 Left"].ToString();
         p2Right.text = keys["P2 Right"].ToString();
+        startButton.text = keys["StartButton"].ToString();
 
         GameObject MainMenu = GameObject.FindGameObjectWithTag("MainMenu");
         if (MainMenu != null)
@@ -109,6 +111,10 @@ public class Keybind : MonoBehaviour {
         {
 
         }
+        if (Input.GetKeyDown(keys["StartButton"]))
+        {
+
+        }
     }
 
     void OnGUI()
@@ -118,8 +124,22 @@ public class Keybind : MonoBehaviour {
             Event e = Event.current;
             if (e.isKey)
             {
-                keys[currentKey.name] = e.keyCode;
-                currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
+                if (KeyAvailable(e.keyCode))
+                {
+                    keys[currentKey.name] = e.keyCode;
+                    currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
+                }
+                currentKey.GetComponent<Image>().color = normal;
+                currentKey = null;
+            }
+            if (isControlerInput())
+            {
+                if (KeyAvailable(e.keyCode))
+                {
+                    keys[currentKey.name] = GetControlerInput();
+                    Debug.Log(keys[currentKey.name].ToString());
+                    currentKey.transform.GetChild(0).GetComponent<Text>().text = keys[currentKey.name].ToString();
+                }
                 currentKey.GetComponent<Image>().color = normal;
                 currentKey = null;
             }
@@ -143,6 +163,7 @@ public class Keybind : MonoBehaviour {
             PlayerPrefs.SetString(key.Key, key.Value.ToString());
         }
         PlayerPrefs.Save();
+        DisplayMainMenu();
     }
 
     public KeyCode GetP1LeftKey()
@@ -168,5 +189,69 @@ public class Keybind : MonoBehaviour {
     public KeyCode GetPauseKey()
     {
         return keys["Pause"];
+    }
+
+    public KeyCode GetStartButton()
+    {
+        return keys["StartButton"];
+    }
+
+    private bool KeyAvailable(KeyCode key)
+    {
+        return !(keys.ContainsValue(key));
+    }
+
+    private KeyCode GetControlerInput()
+    {
+        // joystick buttons
+        if (Input.GetKey(KeyCode.JoystickButton0)) return KeyCode.JoystickButton0;
+        if (Input.GetKey(KeyCode.JoystickButton1)) return KeyCode.JoystickButton1;
+        if (Input.GetKey(KeyCode.JoystickButton2)) return KeyCode.JoystickButton2;
+        if (Input.GetKey(KeyCode.JoystickButton3)) return KeyCode.JoystickButton3;
+        if (Input.GetKey(KeyCode.JoystickButton4)) return KeyCode.JoystickButton4;
+        if (Input.GetKey(KeyCode.JoystickButton5)) return KeyCode.JoystickButton5;
+        if (Input.GetKey(KeyCode.JoystickButton6)) return KeyCode.JoystickButton6;
+        if (Input.GetKey(KeyCode.JoystickButton7)) return KeyCode.JoystickButton7;
+        if (Input.GetKey(KeyCode.JoystickButton8)) return KeyCode.JoystickButton8;
+        if (Input.GetKey(KeyCode.JoystickButton9)) return KeyCode.JoystickButton9;
+        if (Input.GetKey(KeyCode.JoystickButton10)) return KeyCode.JoystickButton10;
+        if (Input.GetKey(KeyCode.JoystickButton11)) return KeyCode.JoystickButton11;
+        if (Input.GetKey(KeyCode.JoystickButton12)) return KeyCode.JoystickButton12;
+        if (Input.GetKey(KeyCode.JoystickButton13)) return KeyCode.JoystickButton13;
+        if (Input.GetKey(KeyCode.JoystickButton14)) return KeyCode.JoystickButton14;
+        if (Input.GetKey(KeyCode.JoystickButton15)) return KeyCode.JoystickButton15;
+        if (Input.GetKey(KeyCode.JoystickButton16)) return KeyCode.JoystickButton16;
+        if (Input.GetKey(KeyCode.JoystickButton17)) return KeyCode.JoystickButton17;
+        if (Input.GetKey(KeyCode.JoystickButton18)) return KeyCode.JoystickButton18;
+        if (Input.GetKey(KeyCode.JoystickButton19)) return KeyCode.JoystickButton19;
+        return KeyCode.None;
+    }
+
+    private bool isControlerInput()
+    {
+        if (Input.GetKey(KeyCode.JoystickButton0) ||
+           Input.GetKey(KeyCode.JoystickButton1) ||
+           Input.GetKey(KeyCode.JoystickButton2) ||
+           Input.GetKey(KeyCode.JoystickButton3) ||
+           Input.GetKey(KeyCode.JoystickButton4) ||
+           Input.GetKey(KeyCode.JoystickButton5) ||
+           Input.GetKey(KeyCode.JoystickButton6) ||
+           Input.GetKey(KeyCode.JoystickButton7) ||
+           Input.GetKey(KeyCode.JoystickButton8) ||
+           Input.GetKey(KeyCode.JoystickButton9) ||
+           Input.GetKey(KeyCode.JoystickButton10) ||
+           Input.GetKey(KeyCode.JoystickButton11) ||
+           Input.GetKey(KeyCode.JoystickButton12) ||
+           Input.GetKey(KeyCode.JoystickButton13) ||
+           Input.GetKey(KeyCode.JoystickButton14) ||
+           Input.GetKey(KeyCode.JoystickButton15) ||
+           Input.GetKey(KeyCode.JoystickButton16) ||
+           Input.GetKey(KeyCode.JoystickButton17) ||
+           Input.GetKey(KeyCode.JoystickButton18) ||
+           Input.GetKey(KeyCode.JoystickButton19))
+        {
+            return true;
+        }
+        return false;
     }
 }

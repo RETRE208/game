@@ -41,7 +41,6 @@ public class LoadingScreen : MonoBehaviour {
 	void Update () {
         if (loadingStatus)
         {
-            Debug.Log(progressionValue);
             progressionValue = progressionValue + 1;
             loadingProgress.GetComponent<Text>().text = progressionValue + "%";
             if (getIfLoadingDone())

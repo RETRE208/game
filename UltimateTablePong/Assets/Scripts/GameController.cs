@@ -36,11 +36,9 @@ public class GameController : MonoBehaviour {
         UpdateScore();
         numberOfHit = 0;
         getGameInfo();
-        
 
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
-
     }
 
     void FixedUpdate()
@@ -160,8 +158,6 @@ public class GameController : MonoBehaviour {
         {
             winner = " DRAW ";
         }
-
-        
         endMenu.DisplayEndMenu(winner);
     }
 
