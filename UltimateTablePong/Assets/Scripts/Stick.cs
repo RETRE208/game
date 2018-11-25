@@ -39,14 +39,14 @@ public class Stick : MonoBehaviour {
     private void UpdateSensibility1()
     {
         float speed1 = slider1.GetComponent<Slider>().value;
-        speed1 = (speed1 * 1000) + 3000;
+        speed1 = (speed1 * 1000) + 2000;
         sensibility1 = speed1;
     }
 
     private void UpdateSensibility2()
     {
         float speed2 = slider2.GetComponent<Slider>().value;
-        speed2 = (speed2 * 1000) + 3000;
+        speed2 = (speed2 * 1000) + 2000;
         sensibility2 = speed2;
     }
 
@@ -70,6 +70,8 @@ public class Stick : MonoBehaviour {
         p1MoveRight = keybindsMenu.GetP1RightKey();
         p2MoveLeft = keybindsMenu.GetP2LeftKey();
         p2MoveRight = keybindsMenu.GetP2RightKey();
+        UpdateSensibility1();
+        UpdateSensibility2();
     }
 
     void FixedUpdate () {
