@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stick : MonoBehaviour {
 
@@ -18,10 +19,35 @@ public class Stick : MonoBehaviour {
     private KeyCode p2MoveLeft;
     private KeyCode p2MoveRight;
 
+    private GameObject slider1;
+    private GameObject slider2;
+
+    private float sensibility1;
+    private float sensibility2;
+
     private void Start()
     {
         speed = 4000.0f;
         moveHorizontal = 0.0f;
+        slider1 = GameObject.Find("Slider1");
+        slider2 = GameObject.Find("Slider2");
+
+        UpdateSensibility1();
+        UpdateSensibility2();
+    }
+
+    private void UpdateSensibility1()
+    {
+        float speed1 = slider1.GetComponent<Slider>().value;
+        speed1 = (speed1 * 1000) + 3000;
+        sensibility1 = speed1;
+    }
+
+    private void UpdateSensibility2()
+    {
+        float speed2 = slider2.GetComponent<Slider>().value;
+        speed2 = (speed2 * 1000) + 3000;
+        sensibility2 = speed2;
     }
 
     public void UpdateControls()
@@ -50,16 +76,16 @@ public class Stick : MonoBehaviour {
         move();
 	}
 
-    public void moveRight(float distance = 0.50f)
+    public void moveRight(float sensibility = 4000.0f, float distance = 0.50f)
     {
         moveHorizontal = distance;
-        makeMovement();
+        makeMovement(sensibility);
     }
 
-    public void moveLeft(float distance = -0.50f)
+    public void moveLeft(float sensibility = 4000.0f, float distance = -0.50f)
     {
         moveHorizontal = distance;
-        makeMovement();
+        makeMovement(sensibility);
     }
 
     public void moveNeutral()
@@ -74,11 +100,11 @@ public class Stick : MonoBehaviour {
         {
             if (Input.GetKey(p1MoveRight))
             {
-                moveRight();
+                moveRight(sensibility1);
             }
             else if (Input.GetKey(p1MoveLeft))
             {
-                moveLeft();
+                moveLeft(sensibility1);
             }
             else
             {
@@ -91,11 +117,11 @@ public class Stick : MonoBehaviour {
             {
                 if (Input.GetKey(p2MoveRight))
                 {
-                    moveRight();
+                    moveRight(sensibility2);
                 }
                 else if (Input.GetKey(p2MoveLeft))
                 {
-                    moveLeft();
+                    moveLeft(sensibility2);
                 }
                 else
                 {
@@ -105,11 +131,11 @@ public class Stick : MonoBehaviour {
         }
     }
 
-    private void makeMovement()
+    private void makeMovement(float sensibility = 4000.0f)
     {
         Vector3 movement = new Vector3(0.0f, 0.0f, -moveHorizontal);
 
-        GetComponent<Rigidbody>().velocity = movement * speed;
+        GetComponent<Rigidbody>().velocity = movement * sensibility;
 
         GetComponent<Rigidbody>().position = new Vector3
         (
