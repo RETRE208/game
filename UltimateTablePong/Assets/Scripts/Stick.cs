@@ -8,6 +8,7 @@ public class Stick : MonoBehaviour {
     public float topBoardBoundary;
     public float bottomBoardBoundary;
     public bool playerOne;
+    public bool ai;
     private float moveHorizontal;
 
     private Keybind keybindsMenu;
@@ -18,9 +19,9 @@ public class Stick : MonoBehaviour {
 
     private void Start()
     {
-        speed = 2500.0f;
+        speed = 4000.0f;
         moveHorizontal = 0.0f;
-
+        ai = true;
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
         if (keybindController != null)
         {
@@ -48,39 +49,63 @@ public class Stick : MonoBehaviour {
         move();
 	}
 
+    public void moveRight(float distance = 0.50f)
+    {
+        moveHorizontal = distance;
+        makeMovement();
+    }
+
+    public void moveLeft(float distance = -0.50f)
+    {
+        moveHorizontal = distance;
+        makeMovement();
+    }
+
+    public void moveNeutral()
+    {
+        moveHorizontal = 0.0f;
+        makeMovement();
+    }
+
     private void move()
     {   
         if (playerOne)
         {
             if (Input.GetKey(p1MoveRight))
             {
-                moveHorizontal = 0.50f;
+                moveRight();
             }
             else if (Input.GetKey(p1MoveLeft))
             {
-                moveHorizontal = -0.50f;
+                moveLeft();
             }
             else
             {
-                moveHorizontal = 0.0f;
+                moveNeutral();
             }
         }
         else
         {
-            if (Input.GetKey(p2MoveRight))
+            if (!ai)
             {
-                moveHorizontal = 0.50f;
-            }
-            else if (Input.GetKey(p2MoveLeft))
-            {
-                moveHorizontal = -0.50f;
-            }
-            else
-            {
-                moveHorizontal = 0.0f;
+                if (Input.GetKey(p2MoveRight))
+                {
+                    moveRight();
+                }
+                else if (Input.GetKey(p2MoveLeft))
+                {
+                    moveLeft();
+                }
+                else
+                {
+                    moveNeutral();
+                }
             }
         }
+    }
 
+    private void makeMovement()
+    {
         Vector3 movement = new Vector3(0.0f, 0.0f, -moveHorizontal);
 
         GetComponent<Rigidbody>().velocity = movement * speed;
@@ -92,6 +117,4 @@ public class Stick : MonoBehaviour {
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, bottomBoardBoundary, topBoardBoundary)
         );
     }
-
-
 }

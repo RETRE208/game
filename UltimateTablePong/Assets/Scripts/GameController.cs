@@ -54,6 +54,11 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    private GameObject[] FindAllBalls()
+    {
+        return GameObject.FindGameObjectsWithTag("Ball");
+    }
+
     public void SetNumberOfRounds(int numberOfRounds)
     {
         this.numberOfRounds = numberOfRounds;
@@ -163,12 +168,12 @@ public class GameController : MonoBehaviour {
     public void hitStick()
     {
         numberOfHit += 1;
-        if (ballCount == 1 && numberOfHit == 4)
+        if (ballCount == 1 && numberOfHit == 3)
         {
             SpawnBall();
             numberOfHit = 0;
         }
-        if (ballCount == 2 && numberOfHit == 9)
+        if (ballCount == 2 && numberOfHit == 5)
         {
             SpawnBall();
             numberOfHit = 0;
@@ -213,4 +218,5 @@ public class GameController : MonoBehaviour {
             Destroy(ball);
         }
     }
+
 }
