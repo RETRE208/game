@@ -181,6 +181,7 @@ public class SettingsMenu : MonoBehaviour {
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
         manager.StartHost();
 
+        gameController.setOnlineMode(true);
         StartCoroutine(SetupPlayer1());
     }
 
@@ -195,6 +196,7 @@ public class SettingsMenu : MonoBehaviour {
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
         manager.StartClient();
 
+        gameController.setOnlineMode(true);
         StartCoroutine(SetupPlayer2());
     }
 

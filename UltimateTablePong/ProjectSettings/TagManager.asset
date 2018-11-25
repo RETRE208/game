@@ -21,6 +21,7 @@ TagManager:
   - Stick2
   - NetworkManager
   - StickOnline
+  - BallSpawner
   layers:
   - Default
   - TransparentFX
