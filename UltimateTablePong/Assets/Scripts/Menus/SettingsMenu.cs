@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -34,6 +35,9 @@ public class SettingsMenu : MonoBehaviour {
     private Stick stickScript2;
 
     private int numberOfRounds;
+    
+    public GameObject stick1OnlinePrefab;
+    public GameObject stick2OnlinePrefab;
 
     /*
     settingsCreateOnlineButton
@@ -88,12 +92,12 @@ public class SettingsMenu : MonoBehaviour {
         settingsStartAiHardButton.GetComponent<Button>().onClick.AddListener(StartVsAiHard);
         settingsBackButton.GetComponent<Button>().onClick.AddListener(DisplayMainMenu);
 
-        GameObject stick = GameObject.FindGameObjectWithTag("Stick");
+        stick = GameObject.FindGameObjectWithTag("Stick");
         if (stick != null)
         {
             stickScript = stick.GetComponent<Stick>();
         }
-        GameObject stick2 = GameObject.FindGameObjectWithTag("Stick2");
+        stick2 = GameObject.FindGameObjectWithTag("Stick2");
         if (stick2 != null)
         {
             stickScript2 = stick2.GetComponent<Stick>();
@@ -168,10 +172,25 @@ public class SettingsMenu : MonoBehaviour {
 
     void CreateOnlineGame()
     {
-        setGameSettings();
         ai.removeAi();
         //Create online game
         HideSettingsMenu();
+        stickScript.destroy();
+        stickScript2.destroy();
+
+        NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
+        manager.StartHost();
+
+        GameObject stickOnline = Instantiate(stick1OnlinePrefab);
+        stickOnline.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
+        stickOnline.tag = "Stick";
+
+        Stick stickOnlineScript = stickOnline.GetComponent<Stick>();
+        stickOnlineScript.setStickOptionsForOnline(775.0f, -775.0f, true, false);
+        stickOnlineScript.UpdateControls();
+
+        manager.setPlayer(stickOnline);
+        NetworkServer.Spawn(stickOnline);
     }
 
     void JoinOnlineGame()
@@ -179,11 +198,26 @@ public class SettingsMenu : MonoBehaviour {
         ai.removeAi();
         //Join online game
         HideSettingsMenu();
+        stickScript.destroy();
+        stickScript2.destroy();
+
+        GameObject stickOnline = Instantiate(stick2OnlinePrefab);
+        stickOnline.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
+        stickOnline.tag = "Stick2";
+
+        Stick stickOnlineScript = stickOnline.GetComponent<Stick>();
+        stickOnlineScript.setStickOptionsForOnline(-7050.0f, -8600.0f, false, false);
+        stickOnlineScript.UpdateControls();
+
+        NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
+        manager.setPlayer(stickOnline);
+        manager.StartClient();
     }
 
     void StartVsAiEasy()
     {
         setGameSettings();
+        ai.activateAI();
         ai.setSimulationEasy();
         HideSettingsMenu();
     }
@@ -191,6 +225,7 @@ public class SettingsMenu : MonoBehaviour {
     void StartVsAiHard()
     {
         setGameSettings();
+        ai.activateAI();
         ai.setSimulationHard();
         HideSettingsMenu();
     }

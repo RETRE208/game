@@ -11,12 +11,14 @@ public class AI : MonoBehaviour {
     private bool ballsOnField;
     private List<System.Action> functionList;
     private bool firstMove;
+    private bool activated;
 
     // Use this for initialization
     void Start() {
         UnpauseAI();
         ballsOnField = false;
         firstMove = true;
+        activated = true;
 
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("Stick2");
         if (gameControllerObject != null)
@@ -35,16 +37,19 @@ public class AI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        setCurrentPuck();
-        if (!pause && ballsOnField)
+        if (activated)
         {
-            if (difficulty == "easy")
+            setCurrentPuck();
+            if (!pause && ballsOnField)
             {
-                ApplyEasyAI();
-            }
-            else if (difficulty == "hard")
-            {
-                ApplyHardAI();
+                if (difficulty == "easy")
+                {
+                    ApplyEasyAI();
+                }
+                else if (difficulty == "hard")
+                {
+                    ApplyHardAI();
+                }
             }
         }
     }
@@ -62,7 +67,8 @@ public class AI : MonoBehaviour {
 
     public void removeAi()
     {
-
+        activated = false;
+        pause = true;
         difficulty = "";
         stick.ai = false;
     }
@@ -104,7 +110,6 @@ public class AI : MonoBehaviour {
 
     void ApplyEasyAI()
     {
-        Debug.Log(stick.transform.position.z);
         if (firstMove)
         {
             stick.moveLeft();
@@ -128,17 +133,14 @@ public class AI : MonoBehaviour {
         }
         else if ((puck.transform.position.z - stick.transform.position.z) < 0)
         {
-            Debug.Log("Right");
             stick.moveRight();
         }
         else if ((puck.transform.position.z - stick.transform.position.z) > 0)
         {
-            Debug.Log("left");
             stick.moveLeft();
         }
         else
         {
-            Debug.Log("stop");
             stick.moveNeutral();
         }
     }
@@ -153,5 +155,10 @@ public class AI : MonoBehaviour {
     {
         pause = false;
         firstMove = true;
+    }
+
+    public void activateAI()
+    {
+        activated = true;
     }
 }

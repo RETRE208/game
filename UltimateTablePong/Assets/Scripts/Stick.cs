@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +22,10 @@ public class Stick : MonoBehaviour {
     {
         speed = 4000.0f;
         moveHorizontal = 0.0f;
-        ai = true;
+    }
+
+    public void UpdateControls()
+    {
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
         if (keybindController != null)
         {
@@ -35,10 +39,7 @@ public class Stick : MonoBehaviour {
         {
             Debug.Log("Cannot find 'KeybindController' object");
         }
-    }
 
-    public void UpdateControls()
-    {
         p1MoveLeft = keybindsMenu.GetP1LeftKey();
         p1MoveRight = keybindsMenu.GetP1RightKey();
         p2MoveLeft = keybindsMenu.GetP2LeftKey();
@@ -68,7 +69,7 @@ public class Stick : MonoBehaviour {
     }
 
     private void move()
-    {   
+    {
         if (playerOne)
         {
             if (Input.GetKey(p1MoveRight))
@@ -116,5 +117,19 @@ public class Stick : MonoBehaviour {
             0.0f,
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, bottomBoardBoundary, topBoardBoundary)
         );
+    }
+
+    public void setStickOptionsForOnline(float topBoardBoundary, float bottomBoardBoundary, bool playerOne, bool ai)
+    {
+        this.topBoardBoundary = topBoardBoundary;
+        this.bottomBoardBoundary = bottomBoardBoundary;
+        this.playerOne = playerOne;
+        this.ai = ai;
+    }
+
+    public void destroy()
+    {
+        Destroy(gameObject);
+        Destroy(this);
     }
 }
