@@ -26,6 +26,7 @@ public class SettingsMenu : MonoBehaviour {
     private GameController gameController;
     private PauseMenu pauseMenu;
     private AI ai;
+    private LoadingScreen loadingScreen;
 
     private GameObject stick;
     private Stick stickScript;
@@ -47,6 +48,7 @@ public class SettingsMenu : MonoBehaviour {
         mainMenu = gameObject.GetComponent<MainMenu>();
         gameController = GameObject.FindObjectOfType<GameController>();
         pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
+        loadingScreen = GameObject.FindObjectOfType<LoadingScreen>();
         ai = GameObject.FindObjectOfType<AI>();
 
         Time.timeScale = 0;
@@ -122,9 +124,6 @@ public class SettingsMenu : MonoBehaviour {
         scoreText.SetActive(false);
         playerReady.SetActive(false);
         gameInfo.SetActive(false);
-        //scoreText.transform.localScale = new Vector3(0, 0, 0);
-        //playerReady.transform.localScale = new Vector3(0, 0, 0);
-        //gameInfo.transform.localScale = new Vector3(0, 0, 0);
     }
 
     public void HideSettingsMenu()
@@ -149,6 +148,8 @@ public class SettingsMenu : MonoBehaviour {
         stickScript.UpdateControls();
         stickScript2.UpdateControls();
         pauseMenu.UpdatePauseButton();
+
+        loadingScreen.displayLoadingScreen();
     }
 
     void DisplayMainMenu()
