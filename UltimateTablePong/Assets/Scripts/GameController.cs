@@ -66,15 +66,13 @@ public class GameController : MonoBehaviour {
     void FixedUpdate()
     {
         if (playerReadyText.gameObject.activeSelf && isOnlineMode && !isHost)
-        getGameInfo();
-        if (Input.GetKeyDown(startButton))
         {
             playerReadyText.gameObject.SetActive(false);
         }
         getGameInfo();
         if (!isOnlineMode)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(startButton))
             {
                 if (playerReadyText.gameObject.activeSelf)
                 {
@@ -86,7 +84,7 @@ public class GameController : MonoBehaviour {
         {
             if (isPlayer2Connected)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(startButton))
                 {
                     if (playerReadyText.gameObject.activeSelf)
                     {
@@ -141,17 +139,30 @@ public class GameController : MonoBehaviour {
         scoreText.text = "Score \nPlayer 1 : " + scorePlayer1 + " \nPlayer 2 : " + scorePlayer2;
     }
 
-    public void AddScorePlayer(int newScoreValue)
+    public void AddScorePlayer(int newScoreValue, int player)
     {
-        if (player1turn)
+        if (isOnlineMode)
         {
-            scorePlayer1 += (newScoreValue * ballCount);
+            if (player == 1)
+            {
+                scorePlayer1 += (newScoreValue * ballCount);
+            } else
+            {
+                scorePlayer2 += (newScoreValue * ballCount);
+            }
         }
         else
         {
-            scorePlayer2 += (newScoreValue * ballCount);
+            if (player1turn)
+            {
+                scorePlayer1 += (newScoreValue * ballCount);
+            }
+            else
+            {
+                scorePlayer2 += (newScoreValue * ballCount);
+            }
         }
-        
+ 
         UpdateScore();
     }
 
@@ -222,16 +233,28 @@ public class GameController : MonoBehaviour {
 
     public void hitStick()
     {
-        numberOfHit += 1;
-        if (ballCount == 1 && numberOfHit == 3)
+        if (!isOnlineMode)
         {
-            SpawnBall();
-            numberOfHit = 0;
+            numberOfHit += 1;
+            if (ballCount == 1 && numberOfHit == 3)
+            {
+                SpawnBall();
+                numberOfHit = 0;
+            }
+            if (ballCount == 2 && numberOfHit == 5)
+            {
+                SpawnBall();
+                numberOfHit = 0;
+            }
         }
-        if (ballCount == 2 && numberOfHit == 5)
+        else
         {
-            SpawnBall();
-            numberOfHit = 0;
+            numberOfHit += 1;
+            if (numberOfHit == 4)
+            {
+                SpawnBall();
+                numberOfHit = 0;
+            }
         }
     }
 
@@ -253,15 +276,29 @@ public class GameController : MonoBehaviour {
 
     private void getGameInfo()
     {
-        if (player1turn)
+        if (!isOnlineMode)
         {
-            gameInfo.text = "Player one's turn\n";
+            if (player1turn)
+            {
+                gameInfo.text = "Player one's turn\n";
+            }
+            else
+            {
+                gameInfo.text = "Player two's turn\n";
+            }
+            gameInfo.text += "Round " + currentRound + "/" + numberOfRounds;
         }
         else
         {
-            gameInfo.text = "Player two's turn\n";
+            if (player1turn)
+            {
+                gameInfo.text = "Round 1/2\n";
+            }
+            else
+            {
+                gameInfo.text = "Round 2/2\n";
+            }
         }
-        gameInfo.text += "Round " + currentRound + "/" + numberOfRounds;
     }
 
     private void destroyAllBalls()
