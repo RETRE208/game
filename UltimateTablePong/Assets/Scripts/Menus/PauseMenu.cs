@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour {
 
     private MainMenu mainMenu;
     private UnityAction restartGame;
+    private UnityAction leaveGame;
     private Keybind keybindsMenu;
     private KeyCode pauseButton;
     private float initialTimeScale;
@@ -77,6 +78,11 @@ public class PauseMenu : MonoBehaviour {
         this.restartGame = restartGame;
     }
 
+    public void SetLeaveGameAction(UnityAction leaveGame)
+    {
+        this.leaveGame = leaveGame;
+    }
+
     void DisplayPauseMenu()
     {
         initialTimeScale = Time.timeScale;
@@ -111,7 +117,7 @@ public class PauseMenu : MonoBehaviour {
     void DisplayMainMenu()
     {
         HidePauseMenu();
-        restartGame();
+        leaveGame();
         mainMenu.DisplayMainMenu();
     }
 }

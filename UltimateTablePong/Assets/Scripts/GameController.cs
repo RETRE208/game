@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour {
     private bool isPlayer2Connected;
     private BallSpawner ballSpawner;
 
+    public GameObject stickPrefab;
+
     // Use this for initialization
     void Start () {
         pauseMenu = FindObjectOfType<PauseMenu>();
@@ -49,7 +51,9 @@ public class GameController : MonoBehaviour {
         isPlayer2Connected = false;
 
         pauseMenu.SetRestartGameAction(restartGame);
+        pauseMenu.SetLeaveGameAction(LeaveGame);
         endMenu.SetRestartGameAction(restartGame);
+        endMenu.SetLeaveGameAction(LeaveGame);
 
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
         if (keybindController != null)
@@ -94,7 +98,6 @@ public class GameController : MonoBehaviour {
                 }
             }
         }
-
     }
 
     private GameObject[] FindAllBalls()
@@ -258,6 +261,46 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    private void LeaveGame()
+    {
+        if (isOnlineMode)
+        {
+            NetworkManagerCustom manager = GameObject.FindObjectOfType<NetworkManagerCustom>();
+            if (isHost)
+            {
+                manager.StopServer();
+            }
+            else
+            {
+                manager.OnStopClient();
+            }
+
+            DestroyAllSticks();
+
+            GameObject stick1 = Instantiate(stickPrefab, new Vector3(), new Quaternion());
+            stick1.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
+            stick1.tag = "Stick";
+
+            Stick stick1Script = stick1.GetComponent<Stick>();
+            stick1Script.setStickOptions(775.0f, -775.0f, true);
+            stick1Script.UpdateControls();
+
+            GameObject stick2 = Instantiate(stickPrefab, new Vector3(), new Quaternion());
+            stick2.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
+            stick2.tag = "Stick2";
+
+            Stick stick2Script = stick2.GetComponent<Stick>();
+            stick2Script.setStickOptions(-7050.0f, -8600.0f, false);
+            stick2Script.UpdateControls();
+
+            setOnlineMode(false, true);
+            MainMenu mainMenu = GameObject.FindObjectOfType<MainMenu>();
+            mainMenu.DisplayMainMenu();
+        }
+
+        restartGame();
+    }
+
     private void restartGame()
     {
         endMenu.HideEndMenu();
@@ -326,5 +369,24 @@ public class GameController : MonoBehaviour {
     public void player2Connected(bool isPlayer2Connected)
     {
         this.isPlayer2Connected = isPlayer2Connected;
+    }
+
+    public void DestroyAllSticks()
+    {
+        GameObject[] sticks = GameObject.FindGameObjectsWithTag("Stick");
+        foreach (GameObject stick in sticks)
+        {
+            stick.GetComponent<Stick>().destroy();
+        }
+        sticks = GameObject.FindGameObjectsWithTag("Stick2");
+        foreach (GameObject stick in sticks)
+        {
+            stick.GetComponent<Stick>().destroy();
+        }
+        sticks = GameObject.FindGameObjectsWithTag("StickOnline");
+        foreach (GameObject stick in sticks)
+        {
+            stick.GetComponent<Stick>().destroy();
+        }
     }
 }

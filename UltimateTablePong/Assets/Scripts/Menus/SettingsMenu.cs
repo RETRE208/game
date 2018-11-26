@@ -188,8 +188,8 @@ public class SettingsMenu : MonoBehaviour {
         ai.removeAi();
         //Create online game
         HideSettingsMenu();
-        stickScript.destroy();
-        stickScript2.destroy();
+
+        gameController.DestroyAllSticks();
 
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
         manager.StartHost();
@@ -203,8 +203,8 @@ public class SettingsMenu : MonoBehaviour {
         ai.removeAi();
         //Join online game
         HideSettingsMenu();
-        stickScript.destroy();
-        stickScript2.destroy();
+
+        gameController.DestroyAllSticks();
 
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
         manager.networkAddress = ip;
@@ -261,6 +261,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         setGameSettings();
         ai.activateAI();
+        ai.UnpauseAI();
         ai.setSimulationEasy();
         HideSettingsMenu();
     }
@@ -269,6 +270,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         setGameSettings();
         ai.activateAI();
+        ai.UnpauseAI();
         ai.setSimulationHard();
         HideSettingsMenu();
     }

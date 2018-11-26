@@ -152,6 +152,13 @@ public class Stick : NetworkBehaviour {
         );
     }
 
+    public void setStickOptions(float topBoardBoundary, float bottomBoardBoundary, bool playerOne)
+    {
+        this.topBoardBoundary = topBoardBoundary;
+        this.bottomBoardBoundary = bottomBoardBoundary;
+        this.playerOne = playerOne;
+    }
+
     public void setStickOptionsForOnline(float topBoardBoundary, float bottomBoardBoundary, bool playerOne, bool ai)
     {
         this.topBoardBoundary = topBoardBoundary;
