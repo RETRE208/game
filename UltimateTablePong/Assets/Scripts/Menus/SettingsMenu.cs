@@ -188,13 +188,12 @@ public class SettingsMenu : MonoBehaviour {
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
         manager.StartHost();
 
-        gameController.setOnlineMode(true);
+        gameController.setOnlineMode(true, true);
         StartCoroutine(SetupPlayer1());
     }
 
     public void JoinOnlineGame(string ip)
     {
-        Debug.Log(ip);
         ai.removeAi();
         //Join online game
         HideSettingsMenu();
@@ -205,7 +204,7 @@ public class SettingsMenu : MonoBehaviour {
         manager.networkAddress = ip;
         manager.StartClient();
 
-        gameController.setOnlineMode(true);
+        gameController.setOnlineMode(true, false);
         StartCoroutine(SetupPlayer2());
     }
 

@@ -50,7 +50,7 @@ public class Puck : MonoBehaviour {
         {
             direction = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
         }
-        else if (other.tag == "Stick" || other.tag == "Stick2")
+        else if (other.tag == "Stick" || other.tag == "Stick2" || other.tag == "StickOnline")
         {
             direction = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
             gameController.AddScorePlayer(2);

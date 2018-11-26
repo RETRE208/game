@@ -22,8 +22,8 @@ public class GameController : MonoBehaviour {
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
 
-    private bool onlineMode;
-
+    private bool isOnlineMode;
+    private bool isHost;
     private BallSpawner ballSpawner;
 
     // Use this for initialization
@@ -41,7 +41,8 @@ public class GameController : MonoBehaviour {
         numberOfHit = 0;
         getGameInfo();
 
-        onlineMode = false;
+        isOnlineMode = false;
+        isHost = true;
 
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
@@ -49,6 +50,10 @@ public class GameController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (playerReadyText.gameObject.activeSelf && isOnlineMode && !isHost)
+        {
+            playerReadyText.gameObject.SetActive(false);
+        }
         getGameInfo();
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -84,12 +89,15 @@ public class GameController : MonoBehaviour {
             spawnPosition = new Vector3(0.0f, 50.0f, -8000.0f);
         }
         Quaternion spawnRotation = Quaternion.identity;
-        if (onlineMode)
+        if (isOnlineMode && isHost)
         {
             ballSpawner = GameObject.FindObjectOfType<BallSpawner>();
             ballSpawner.SpawnBall();
-        } else
+        } else if (isOnlineMode && !isHost)
         {
+            
+        }
+        else {
             Instantiate(ball, spawnPosition, spawnRotation);
         }
     }
@@ -231,8 +239,14 @@ public class GameController : MonoBehaviour {
     }
 
 
-    public void setOnlineMode(bool onlineMode)
+    public void setOnlineMode(bool onlineMode, bool host)
     {
-        this.onlineMode = onlineMode;
+        this.isOnlineMode = onlineMode;
+        this.isHost = host;
+
+        if (!host)
+        {
+            playerReadyText.gameObject.SetActive(false);
+        }
     }
 }
