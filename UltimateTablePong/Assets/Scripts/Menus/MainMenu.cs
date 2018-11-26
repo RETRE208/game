@@ -84,7 +84,6 @@ public class MainMenu : MonoBehaviour {
         mainQuitButton.SetActive(true);
         mainKeybindButton.SetActive(true);
 
-
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
@@ -115,4 +114,6 @@ public class MainMenu : MonoBehaviour {
         HideMainMenu();
         keybindsMenu.DisplayKeybindMenu();
     }
+
+    
 }
