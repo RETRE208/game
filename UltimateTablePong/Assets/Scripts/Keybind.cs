@@ -60,6 +60,7 @@ public class Keybind : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
 
+        
     }
 
     public void DisplayKeybindMenu()
@@ -77,7 +78,6 @@ public class Keybind : MonoBehaviour {
     {
         Time.timeScale = 1;
         keybindsMenu.SetActive(false);
-
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);
         gameInfo.transform.localScale = new Vector3(1, 1, 1);
