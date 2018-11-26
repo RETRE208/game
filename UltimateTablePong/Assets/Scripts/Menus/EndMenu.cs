@@ -15,6 +15,7 @@ public class EndMenu : MonoBehaviour {
 
     private MainMenu mainMenu;
     private UnityAction restartGame;
+    private UnityAction leaveGame;
 
     // Use this for initialization
     void Start () {
@@ -48,6 +49,11 @@ public class EndMenu : MonoBehaviour {
         this.restartGame = restartGame;
     }
 
+    public void SetLeaveGameAction(UnityAction leaveGame)
+    {
+        this.leaveGame = leaveGame;
+    }
+
     public void DisplayEndMenu(string displayText)
     {
         Time.timeScale = 0;
@@ -76,7 +82,7 @@ public class EndMenu : MonoBehaviour {
     void DisplayMainMenu()
     {
         HideEndMenu();
-        restartGame();
+        leaveGame();
         mainMenu.DisplayMainMenu();
     }
 }

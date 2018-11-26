@@ -160,5 +160,18 @@ public class AI : MonoBehaviour {
     public void activateAI()
     {
         activated = true;
+        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("Stick2");
+        if (gameControllerObject != null)
+        {
+            stick = gameControllerObject.GetComponent<Stick>();
+            if (stick == null)
+            {
+                Debug.Log("Cannot find 'Stick' script");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot find 'Stick' object");
+        }
     }
 }

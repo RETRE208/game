@@ -117,7 +117,7 @@ public class SettingsMenu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-            turnNumberText.GetComponent<Text>().text = turnsSlider.GetComponent<Slider>().value.ToString();
+        turnNumberText.GetComponent<Text>().text = turnsSlider.GetComponent<Slider>().value.ToString();
     }
 
     public void DisplaySettingsMenu()
@@ -188,49 +188,80 @@ public class SettingsMenu : MonoBehaviour {
         ai.removeAi();
         //Create online game
         HideSettingsMenu();
-        stickScript.destroy();
-        stickScript2.destroy();
+
+        gameController.DestroyAllSticks();
 
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
         manager.StartHost();
 
-        GameObject stickOnline = Instantiate(stick1OnlinePrefab);
-        stickOnline.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
-        stickOnline.tag = "Stick";
-
-        Stick stickOnlineScript = stickOnline.GetComponent<Stick>();
-        stickOnlineScript.setStickOptionsForOnline(775.0f, -775.0f, true, false);
-        stickOnlineScript.UpdateControls();
-
-        manager.setPlayer(stickOnline);
-        NetworkServer.Spawn(stickOnline);
+        gameController.setOnlineMode(true, true);
+        StartCoroutine(SetupPlayer1());
     }
 
-    void JoinOnlineGame()
+    public void JoinOnlineGame(string ip)
     {
         ai.removeAi();
         //Join online game
         HideSettingsMenu();
-        stickScript.destroy();
-        stickScript2.destroy();
 
-        GameObject stickOnline = Instantiate(stick2OnlinePrefab);
-        stickOnline.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
-        stickOnline.tag = "Stick2";
-
-        Stick stickOnlineScript = stickOnline.GetComponent<Stick>();
-        stickOnlineScript.setStickOptionsForOnline(-7050.0f, -8600.0f, false, false);
-        stickOnlineScript.UpdateControls();
+        gameController.DestroyAllSticks();
 
         NetworkManagerCustom manager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerCustom>();
-        manager.setPlayer(stickOnline);
+        manager.networkAddress = ip;
         manager.StartClient();
+
+        gameController.setOnlineMode(true, false);
+        StartCoroutine(SetupPlayer2());
+    }
+
+    IEnumerator SetupPlayer1()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        GameObject[] sticksOnline = GameObject.FindGameObjectsWithTag("StickOnline");
+        foreach (GameObject stick in sticksOnline)
+        {
+            if (stick.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                stick.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
+                stick.tag = "Stick";
+
+                Stick stickOnlineScript = stick.GetComponent<Stick>();
+                stickOnlineScript.setStickOptionsForOnline(775.0f, -775.0f, true, false);
+                stickOnlineScript.UpdateControls();
+            }
+            else
+            {
+                Stick stickOnlineScript = stick.GetComponent<Stick>();
+                stickOnlineScript.setStickOptionsForOnline(-7050.0f, -8600.0f, false, false);
+            }
+        }
+    }
+
+    IEnumerator SetupPlayer2()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        GameObject[] sticksOnline = GameObject.FindGameObjectsWithTag("StickOnline");
+        foreach (GameObject stick in sticksOnline)
+        {
+            if (stick.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                stick.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
+                stick.tag = "Stick2";
+
+                Stick stickOnlineScript = stick.GetComponent<Stick>();
+                stickOnlineScript.setStickOptionsForOnline(-7050.0f, -8600.0f, false, false);
+                stickOnlineScript.UpdateControls();
+            }
+        }
     }
 
     void StartVsAiEasy()
     {
         setGameSettings();
         ai.activateAI();
+        ai.UnpauseAI();
         ai.setSimulationEasy();
         HideSettingsMenu();
     }
@@ -239,6 +270,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         setGameSettings();
         ai.activateAI();
+        ai.UnpauseAI();
         ai.setSimulationHard();
         HideSettingsMenu();
     }

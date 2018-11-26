@@ -39,4 +39,10 @@ public class Online : MonoBehaviour
         HideOnlineMenu();
         settingsMenu.DisplaySettingsMenu();
     }
+
+    public void joinMatch(Text text)
+    {
+        HideOnlineMenu();
+        settingsMenu.JoinOnlineGame(text.text);
+    }
 }

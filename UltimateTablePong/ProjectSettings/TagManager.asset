@@ -19,9 +19,14 @@ TagManager:
   - SettingsPanel
   - SettingsText
   - Stick2
+  - StickOnline
+  - BallSpawner
+  - Slider1
+  - Slider2
   - NetworkManager
   - OnlineController
   - Board
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

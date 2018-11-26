@@ -50,22 +50,22 @@ public class Puck : MonoBehaviour {
         {
             direction = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
         }
-        else if (other.tag == "Stick" || other.tag == "Stick2")
+        else if (other.tag == "Stick" || other.tag == "Stick2" || other.tag == "StickOnline")
         {
             direction = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
-            gameController.AddScorePlayer(2);
+            AddScore(2);
             getStickBoost();
             gameController.hitStick();
         }
         else if (other.tag == "TopBorder")
         {
             direction = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
-            gameController.AddScorePlayer(1);
+            AddScore(1);
         }
         else if (other.tag == "BottomBorder")
         {
             direction = getNewDirectionAfterCollision(new Vector3(-1, 0, 0));
-            gameController.AddScorePlayer(1);
+            AddScore(1);
         }
         else if (other.tag == "Ball")
         {
@@ -76,9 +76,21 @@ public class Puck : MonoBehaviour {
         }
         else if (other.tag == "Obstacle")
         {
-            gameController.AddScorePlayer(5);
+            AddScore(5);
             getNewDirectionAfterCollisionWithObstacle(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size.x);
         }
+    }
+
+    void AddScore(int newScoreValue)
+    {
+        if (rb.position.z < -4000)
+        {
+            gameController.AddScorePlayer(newScoreValue, 2);
+        } else
+        {
+            gameController.AddScorePlayer(newScoreValue, 1);
+        }
+        
     }
 
     void moveRandomDirection()

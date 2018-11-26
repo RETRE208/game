@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class Stick : MonoBehaviour {
+public class Stick : NetworkBehaviour {
 
-    private float speed;
     public float topBoardBoundary;
     public float bottomBoardBoundary;
     public bool playerOne;
     public bool ai;
+    public bool localPlayer;
     private float moveHorizontal;
 
     private Keybind keybindsMenu;
@@ -19,35 +20,28 @@ public class Stick : MonoBehaviour {
     private KeyCode p2MoveLeft;
     private KeyCode p2MoveRight;
 
-    private GameObject slider1;
-    private GameObject slider2;
-
     private float sensibility1;
     private float sensibility2;
 
     private void Start()
     {
-        speed = 4000.0f;
         moveHorizontal = 0.0f;
-        slider1 = GameObject.Find("Slider1");
-        slider2 = GameObject.Find("Slider2");
-
-        UpdateSensibility1();
-        UpdateSensibility2();
+        localPlayer = true;
+        
+        UpdateSensibility1(2.0f);
+        UpdateSensibility2(2.0f);
     }
 
-    private void UpdateSensibility1()
+    private void UpdateSensibility1(float sensibility)
     {
-        float speed1 = slider1.GetComponent<Slider>().value;
-        speed1 = (speed1 * 1000) + 2000;
-        sensibility1 = speed1;
+        sensibility = (sensibility * 1000) + 2000;
+        sensibility1 = sensibility;
     }
 
-    private void UpdateSensibility2()
+    private void UpdateSensibility2(float sensibility)
     {
-        float speed2 = slider2.GetComponent<Slider>().value;
-        speed2 = (speed2 * 1000) + 2000;
-        sensibility2 = speed2;
+        sensibility = (sensibility * 1000) + 2000;
+        sensibility2 = sensibility;
     }
 
     public void UpdateControls()
@@ -70,12 +64,23 @@ public class Stick : MonoBehaviour {
         p1MoveRight = keybindsMenu.GetP1RightKey();
         p2MoveLeft = keybindsMenu.GetP2LeftKey();
         p2MoveRight = keybindsMenu.GetP2RightKey();
-        UpdateSensibility1();
-        UpdateSensibility2();
+        UpdateSensibility1(keybindsMenu.p1Sensitivity);
+        UpdateSensibility2(keybindsMenu.p2Sensitivity);
     }
 
     void FixedUpdate () {
-        move();
+        NetworkIdentity ni = gameObject.GetComponent<NetworkIdentity>();
+        if (ni != null)
+        {
+            if (isLocalPlayer)
+            {
+                move();
+            }
+        }
+        else
+        {
+            move();
+        }
 	}
 
     public void moveRight(float sensibility = 4000.0f, float distance = 0.50f)
@@ -145,6 +150,13 @@ public class Stick : MonoBehaviour {
             0.0f,
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, bottomBoardBoundary, topBoardBoundary)
         );
+    }
+
+    public void setStickOptions(float topBoardBoundary, float bottomBoardBoundary, bool playerOne)
+    {
+        this.topBoardBoundary = topBoardBoundary;
+        this.bottomBoardBoundary = bottomBoardBoundary;
+        this.playerOne = playerOne;
     }
 
     public void setStickOptionsForOnline(float topBoardBoundary, float bottomBoardBoundary, bool playerOne, bool ai)
