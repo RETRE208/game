@@ -7,6 +7,7 @@ public class Keybind : MonoBehaviour {
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
     public Text p1Left, p1Right, pause, p2Left, p2Right, startButton;
+    public float p1Sensitivity, p2Sensitivity;
     private GameObject currentKey;
     private Color32 normal = new Color32(255, 255, 255, 255);
     private Color32 selected = new Color32(176, 176, 176, 255);
@@ -60,6 +61,8 @@ public class Keybind : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
 
+        p1Sensitivity = 2.0f;
+        p2Sensitivity = 2.0f;
     }
 
     public void DisplayKeybindMenu()
@@ -253,5 +256,15 @@ public class Keybind : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public void setSlider1Value(Slider slider)
+    {
+        p1Sensitivity = slider.value;
+    }
+
+    public void setSlider2Value(Slider slider)
+    {
+        p2Sensitivity = slider.value;
     }
 }

@@ -2074,6 +2074,8 @@ MonoBehaviour:
   p2Left: {fileID: 749397136}
   p2Right: {fileID: 41792990}
   startButton: {fileID: 365861151}
+  p1Sensitivity: 0
+  p2Sensitivity: 0
 --- !u!4 &486015526
 Transform:
   m_ObjectHideFlags: 0
@@ -6549,7 +6551,7 @@ GameObject:
   - component: {fileID: 1523290618}
   m_Layer: 5
   m_Name: Slider1
-  m_TagString: Untagged
+  m_TagString: Slider1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6620,7 +6622,18 @@ MonoBehaviour:
   m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 486015525}
+        m_MethodName: setSlider1Value
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1523290618}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1562532004
@@ -9835,8 +9848,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
-  m_ServerBindToIP: 1
-  m_ServerBindAddress: 192.168.2.150
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
@@ -9961,7 +9974,7 @@ GameObject:
   - component: {fileID: 2141636188}
   m_Layer: 5
   m_Name: Slider2
-  m_TagString: Untagged
+  m_TagString: Slider2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10032,6 +10045,17 @@ MonoBehaviour:
   m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 486015525}
+        m_MethodName: setSlider2Value
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2141636188}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
