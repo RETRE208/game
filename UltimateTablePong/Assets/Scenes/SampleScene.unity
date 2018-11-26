@@ -6045,9 +6045,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player One''s turn
-
-    Press ''Space'' to start!'
+  m_Text: 
 --- !u!222 &1304139701
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9448,6 +9446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512b52618e53b354aab933d6ff225757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerReadyText: {fileID: 0}
   stick1OnlinePrefab: {fileID: 1451886574963040, guid: 225e000fc95d72443b165750e29d24ce,
     type: 2}
   stick2OnlinePrefab: {fileID: 1270194958305934, guid: 89f266bd814db084c8cb139681a14b48,

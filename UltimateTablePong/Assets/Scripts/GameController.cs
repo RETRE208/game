@@ -18,9 +18,11 @@ public class GameController : MonoBehaviour {
     public int numberOfRounds;
     private int currentRound;
     private int numberOfHit;
+    private KeyCode startButton;
 
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
+    private Keybind keybindsMenu;
 
     private bool isOnlineMode;
     private bool isHost;
@@ -48,11 +50,24 @@ public class GameController : MonoBehaviour {
 
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
+
+        GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
+        if (keybindController != null)
+        {
+            keybindsMenu = keybindController.GetComponent<Keybind>();
+        }
+    }
+
+    public void UpdateStartButton()
+    {
+        startButton = keybindsMenu.GetStartButton();
     }
 
     void FixedUpdate()
     {
         if (playerReadyText.gameObject.activeSelf && isOnlineMode && !isHost)
+        getGameInfo();
+        if (Input.GetKeyDown(startButton))
         {
             playerReadyText.gameObject.SetActive(false);
         }
@@ -154,12 +169,13 @@ public class GameController : MonoBehaviour {
 
         if (player1turn)
         {
-            playerReadyText.text = "Player one's turn, \n Press space to start!";
+            playerReadyText.text = "Player one's turn, \n ";
         }
         else
         {
-            playerReadyText.text = "Player two's turn, \n Press space to start!";
+            playerReadyText.text = "Player two's turn, \n ";
         }
+        playerReadyText.text += "Press the start button(" + startButton.ToString() + ") to start!";
         playerReadyText.gameObject.SetActive(true);
         getGameInfo();
         numberOfHit = 0;
