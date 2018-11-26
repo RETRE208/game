@@ -21,6 +21,7 @@ public class SettingsMenu : MonoBehaviour {
 
     private GameObject scoreText;
     private GameObject playerReady;
+    public Text playerReadyText;
     private GameObject gameInfo;
 
     private MainMenu mainMenu;
@@ -35,16 +36,11 @@ public class SettingsMenu : MonoBehaviour {
     private Stick stickScript2;
 
     private int numberOfRounds;
-    
+
+    private KeyCode startButton;
+    private Keybind keybindsMenu;
     public GameObject stick1OnlinePrefab;
     public GameObject stick2OnlinePrefab;
-
-    /*
-    settingsCreateOnlineButton
-    settingsJoinOnlineButton
-    settingsStartAiEasyButton
-    settingsStartAiHardButton
-    */
 
     // Use this for initialization
     void Start()
@@ -108,6 +104,14 @@ public class SettingsMenu : MonoBehaviour {
         {
             OnlineMenu = OnlineController.GetComponent<Online>();
         }
+
+        GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
+        if (keybindController != null)
+        {
+            keybindsMenu = keybindController.GetComponent<Keybind>();
+        }
+
+        playerReadyText = playerReady.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -153,6 +157,8 @@ public class SettingsMenu : MonoBehaviour {
 
         scoreText.SetActive(true);
         playerReady.SetActive(true);
+        startButton = keybindsMenu.GetStartButton();
+        playerReadyText.text = "Player one's turn, \n Press the start button(" + startButton.ToString() + ") to start!";
         gameInfo.SetActive(true);
 
         stickScript.UpdateControls();

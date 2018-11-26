@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour {
     void FixedUpdate()
     {
         getGameInfo();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(startButton))
         {
             playerReadyText.gameObject.SetActive(false);
             SpawnBall();
@@ -123,12 +123,13 @@ public class GameController : MonoBehaviour {
 
         if (player1turn)
         {
-            playerReadyText.text = "Player one's turn, \n Press space to start!";
+            playerReadyText.text = "Player one's turn, \n ";
         }
         else
         {
-            playerReadyText.text = "Player two's turn, \n Press space to start!";
+            playerReadyText.text = "Player two's turn, \n ";
         }
+        playerReadyText.text += "Press the start button(" + startButton.ToString() + ") to start!";
         playerReadyText.gameObject.SetActive(true);
         getGameInfo();
         numberOfHit = 0;
