@@ -6,16 +6,22 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class NetworkManagerCustom : NetworkManager
 {
-    public GameObject player;
-
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
+    public override void OnServerConnect(NetworkConnection connection)
     {
-        Debug.Log("test");
-        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+        base.OnServerConnect(connection);
+        if (connection.address != "localClient")
+        {
+            GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
+            GameController gameController = gameControllerObject.GetComponent<GameController>();
+            gameController.player2Connected(true);
+        }
     }
 
-    public void setPlayer(GameObject player)
+    public override void OnServerDisconnect(NetworkConnection connection)
     {
-        this.player = player;
+        base.OnServerDisconnect(connection);
+        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
+        GameController gameController = gameControllerObject.GetComponent<GameController>();
+        gameController.player2Connected(false);
     }
 }

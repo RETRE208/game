@@ -7,7 +7,6 @@ using UnityEngine.Networking;
 
 public class Stick : NetworkBehaviour {
 
-    private float speed;
     public float topBoardBoundary;
     public float bottomBoardBoundary;
     public bool playerOne;
@@ -26,7 +25,6 @@ public class Stick : NetworkBehaviour {
 
     private void Start()
     {
-        speed = 4000.0f;
         moveHorizontal = 0.0f;
         localPlayer = true;
         

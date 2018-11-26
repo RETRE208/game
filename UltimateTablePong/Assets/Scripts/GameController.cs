@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 
     private bool isOnlineMode;
     private bool isHost;
+    private bool isPlayer2Connected;
     private BallSpawner ballSpawner;
 
     // Use this for initialization
@@ -43,6 +44,7 @@ public class GameController : MonoBehaviour {
 
         isOnlineMode = false;
         isHost = true;
+        isPlayer2Connected = false;
 
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
@@ -55,14 +57,31 @@ public class GameController : MonoBehaviour {
             playerReadyText.gameObject.SetActive(false);
         }
         getGameInfo();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!isOnlineMode)
         {
-            if (playerReadyText.gameObject.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                playerReadyText.gameObject.SetActive(false);
-                SpawnBall();
+                if (playerReadyText.gameObject.activeSelf)
+                {
+                    playerReadyText.gameObject.SetActive(false);
+                    SpawnBall();
+                }
+            }
+        } else
+        {
+            if (isPlayer2Connected)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (playerReadyText.gameObject.activeSelf)
+                    {
+                        playerReadyText.gameObject.SetActive(false);
+                        SpawnBall();
+                    }
+                }
             }
         }
+
     }
 
     private GameObject[] FindAllBalls()
@@ -77,7 +96,6 @@ public class GameController : MonoBehaviour {
 
     void SpawnBall()
     {
-        ballCount += 1;
         GameObject ball = balls;
         Vector3 spawnPosition;
         if (player1turn)
@@ -93,12 +111,14 @@ public class GameController : MonoBehaviour {
         {
             ballSpawner = GameObject.FindObjectOfType<BallSpawner>();
             ballSpawner.SpawnBall();
+            ballCount += 2;
         } else if (isOnlineMode && !isHost)
         {
             
         }
         else {
             Instantiate(ball, spawnPosition, spawnRotation);
+            ballCount += 1;
         }
     }
 
@@ -248,5 +268,10 @@ public class GameController : MonoBehaviour {
         {
             playerReadyText.gameObject.SetActive(false);
         }
+    }
+
+    public void player2Connected(bool isPlayer2Connected)
+    {
+        this.isPlayer2Connected = isPlayer2Connected;
     }
 }
