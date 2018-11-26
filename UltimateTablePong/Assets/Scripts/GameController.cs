@@ -18,9 +18,11 @@ public class GameController : MonoBehaviour {
     public int numberOfRounds;
     private int currentRound;
     private int numberOfHit;
+    private KeyCode startButton;
 
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
+    private Keybind keybindsMenu;
 
     // Use this for initialization
     void Start () {
@@ -39,6 +41,17 @@ public class GameController : MonoBehaviour {
 
         pauseMenu.SetRestartGameAction(restartGame);
         endMenu.SetRestartGameAction(restartGame);
+
+        GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
+        if (keybindController != null)
+        {
+            keybindsMenu = keybindController.GetComponent<Keybind>();
+        }
+    }
+
+    public void UpdateStartButton()
+    {
+        startButton = keybindsMenu.GetStartButton();
     }
 
     void FixedUpdate()
@@ -46,7 +59,6 @@ public class GameController : MonoBehaviour {
         getGameInfo();
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
             playerReadyText.gameObject.SetActive(false);
             SpawnBall();
         }

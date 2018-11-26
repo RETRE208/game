@@ -29,7 +29,6 @@ public class SettingsMenu : MonoBehaviour {
     private AI ai;
     private LoadingScreen loadingScreen;
     private Online OnlineMenu;
-
     private GameObject stick;
     private Stick stickScript;
     private GameObject stick2;
@@ -160,6 +159,7 @@ public class SettingsMenu : MonoBehaviour {
         stickScript2.UpdateControls();
         pauseMenu.UpdatePauseButton();
 
+        gameController.UpdateStartButton();
         loadingScreen.displayLoadingScreen();
     }
 
