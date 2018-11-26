@@ -19,6 +19,9 @@ TagManager:
   - SettingsPanel
   - SettingsText
   - Stick2
+  - NetworkManager
+  - OnlineController
+  - Board
   layers:
   - Default
   - TransparentFX

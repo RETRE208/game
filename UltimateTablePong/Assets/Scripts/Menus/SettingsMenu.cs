@@ -28,6 +28,7 @@ public class SettingsMenu : MonoBehaviour {
     private PauseMenu pauseMenu;
     private AI ai;
     private LoadingScreen loadingScreen;
+    private Online OnlineMenu;
 
     private GameObject stick;
     private Stick stickScript;
@@ -87,7 +88,7 @@ public class SettingsMenu : MonoBehaviour {
 
         settingsStartButton.GetComponent<Button>().onClick.AddListener(StartGameLocalPvP);
         settingsCreateOnlineButton.GetComponent<Button>().onClick.AddListener(CreateOnlineGame);
-        settingsJoinOnlineButton.GetComponent<Button>().onClick.AddListener(JoinOnlineGame);
+        settingsJoinOnlineButton.GetComponent<Button>().onClick.AddListener(DisplayOnlineMenu);
         settingsStartAiEasyButton.GetComponent<Button>().onClick.AddListener(StartVsAiEasy);
         settingsStartAiHardButton.GetComponent<Button>().onClick.AddListener(StartVsAiHard);
         settingsBackButton.GetComponent<Button>().onClick.AddListener(DisplayMainMenu);
@@ -101,6 +102,12 @@ public class SettingsMenu : MonoBehaviour {
         if (stick2 != null)
         {
             stickScript2 = stick2.GetComponent<Stick>();
+        }
+
+        GameObject OnlineController = GameObject.FindGameObjectWithTag("OnlineController");
+        if (OnlineController != null)
+        {
+            OnlineMenu = OnlineController.GetComponent<Online>();
         }
     }
 
@@ -234,5 +241,11 @@ public class SettingsMenu : MonoBehaviour {
     {
         gameController.numberOfRounds = (int)(turnsSlider.GetComponent<Slider>().value);
         turnsSlider.GetComponent<Slider>().value = turnsSlider.GetComponent<Slider>().minValue;
+    }
+
+    void DisplayOnlineMenu()
+    {
+        HideSettingsMenu();
+        OnlineMenu.DisplayOnlineMenu();
     }
 }
