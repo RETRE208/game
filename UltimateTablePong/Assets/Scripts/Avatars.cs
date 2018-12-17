@@ -31,8 +31,14 @@ public class Avatars : MonoBehaviour {
     private GameObject playerReady;
     private GameObject gameInfo;
 
+    private GameObject player1Cam;
+    private GameObject player2Cam;
+
     private void Start()
     {
+        player1Cam = GameObject.FindGameObjectWithTag("AvatarCam1");
+        player2Cam = GameObject.FindGameObjectWithTag("AvatarCam2");
+
         avatarMenu = GameObject.FindGameObjectWithTag("AvatarMenu");
         avatarMenu.SetActive(false);
 
@@ -69,19 +75,27 @@ public class Avatars : MonoBehaviour {
     public void setPlayer1Avatar(int index)
     {
         string choosedModel = models[index];
+        float camPosX = player1Cam.transform.position.x;
+        float camPosY = player1Cam.transform.position.y;
+        float camPosZ = player1Cam.transform.position.z;
 
         if (choosedModel.Equals(FLOWER))
         {
             player1Avatar = flowerStick;
-            
+            camPosZ = 2000.0f;
+            player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else if (choosedModel.Equals(SWORD))
         {
             player1Avatar = swordStick;
+            camPosZ = 3000.0f;
+            player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else
         {
             player1Avatar = normalStick;
+            camPosZ = 2500.0f;
+            player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         player1AvatarModel = choosedModel;
     }
@@ -89,18 +103,27 @@ public class Avatars : MonoBehaviour {
     public void setPlayer2Avatar(int index)
     {
         string choosedModel = models[index];
+        float camPosX = player2Cam.transform.position.x;
+        float camPosY = player2Cam.transform.position.y;
+        float camPosZ = player2Cam.transform.position.z;
 
         if (choosedModel.Equals(FLOWER))
         {
             player2Avatar = flowerStick;
+            camPosZ = 2000.0f;
+            player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else if (choosedModel.Equals(SWORD))
         {
             player2Avatar = swordStick;
+            camPosZ = 3000.0f;
+            player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else
         {
             player2Avatar = normalStick;
+            camPosZ = 2500.0f;
+            player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         player2AvatarModel = choosedModel;
     }

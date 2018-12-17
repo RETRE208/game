@@ -8,7 +8,7 @@ public class ColorModifier : MonoBehaviour {
     private CUIColorPicker cUIColorPicker;
     private GameObject colorPicker;
     private GameObject buttonSaveColor;
-    private string currentColor;
+    private string currentColorBeingModified;
 
     // Use this for initialization
     void Start () {
@@ -22,14 +22,14 @@ public class ColorModifier : MonoBehaviour {
     public void EnableColorPicker(string name)
     {
         Time.timeScale = 1;
-        currentColor = name;
+        currentColorBeingModified = name;
         colorPicker.SetActive(true);
     }
 
     public void DisableColorPicker()
     {
         Time.timeScale = 1;
-        GameObject button = GameObject.FindGameObjectWithTag(currentColor);
+        GameObject button = GameObject.FindGameObjectWithTag(currentColorBeingModified);
 
         cUIColorPicker = colorPicker.GetComponent<CUIColorPicker>();
         button.GetComponent<Image>().color = cUIColorPicker.Color;

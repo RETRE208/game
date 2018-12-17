@@ -39,6 +39,8 @@ TagManager:
   - ButtonP2C3
   - ButtonP2C4
   - AvatarMenu
+  - AvatarCam1
+  - AvatarCam2
   layers:
   - Default
   - TransparentFX
