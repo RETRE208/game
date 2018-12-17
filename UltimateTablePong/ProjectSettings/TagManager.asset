@@ -41,6 +41,12 @@ TagManager:
   - AvatarMenu
   - AvatarCam1
   - AvatarCam2
+  - StickAvatarExemple
+  - FlowerAvatarExemple
+  - SwordAvatarExemple
+  - StickAvatarExemple2
+  - FlowerAvatarExemple2
+  - SwordAvatarExemple2
   layers:
   - Default
   - TransparentFX

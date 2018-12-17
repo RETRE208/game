@@ -34,6 +34,9 @@ public class Avatars : MonoBehaviour {
     private GameObject player1Cam;
     private GameObject player2Cam;
 
+    private Color[] player1Colors = new Color[] {Color.clear, Color.clear, Color.clear, Color.clear};
+    private Color[] player2Colors = new Color[] {Color.clear, Color.clear, Color.clear, Color.clear};
+
     private void Start()
     {
         player1Cam = GameObject.FindGameObjectWithTag("AvatarCam1");
@@ -82,7 +85,7 @@ public class Avatars : MonoBehaviour {
         if (choosedModel.Equals(FLOWER))
         {
             player1Avatar = flowerStick;
-            camPosZ = 2000.0f;
+            camPosZ = 3500.0f;
             player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else if (choosedModel.Equals(SWORD))
@@ -110,7 +113,7 @@ public class Avatars : MonoBehaviour {
         if (choosedModel.Equals(FLOWER))
         {
             player2Avatar = flowerStick;
-            camPosZ = 2000.0f;
+            camPosZ = 3500.0f;
             player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else if (choosedModel.Equals(SWORD))
@@ -128,15 +131,17 @@ public class Avatars : MonoBehaviour {
         player2AvatarModel = choosedModel;
     }
 
-    public string getPlayer1Avatar(out GameObject prefab)
+    public string getPlayer1Avatar(out GameObject prefab, out Color[] colors)
     {
         prefab = player1Avatar;
+        colors = player1Colors;
         return player1AvatarModel;
     }
 
-    public string getPlayer2Avatar(out GameObject prefab)
+    public string getPlayer2Avatar(out GameObject prefab, out Color[] colors)
     {
         prefab = player2Avatar;
+        colors = player2Colors;
         return player2AvatarModel;
     }
 
@@ -171,5 +176,101 @@ public class Avatars : MonoBehaviour {
     {
         HideAvatarMenu();
         mainMenu.DisplayMainMenu();
+    }
+
+    public void setColor(int playerNumber, int colorNumber, Color color)
+    {
+        if (playerNumber == 1)
+        {
+            player1Colors[colorNumber - 1] = color;
+            
+            if (colorNumber == 1)
+            {
+                GameObject.FindGameObjectWithTag("StickAvatarExemple").GetComponent<Renderer>().material.color = color;
+                GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Renderer>().materials[0].color = color;
+            }
+            if (colorNumber == 2)
+            {
+                GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Renderer>().materials[1].color = color;
+            }
+            var children = GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponentsInChildren<Transform>();
+            foreach (var child in children)
+            {
+                if (child.name == "Blade")
+                {
+                    if (colorNumber == 1)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name == "Crossguard")
+                {
+                    if (colorNumber == 2)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name == "Grip")
+                {
+                    if (colorNumber == 3)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name == "Pomel")
+                {
+                    if (colorNumber == 4)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+            }
+        }
+        else
+        {
+            player2Colors[colorNumber - 1] = color;
+
+            if (colorNumber == 1)
+            {
+                GameObject.FindGameObjectWithTag("StickAvatarExemple2").GetComponent<Renderer>().material.color = color;
+                GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Renderer>().materials[0].color = color;
+            }
+            if (colorNumber == 2)
+            {
+                GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Renderer>().materials[1].color = color;
+            }
+            var children = GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponentsInChildren<Transform>();
+            foreach (var child in children)
+            {
+                if (child.name == "Blade")
+                {
+                    if (colorNumber == 1)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name == "Crossguard")
+                {
+                    if (colorNumber == 2)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name == "Grip")
+                {
+                    if (colorNumber == 3)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name == "Pomel")
+                {
+                    if (colorNumber == 4)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+            }
+        }
     }
 }
