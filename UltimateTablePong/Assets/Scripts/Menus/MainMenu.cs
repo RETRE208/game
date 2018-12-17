@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
     private GameObject mainStartButton;
     private GameObject mainQuitButton;
     private GameObject mainKeybindButton;
+    private GameObject mainAvatarsButton;
     private GameObject mainInitialKeyText;
 
     private GameObject scoreText;
@@ -18,6 +19,8 @@ public class MainMenu : MonoBehaviour {
 
     private SettingsMenu settingsMenu;
     private Keybind keybindsMenu;
+    private Avatars avatars;
+    
     private bool onTitleScreen = true;
 
     // Use this for initialization
@@ -37,6 +40,8 @@ public class MainMenu : MonoBehaviour {
             Debug.Log("Cannot find 'KeybindController' object");
         }
 
+        avatars = GameObject.FindObjectOfType<Avatars>();
+
         Time.timeScale = 0;
         
         mainPanel = GameObject.Find("MainPanel");
@@ -45,6 +50,7 @@ public class MainMenu : MonoBehaviour {
         mainQuitButton = GameObject.Find("MainQuitButton");
         mainKeybindButton = GameObject.Find("MainKeybindButton");
         mainInitialKeyText = GameObject.Find("MainInitialKeyText");
+        mainAvatarsButton = GameObject.Find("MainAvatarsButton");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -56,11 +62,13 @@ public class MainMenu : MonoBehaviour {
 
         mainStartButton.GetComponent<Button>().onClick.AddListener(DisplaySettingsMenu);
         mainQuitButton.GetComponent<Button>().onClick.AddListener(Application.Quit);
-        mainKeybindButton.GetComponent<Button>().onClick.AddListener(DisplayKeybindMenu); 
+        mainKeybindButton.GetComponent<Button>().onClick.AddListener(DisplayKeybindMenu);
+        mainAvatarsButton.GetComponent<Button>().onClick.AddListener(DisplayAvatarsMenu);
 
         mainStartButton.transform.localScale = new Vector3(0, 0, 0);
         mainQuitButton.transform.localScale = new Vector3(0, 0, 0);
         mainKeybindButton.transform.localScale = new Vector3(0, 0, 0);
+        mainAvatarsButton.transform.localScale = new Vector3(0, 0, 0);
     }
 	
 	// Update is called once per frame
@@ -72,6 +80,7 @@ public class MainMenu : MonoBehaviour {
             mainStartButton.transform.localScale = new Vector3(1, 1, 1);
             mainQuitButton.transform.localScale = new Vector3(1, 1, 1);
             mainKeybindButton.transform.localScale = new Vector3(1, 1, 1);
+            mainAvatarsButton.transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -83,6 +92,7 @@ public class MainMenu : MonoBehaviour {
         mainStartButton.SetActive(true);
         mainQuitButton.SetActive(true);
         mainKeybindButton.SetActive(true);
+        mainAvatarsButton.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
@@ -97,6 +107,7 @@ public class MainMenu : MonoBehaviour {
         mainStartButton.SetActive(false);
         mainQuitButton.SetActive(false);
         mainKeybindButton.SetActive(false);
+        mainAvatarsButton.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);
@@ -115,5 +126,9 @@ public class MainMenu : MonoBehaviour {
         keybindsMenu.DisplayKeybindMenu();
     }
 
-    
+    void DisplayAvatarsMenu()
+    {
+        HideMainMenu();
+        avatars.DisplayMenu();
+    }
 }

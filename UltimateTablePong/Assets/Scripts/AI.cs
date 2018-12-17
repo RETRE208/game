@@ -15,24 +15,10 @@ public class AI : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        UnpauseAI();
+        activated = false;
+        pause = true;
         ballsOnField = false;
         firstMove = true;
-        activated = true;
-
-        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("Stick2");
-        if (gameControllerObject != null)
-        {
-            stick = gameControllerObject.GetComponent<Stick>();
-            if (stick == null)
-            {
-                Debug.Log("Cannot find 'Stick' script");
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot find 'Stick' object");
-        }
     }
 
     // Update is called once per frame
@@ -70,7 +56,7 @@ public class AI : MonoBehaviour {
         activated = false;
         pause = true;
         difficulty = "";
-        stick.ai = false;
+        stick = null;
     }
 
     void setCurrentPuck()
@@ -159,19 +145,9 @@ public class AI : MonoBehaviour {
 
     public void activateAI()
     {
+        Debug.Log(stick);
+        stick = GameObject.FindGameObjectWithTag("Stick2").GetComponent<Stick>();
+        Debug.Log(stick);
         activated = true;
-        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("Stick2");
-        if (gameControllerObject != null)
-        {
-            stick = gameControllerObject.GetComponent<Stick>();
-            if (stick == null)
-            {
-                Debug.Log("Cannot find 'Stick' script");
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot find 'Stick' object");
-        }
     }
 }
