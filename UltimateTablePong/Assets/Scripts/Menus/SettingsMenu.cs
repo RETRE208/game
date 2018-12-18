@@ -161,11 +161,29 @@ public class SettingsMenu : MonoBehaviour {
         playerReadyText.text = "Player one's turn, \n Press the start button(" + startButton.ToString() + ") to start!";
         gameInfo.SetActive(true);
 
-        stickScript.UpdateControls();
-        stickScript2.UpdateControls();
         pauseMenu.UpdatePauseButton();
 
         gameController.UpdateStartButton();
+
+        stick = GameObject.FindGameObjectWithTag("Stick");
+        if (stick != null)
+        {
+            stickScript = stick.GetComponent<Stick>();
+        }
+        stick2 = GameObject.FindGameObjectWithTag("Stick2");
+        if (stick2 != null)
+        {
+            stickScript2 = stick2.GetComponent<Stick>();
+        }
+        if (stickScript != null)
+        {
+            stickScript.UpdateControls();
+        }
+        if (stickScript2 != null)
+        {
+            stickScript2.UpdateControls();
+        }
+
         loadingScreen.displayLoadingScreen();
     }
 
@@ -179,13 +197,12 @@ public class SettingsMenu : MonoBehaviour {
     void StartGameLocalPvP()
     {
         setGameSettings();
-        ai.removeAi();
+        gameController.createPlayersSticks();
         HideSettingsMenu();
     }
 
     void CreateOnlineGame()
     {
-        ai.removeAi();
         //Create online game
         HideSettingsMenu();
 
@@ -200,7 +217,6 @@ public class SettingsMenu : MonoBehaviour {
 
     public void JoinOnlineGame(string ip)
     {
-        ai.removeAi();
         //Join online game
         HideSettingsMenu();
 
@@ -260,6 +276,8 @@ public class SettingsMenu : MonoBehaviour {
     void StartVsAiEasy()
     {
         setGameSettings();
+        gameController.createPlayersSticks();
+        gameController.aiMode = true;
         ai.activateAI();
         ai.UnpauseAI();
         ai.setSimulationEasy();
@@ -269,6 +287,8 @@ public class SettingsMenu : MonoBehaviour {
     void StartVsAiHard()
     {
         setGameSettings();
+        gameController.createPlayersSticks();
+        gameController.aiMode = true;
         ai.activateAI();
         ai.UnpauseAI();
         ai.setSimulationHard();

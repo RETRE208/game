@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class Stick : NetworkBehaviour {
+public class Stick : MonoBehaviour {
 
     public float topBoardBoundary;
     public float bottomBoardBoundary;
@@ -72,7 +72,7 @@ public class Stick : NetworkBehaviour {
         NetworkIdentity ni = gameObject.GetComponent<NetworkIdentity>();
         if (ni != null)
         {
-            if (isLocalPlayer)
+            if (localPlayer)
             {
                 move();
             }

@@ -27,6 +27,26 @@ TagManager:
   - OnlineController
   - Board
   - NetworkManager
+  - Avatars
+  - ColorPicker
+  - ColorOKBtn
+  - ButtonP1C1
+  - ButtonP1C2
+  - ButtonP1C3
+  - ButtonP1C4
+  - ButtonP2C1
+  - ButtonP2C2
+  - ButtonP2C3
+  - ButtonP2C4
+  - AvatarMenu
+  - AvatarCam1
+  - AvatarCam2
+  - StickAvatarExemple
+  - FlowerAvatarExemple
+  - SwordAvatarExemple
+  - StickAvatarExemple2
+  - FlowerAvatarExemple2
+  - SwordAvatarExemple2
   layers:
   - Default
   - TransparentFX
