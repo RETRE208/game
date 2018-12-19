@@ -10,6 +10,8 @@ public class Puck : MonoBehaviour {
     private Vector3 gravity;
     private Rigidbody rb;
     private GameController gameController;
+    private ParticuleController particuleController;
+
     public float speed;
 
 	// Use this for initialization
@@ -27,6 +29,21 @@ public class Puck : MonoBehaviour {
         {
             Debug.Log("Cannot find 'GameController' object");
         }
+
+        GameObject particuleControllerObject = GameObject.FindGameObjectWithTag("ParticuleController");
+        if (particuleControllerObject != null)
+        {
+            particuleController = particuleControllerObject.GetComponent<ParticuleController>();
+            if (particuleController == null)
+            {
+                Debug.Log("Cannot find 'ParticuleController' script");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot find 'ParticuleController' object");
+        }
+
         rb = GetComponent<Rigidbody>();
         moveRandomDirection();
         gravity = new Vector3(-50.0f, 0.0f, 0.0f);
@@ -56,6 +73,7 @@ public class Puck : MonoBehaviour {
             AddScore(2);
             getStickBoost();
             gameController.hitStick();
+            particuleController.StickCollision(rb.position);
         }
         else if (other.tag == "TopBorder")
         {
@@ -73,11 +91,13 @@ public class Puck : MonoBehaviour {
             Puck otherPuck = other.gameObject.GetComponent<Puck>();
             Vector3 normal = calculateNormal(otherPuck.getDirection());
             direction = getNewDirectionAfterCollision(normal);
+            particuleController.BallCollision(position);
         }
         else if (other.tag == "Obstacle")
         {
             AddScore(5);
-            getNewDirectionAfterCollisionWithObstacle(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size.x);
+            Vector3 collisionPosition = getNewDirectionAfterCollisionWithObstacle(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size.x);
+            particuleController.ObstacleCollision(position);
         }
     }
 
@@ -102,7 +122,7 @@ public class Puck : MonoBehaviour {
         direction.z = 100 * randomZ * signZ;
     }
 
-    void getNewDirectionAfterCollisionWithObstacle(Vector3 obstaclePosition, float obstacleRay)
+    Vector3 getNewDirectionAfterCollisionWithObstacle(Vector3 obstaclePosition, float obstacleRay)
     {
         Vector3 intersection = getImpactPoint(obstaclePosition.z, obstaclePosition.x, obstacleRay, position, rb.position);
 
@@ -114,6 +134,7 @@ public class Puck : MonoBehaviour {
 
         rb.position = position;
         direction = getNewDirectionAfterCollision(normal);
+        return position;
     }
 
     Vector3 getNewDirectionAfterCollision(Vector3 collisionNormal)
