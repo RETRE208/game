@@ -398,16 +398,21 @@ public class GameController : MonoBehaviour {
         float rot1 = 0.0f;
         float leftLimit1 = 775.0f;
         float rightLimit1 = -775.0f;
+        float size1;
+
         string model2;
         GameObject prefab2;
         Color[] colors2;
         float rot2 = 0.0f;
         float leftLimit2 = -7050.0f;
         float rightLimit2 = -8600.0f;
+        float size2;
+
+        Vector3 stickSize;
 
         DestroyAllSticks();
 
-        model1 = avatars.getPlayer1Avatar(out prefab1, out colors1);
+        model1 = avatars.getPlayer1Avatar(out prefab1, out colors1, out size1);
         if (model1.Equals("Flower"))
         {
             rot1 = 90.0f;
@@ -425,6 +430,10 @@ public class GameController : MonoBehaviour {
 
         if (model1.Equals("Flower"))
         {
+            stickSize = stick1.GetComponent<Transform>().localScale;
+            stickSize.y = size1;
+            stick1.GetComponent<Transform>().localScale = stickSize;
+
             if (!colors1[0].Equals(Color.clear))
             {
                 stick1.GetComponent<Renderer>().materials[0].color = colors1[0];
@@ -436,6 +445,10 @@ public class GameController : MonoBehaviour {
         }
         if (model1.Equals("Sword"))
         {
+            stickSize = stick1.GetComponent<Transform>().localScale;
+            stickSize.z = size1;
+            stick1.GetComponent<Transform>().localScale = stickSize;
+
             var children = stick1.GetComponentsInChildren<Transform>();
             foreach (var child in children)
             {
@@ -471,6 +484,10 @@ public class GameController : MonoBehaviour {
         }
         if (model1.Equals("Normal"))
         {
+            stickSize = stick1.GetComponent<Transform>().localScale;
+            stickSize.z = size1;
+            stick1.GetComponent<Transform>().localScale = stickSize;
+
             if (!colors1[0].Equals(Color.clear))
             {
                 stick1.GetComponent<Renderer>().material.color = colors1[0];
@@ -481,7 +498,7 @@ public class GameController : MonoBehaviour {
         stick1Script.setStickOptions(leftLimit1, rightLimit1, true);
         stick1Script.UpdateControls();
 
-        model2 = avatars.getPlayer2Avatar(out prefab2, out colors2);
+        model2 = avatars.getPlayer2Avatar(out prefab2, out colors2, out size2);
         if (model2.Equals("Flower"))
         {
             rot2 = 90.0f;
@@ -498,6 +515,10 @@ public class GameController : MonoBehaviour {
 
         if (model2.Equals("Flower"))
         {
+            stickSize = stick2.GetComponent<Transform>().localScale;
+            stickSize.y = size2;
+            stick2.GetComponent<Transform>().localScale = stickSize;
+
             if (!colors2[0].Equals(Color.clear))
             {
                 stick2.GetComponent<Renderer>().materials[0].color = colors2[0];
@@ -509,6 +530,10 @@ public class GameController : MonoBehaviour {
         }
         if (model2.Equals("Sword"))
         {
+            stickSize = stick2.GetComponent<Transform>().localScale;
+            stickSize.z = size2;
+            stick2.GetComponent<Transform>().localScale = stickSize;
+
             var children = stick2.GetComponentsInChildren<Transform>();
             foreach (var child in children)
             {
@@ -544,6 +569,10 @@ public class GameController : MonoBehaviour {
         }
         if (model2.Equals("Normal"))
         {
+            stickSize = stick2.GetComponent<Transform>().localScale;
+            stickSize.z = size2;
+            stick2.GetComponent<Transform>().localScale = stickSize;
+
             if (!colors2[0].Equals(Color.clear))
             {
                 stick2.GetComponent<Renderer>().material.color = colors2[0];

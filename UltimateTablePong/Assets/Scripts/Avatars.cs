@@ -27,6 +27,9 @@ public class Avatars : MonoBehaviour {
     private string player1AvatarModel;
     private string player2AvatarModel;
 
+    private float player1AvatarSize;
+    private float player2AvatarSize;
+
     private GameObject scoreText;
     private GameObject playerReady;
     private GameObject gameInfo;
@@ -131,17 +134,19 @@ public class Avatars : MonoBehaviour {
         player2AvatarModel = choosedModel;
     }
 
-    public string getPlayer1Avatar(out GameObject prefab, out Color[] colors)
+    public string getPlayer1Avatar(out GameObject prefab, out Color[] colors, out float size)
     {
         prefab = player1Avatar;
         colors = player1Colors;
+        size = player1AvatarSize;
         return player1AvatarModel;
     }
 
-    public string getPlayer2Avatar(out GameObject prefab, out Color[] colors)
+    public string getPlayer2Avatar(out GameObject prefab, out Color[] colors, out float size)
     {
         prefab = player2Avatar;
         colors = player2Colors;
+        size = player2AvatarSize;
         return player2AvatarModel;
     }
 
@@ -272,5 +277,43 @@ public class Avatars : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void setPlayer1Size(float size)
+    {
+        Vector3 stickSize;
+
+        player1AvatarSize = size;
+
+        stickSize = GameObject.FindGameObjectWithTag("StickAvatarExemple").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("StickAvatarExemple").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Transform>().localScale;
+        stickSize.y = size;
+        GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponent<Transform>().localScale = stickSize;
+    }
+
+    public void setPlayer2Size(float size)
+    {
+        Vector3 stickSize;
+
+        player2AvatarSize = size;
+
+        stickSize = GameObject.FindGameObjectWithTag("StickAvatarExemple2").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("StickAvatarExemple2").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Transform>().localScale;
+        stickSize.y = size;
+        GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponent<Transform>().localScale = stickSize;
     }
 }
