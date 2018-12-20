@@ -204,15 +204,25 @@ public class Avatars : MonoBehaviour {
             var flowerChildren = GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponentsInChildren<Transform>();
             foreach (var child in flowerChildren)
             {
-                if (child.name == "FlowerStick")
+                if (child.name.Equals("Stem"))
                 {
                     if (colorNumber == 1)
                     {
-                        child.GetComponent<Renderer>().materials[0].color = color;
+                        child.GetComponent<Renderer>().material.color = color;
                     }
-                    else if (colorNumber == 2)
+                }
+                else if (child.name.Equals("Middle"))
+                {
+                    if (colorNumber == 2)
                     {
-                        child.GetComponent<Renderer>().materials[1].color = color;
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Contains("Petal"))
+                {
+                    if (colorNumber == 3)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
                     }
                 }
             }
@@ -220,28 +230,28 @@ public class Avatars : MonoBehaviour {
             var swordChildren = GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponentsInChildren<Transform>();
             foreach (var child in swordChildren)
             {
-                if (child.name == "Blade")
+                if (child.name.Equals("Blade"))
                 {
                     if (colorNumber == 1)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Crossguard")
+                else if (child.name.Equals("Crossguard"))
                 {
                     if (colorNumber == 2)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Grip")
+                else if (child.name.Equals("Grip"))
                 {
                     if (colorNumber == 3)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Pomel")
+                else if (child.name.Equals("Pomel"))
                 {
                     if (colorNumber == 4)
                     {
@@ -262,15 +272,25 @@ public class Avatars : MonoBehaviour {
             var flowerChildren = GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponentsInChildren<Transform>();
             foreach (var child in flowerChildren)
             {
-                if (child.name == "FlowerStick")
+                if (child.name.Equals("Stem"))
                 {
                     if (colorNumber == 1)
                     {
-                        child.GetComponent<Renderer>().materials[0].color = color;
+                        child.GetComponent<Renderer>().material.color = color;
                     }
-                    else if (colorNumber == 2)
+                }
+                else if (child.name.Equals("Middle"))
+                {
+                    if (colorNumber == 2)
                     {
-                        child.GetComponent<Renderer>().materials[1].color = color;
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Contains("Petal"))
+                {
+                    if (colorNumber == 3)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
                     }
                 }
             }
@@ -278,28 +298,28 @@ public class Avatars : MonoBehaviour {
             var swordChildren = GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponentsInChildren<Transform>();
             foreach (var child in swordChildren)
             {
-                if (child.name == "Blade")
+                if (child.name.Equals("Blade"))
                 {
                     if (colorNumber == 1)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Crossguard")
+                else if (child.name.Equals("Crossguard"))
                 {
                     if (colorNumber == 2)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Grip")
+                else if (child.name.Equals("Grip"))
                 {
                     if (colorNumber == 3)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Pomel")
+                else if (child.name.Equals("Pomel"))
                 {
                     if (colorNumber == 4)
                     {

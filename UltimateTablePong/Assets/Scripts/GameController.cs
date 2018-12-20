@@ -395,7 +395,6 @@ public class GameController : MonoBehaviour {
         string model1;
         GameObject prefab1;
         Color[] colors1;
-        float rot1 = 0.0f;
         float leftLimit1 = 775.0f;
         float rightLimit1 = -775.0f;
         float size1;
@@ -403,7 +402,6 @@ public class GameController : MonoBehaviour {
         string model2;
         GameObject prefab2;
         Color[] colors2;
-        float rot2 = 0.0f;
         float leftLimit2 = -7050.0f;
         float rightLimit2 = -8600.0f;
         float size2;
@@ -413,47 +411,63 @@ public class GameController : MonoBehaviour {
         DestroyAllSticks();
 
         model1 = avatars.getPlayer1Avatar(out prefab1, out colors1, out size1);
-        if (model1.Equals("Flower"))
+
+        leftLimit1 = 750.0f + ((size1 - 300) * -0.576f);
+        rightLimit1 = -740.0f + ((size1 - 300) * 0.456f);
+
+        /*if (model1.Equals("Flower"))
         {
-            rot1 = 90.0f;
-            leftLimit1 = 440.0f + ((size1 - 300) * -1.4f);
-            rightLimit1 = -890.0f;
+            leftLimit1 = 775.0f + ((size1 - 300) * -0.576f);
+            rightLimit1 = -775.0f + ((size1 - 300) * 0.456f);
         }
         else if (model1.Equals("Sword"))
         {
-            leftLimit1 = 810.0f + ((size1 - 300) * -0.317f);
-            rightLimit1 = -600.0f + ((size1 - 300) * 0.833f);
+            leftLimit1 = 775.0f + ((size1 - 300) * -0.576f);
+            rightLimit1 = -775.0f + ((size1 - 300) * 0.456f);
         }
         else if (model1.Equals("Normal"))
         {
             leftLimit1 = 775.0f + ((size1 - 300) * -0.576f);
             rightLimit1 = -775.0f + ((size1 - 300) * 0.456f);
-        }
-        GameObject stick1 = Instantiate(prefab1, new Vector3(), new Quaternion(0.0f, rot1, rot1, 0.0f));
+        }*/
+        GameObject stick1 = Instantiate(prefab1, new Vector3(), new Quaternion());
         stick1.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
         stick1.tag = "Stick";
 
+        stickSize = stick1.GetComponent<Transform>().localScale;
+        stickSize.z = size1;
+        stick1.GetComponent<Transform>().localScale = stickSize;
+
         if (model1.Equals("Flower"))
         {
-            stickSize = stick1.GetComponent<Transform>().localScale;
-            stickSize.y = size1;
-            stick1.GetComponent<Transform>().localScale = stickSize;
-
-            if (!colors1[0].Equals(Color.clear))
+            var children = stick1.GetComponentsInChildren<Transform>();
+            foreach (var child in children)
             {
-                stick1.GetComponent<Renderer>().materials[0].color = colors1[0];
-            }
-            if (!colors1[1].Equals(Color.clear))
-            {
-                stick1.GetComponent<Renderer>().materials[1].color = colors1[1];
+                if (child.name.Equals("Stem"))
+                {
+                    if (!colors1[0].Equals(Color.clear))
+                    {
+                        child.GetComponent<Renderer>().material.color = colors1[0];
+                    }
+                }
+                else if (child.name.Equals("Middle"))
+                {
+                    if (!colors1[1].Equals(Color.clear))
+                    {
+                        child.GetComponent<Renderer>().material.color = colors1[1];
+                    }
+                }
+                else if (child.name.Contains("Petal"))
+                {
+                    if (!colors1[2].Equals(Color.clear))
+                    {
+                        child.GetComponent<Renderer>().material.color = colors1[2];
+                    }
+                }
             }
         }
         if (model1.Equals("Sword"))
         {
-            stickSize = stick1.GetComponent<Transform>().localScale;
-            stickSize.z = size1;
-            stick1.GetComponent<Transform>().localScale = stickSize;
-
             var children = stick1.GetComponentsInChildren<Transform>();
             foreach (var child in children)
             {
@@ -489,10 +503,6 @@ public class GameController : MonoBehaviour {
         }
         if (model1.Equals("Normal"))
         {
-            stickSize = stick1.GetComponent<Transform>().localScale;
-            stickSize.z = size1;
-            stick1.GetComponent<Transform>().localScale = stickSize;
-
             if (!colors1[0].Equals(Color.clear))
             {
                 stick1.GetComponent<Renderer>().material.color = colors1[0];
@@ -504,47 +514,63 @@ public class GameController : MonoBehaviour {
         stick1Script.UpdateControls();
 
         model2 = avatars.getPlayer2Avatar(out prefab2, out colors2, out size2);
-        if (model2.Equals("Flower"))
+
+        leftLimit2 = -7050.0f + ((size1 - 300) * -0.467f);
+        rightLimit2 = -8540.0f + ((size1 - 300) * 0.533f);
+
+        /*if (model2.Equals("Flower"))
         {
-            rot2 = 90.0f;
-            leftLimit2 = -7350.0f + ((size2 - 300) * -1.4f);
-            rightLimit2 = -8700.0f;
+            leftLimit2 = -7050.0f + ((size1 - 300) * -0.267f);
+            rightLimit2 = -8560.0f + ((size1 - 300) * 0.583f);
         }
         else if (model2.Equals("Sword"))
         {
-            leftLimit2 = -7000.0f + ((size2 - 300) * -0.233f);
-            rightLimit2 = -8370.0f + ((size2 - 300) * 0.933f);
+            leftLimit2 = -7050.0f + ((size1 - 300) * -0.267f);
+            rightLimit2 = -8560.0f + ((size1 - 300) * 0.583f);
         }
         else if (model2.Equals("Normal"))
         {
             leftLimit2 = -7050.0f + ((size1 - 300) * -0.267f);
             rightLimit2 = -8560.0f + ((size1 - 300) * 0.583f);
-        }
-        GameObject stick2 = Instantiate(prefab2, new Vector3(), new Quaternion(0.0f, rot2, rot2, 0.0f));
+        }*/
+        GameObject stick2 = Instantiate(prefab2, new Vector3(), new Quaternion());
         stick2.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
         stick2.tag = "Stick2";
 
+        stickSize = stick2.GetComponent<Transform>().localScale;
+        stickSize.z = size2;
+        stick2.GetComponent<Transform>().localScale = stickSize;
+
         if (model2.Equals("Flower"))
         {
-            stickSize = stick2.GetComponent<Transform>().localScale;
-            stickSize.y = size2;
-            stick2.GetComponent<Transform>().localScale = stickSize;
-
-            if (!colors2[0].Equals(Color.clear))
+            var children = stick2.GetComponentsInChildren<Transform>();
+            foreach (var child in children)
             {
-                stick2.GetComponent<Renderer>().materials[0].color = colors2[0];
-            }
-            if (!colors2[1].Equals(Color.clear))
-            {
-                stick2.GetComponent<Renderer>().materials[1].color = colors2[1];
+                if (child.name.Equals("Stem"))
+                {
+                    if (!colors2[0].Equals(Color.clear))
+                    {
+                        child.GetComponent<Renderer>().material.color = colors2[0];
+                    }
+                }
+                else if (child.name.Equals("Middle"))
+                {
+                    if (!colors2[1].Equals(Color.clear))
+                    {
+                        child.GetComponent<Renderer>().material.color = colors2[1];
+                    }
+                }
+                else if (child.name.Contains("Petal"))
+                {
+                    if (!colors2[2].Equals(Color.clear))
+                    {
+                        child.GetComponent<Renderer>().material.color = colors2[2];
+                    }
+                }
             }
         }
         if (model2.Equals("Sword"))
         {
-            stickSize = stick2.GetComponent<Transform>().localScale;
-            stickSize.z = size2;
-            stick2.GetComponent<Transform>().localScale = stickSize;
-
             var children = stick2.GetComponentsInChildren<Transform>();
             foreach (var child in children)
             {
@@ -580,10 +606,6 @@ public class GameController : MonoBehaviour {
         }
         if (model2.Equals("Normal"))
         {
-            stickSize = stick2.GetComponent<Transform>().localScale;
-            stickSize.z = size2;
-            stick2.GetComponent<Transform>().localScale = stickSize;
-
             if (!colors2[0].Equals(Color.clear))
             {
                 stick2.GetComponent<Renderer>().material.color = colors2[0];
