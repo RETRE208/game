@@ -198,6 +198,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         setGameSettings();
         gameController.createPlayersSticks();
+        gameController.SpawnObstacles();
         HideSettingsMenu();
     }
 

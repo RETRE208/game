@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
     private int scorePlayer2;
     private int ballCount;
     public GameObject balls;
+    public GameObject obstacle;
     public Vector3 spawnValues;
     private bool player1turn;
     public int numberOfRounds;
@@ -305,7 +306,6 @@ public class GameController : MonoBehaviour {
     {
         endMenu.HideEndMenu();
         destroyAllBalls();
-
         player1turn = false;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
@@ -353,7 +353,6 @@ public class GameController : MonoBehaviour {
             Destroy(ball);
         }
     }
-
 
     public void setOnlineMode(bool onlineMode, bool host)
     {
@@ -615,5 +614,20 @@ public class GameController : MonoBehaviour {
         Stick stick2Script = stick2.GetComponent<Stick>();
         stick2Script.setStickOptions(leftLimit2, rightLimit2, false);
         stick2Script.UpdateControls();
+    }
+
+    public void SpawnObstacles()
+    {
+        int nbObstacle = 5;
+        Vector3 spawnPosition;
+        spawnPosition = new Vector3(500.0f, 100.0f, 0.0f);
+        for (int i = 0; i < nbObstacle; i++)
+        {
+            GameObject obst = obstacle;
+            Quaternion spawnRotation = Quaternion.identity;
+            Instantiate(obst, spawnPosition, spawnRotation);
+            spawnPosition.x += 100;
+        }
+        
     }
 }
