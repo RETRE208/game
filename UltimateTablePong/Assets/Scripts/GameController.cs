@@ -30,12 +30,15 @@ public class GameController : MonoBehaviour {
     private bool isPlayer2Connected;
     private BallSpawner ballSpawner;
 
+    private SoundManager soundManager;
+
     public bool aiMode;
 
     public GameObject stickPrefab;
 
     // Use this for initialization
     void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         pauseMenu = FindObjectOfType<PauseMenu>();
         endMenu = FindObjectOfType<EndMenu>();
 
@@ -207,6 +210,7 @@ public class GameController : MonoBehaviour {
 
     public void PuckIsDestroy(Puck puck)
     {
+        soundManager.playSfxNoise("destroyedSound");
         ballCount -= 1;
         numberOfHit = 0;
         if (ballCount <= 0)
@@ -246,6 +250,7 @@ public class GameController : MonoBehaviour {
 
     public void hitStick()
     {
+        soundManager.playSfxNoise("palletHitSound");
         if (!isOnlineMode)
         {
             numberOfHit += 1;

@@ -12,10 +12,13 @@ public class Puck : MonoBehaviour {
     private GameController gameController;
     private ParticuleController particuleController;
 
+    private SoundManager soundManager;
+
     public float speed;
 
 	// Use this for initialization
 	void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -60,15 +63,18 @@ public class Puck : MonoBehaviour {
     {
         if (other.tag == "RightBorder")
         {
+            soundManager.playSfxNoise("destroyedSound");
             gameController.PuckIsDestroy(this);
             Destroy(gameObject);
         }
         else if (other.tag == "LeftBorder")
         {
+            soundManager.playSfxNoise("wallHitSound");
             direction = getNewDirectionAfterCollision(new Vector3(0, 0, 1));
         }
         else if (other.tag == "Stick" || other.tag == "Stick2" || other.tag == "StickOnline")
         {
+            soundManager.playSfxNoise("palletHitSound");
             direction = getNewDirectionAfterCollision(new Vector3(0, 0, -1));
             AddScore(2);
             getStickBoost();
@@ -77,16 +83,19 @@ public class Puck : MonoBehaviour {
         }
         else if (other.tag == "TopBorder")
         {
+            soundManager.playSfxNoise("wallHitSound");
             direction = getNewDirectionAfterCollision(new Vector3(1, 0, 0));
             AddScore(1);
         }
         else if (other.tag == "BottomBorder")
         {
+            soundManager.playSfxNoise("wallHitSound");
             direction = getNewDirectionAfterCollision(new Vector3(-1, 0, 0));
             AddScore(1);
         }
         else if (other.tag == "Ball")
         {
+            soundManager.playSfxNoise("bumperHit1Sound");
             rb.position = position;
             Puck otherPuck = other.gameObject.GetComponent<Puck>();
             Vector3 normal = calculateNormal(otherPuck.getDirection());
@@ -95,6 +104,7 @@ public class Puck : MonoBehaviour {
         }
         else if (other.tag == "Obstacle")
         {
+            soundManager.playSfxNoise("bumperHit");
             AddScore(5);
             Vector3 collisionPosition = getNewDirectionAfterCollisionWithObstacle(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size.x);
             particuleController.ObstacleCollision(position);
