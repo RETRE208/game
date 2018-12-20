@@ -416,13 +416,18 @@ public class GameController : MonoBehaviour {
         if (model1.Equals("Flower"))
         {
             rot1 = 90.0f;
-            leftLimit1 = 600.0f;
-            rightLimit1 = -900.0f;
+            leftLimit1 = 440.0f + ((size1 - 300) * -1.4f);
+            rightLimit1 = -890.0f;
         }
-        if (model1.Equals("Sword"))
+        else if (model1.Equals("Sword"))
         {
-            leftLimit1 = 750.0f;
-            rightLimit1 = -450.0f;
+            leftLimit1 = 810.0f + ((size1 - 300) * -0.317f);
+            rightLimit1 = -600.0f + ((size1 - 300) * 0.833f);
+        }
+        else if (model1.Equals("Normal"))
+        {
+            leftLimit1 = 775.0f + ((size1 - 300) * -0.576f);
+            rightLimit1 = -775.0f + ((size1 - 300) * 0.456f);
         }
         GameObject stick1 = Instantiate(prefab1, new Vector3(), new Quaternion(0.0f, rot1, rot1, 0.0f));
         stick1.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
@@ -502,12 +507,18 @@ public class GameController : MonoBehaviour {
         if (model2.Equals("Flower"))
         {
             rot2 = 90.0f;
-            leftLimit2 = -7200.0f;
+            leftLimit2 = -7350.0f + ((size2 - 300) * -1.4f);
             rightLimit2 = -8700.0f;
         }
-        if (model2.Equals("Sword"))
+        else if (model2.Equals("Sword"))
         {
-            rightLimit2 = -8250.0f;
+            leftLimit2 = -7000.0f + ((size2 - 300) * -0.233f);
+            rightLimit2 = -8370.0f + ((size2 - 300) * 0.933f);
+        }
+        else if (model2.Equals("Normal"))
+        {
+            leftLimit2 = -7050.0f + ((size1 - 300) * -0.267f);
+            rightLimit2 = -8560.0f + ((size1 - 300) * 0.583f);
         }
         GameObject stick2 = Instantiate(prefab2, new Vector3(), new Quaternion(0.0f, rot2, rot2, 0.0f));
         stick2.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
