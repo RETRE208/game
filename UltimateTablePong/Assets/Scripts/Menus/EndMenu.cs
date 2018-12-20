@@ -81,6 +81,7 @@ public class EndMenu : MonoBehaviour {
         quickRestartButton.SetActive(false);
         backToMainMenuButton.SetActive(false);
         quitButton.SetActive(false);
+        soundManager.playMusic("inGame");
     }
 
     void DisplayMainMenu()

@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
 
     public void playSfxNoise(string name)
     {
-        switch (name)
+        /*switch (name)
         {
             case "bumperHit":
                 int random = rnd.Next(1,3);
@@ -97,7 +97,7 @@ public class SoundManager : MonoBehaviour
                 break;
         }
         sfxSource.Play();
-        //sfxSource.pitch = 1.0f;
+        //sfxSource.pitch = 1.0f;*/
     }
 
     public void playSfxNoiseAtPosition(string name, Vector3 position)
