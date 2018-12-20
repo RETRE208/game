@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
     {
 
         sfxSource = GetComponent<AudioSource>();
+        musicSource = GetComponent<AudioSource>();
 
         rnd = new System.Random();
     }
@@ -63,11 +64,6 @@ public class SoundManager : MonoBehaviour
     private void AddSoundToDictionary(string name, AudioSource audioSource, Dictionary<string, AudioSource> dictionary)
     {
         dictionary.Add(name, audioSource);
-    }
-
-    public void playRandomHitSoundAtPosition(Vector3 position)
-    {
-        playSoundAtPosition("sfxHitPin" + rnd.Next(1, 2) + "Source", position, sfxSources);
     }
 
     public void playSfxNoise(string name)
@@ -111,7 +107,21 @@ public class SoundManager : MonoBehaviour
 
     public void playMusic(string name)
     {
-        //playSound(name, musicSources);
+        musicSource.volume = 0.5f;
+        musicSource.pitch = 1f;
+        switch (name)
+        {
+            case "mainMenu":
+                musicSource.clip = Resources.Load<AudioClip>("Kick_Shock");
+                break;
+            case "inGame":
+                musicSource.clip = Resources.Load<AudioClip>("Barge");
+                break;
+            case "gameEnd":
+                musicSource.clip = Resources.Load<AudioClip>("Detour_Sting");
+                break;
+        }
+        musicSource.Play();
     }
 
     private void playSoundAtPosition(string name, Vector3 position, Dictionary<string, AudioSource> discionary)

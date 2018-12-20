@@ -20,11 +20,14 @@ public class MainMenu : MonoBehaviour {
     private SettingsMenu settingsMenu;
     private Keybind keybindsMenu;
     private Avatars avatars;
+
+    private SoundManager soundManager;
     
     private bool onTitleScreen = true;
 
     // Use this for initialization
     void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         settingsMenu = GameObject.FindObjectOfType<SettingsMenu>();
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
         if (keybindController != null)
@@ -69,6 +72,8 @@ public class MainMenu : MonoBehaviour {
         mainQuitButton.transform.localScale = new Vector3(0, 0, 0);
         mainKeybindButton.transform.localScale = new Vector3(0, 0, 0);
         mainAvatarsButton.transform.localScale = new Vector3(0, 0, 0);
+
+        soundManager.playMusic("mainMenu");
     }
 	
 	// Update is called once per frame
@@ -97,6 +102,7 @@ public class MainMenu : MonoBehaviour {
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
+        soundManager.playMusic("mainMenu");
     }
 
     public void HideMainMenu()

@@ -16,9 +16,11 @@ public class EndMenu : MonoBehaviour {
     private MainMenu mainMenu;
     private UnityAction restartGame;
     private UnityAction leaveGame;
+    private SoundManager soundManager;
 
     // Use this for initialization
     void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         mainMenu = gameObject.GetComponent<MainMenu>();
 
         endPanel = GameObject.Find("EndPanel");
@@ -66,6 +68,8 @@ public class EndMenu : MonoBehaviour {
         quitButton.SetActive(true);
 
         quickRestartButton.GetComponent<Button>().onClick.AddListener(restartGame);
+
+        soundManager.playMusic("gameEnd");
     }
 
     public void HideEndMenu()

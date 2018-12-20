@@ -16,8 +16,11 @@ public class LoadingScreen : MonoBehaviour {
     private float progressionValue;
     private bool loadingStatus;
 
+    private SoundManager soundManager;
+
 	// Use this for initialization
 	void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         loadingStatus = false;
         progressionValue = 0;
 
@@ -88,5 +91,7 @@ public class LoadingScreen : MonoBehaviour {
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(1, 1, 1);
         gameInfo.transform.localScale = new Vector3(1, 1, 1);
+
+        soundManager.playMusic("inGame");
     }
 }
