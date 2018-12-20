@@ -11,9 +11,12 @@ public class Avatars : MonoBehaviour {
 
     List<string> models = new List<string> { NORMAL, FLOWER, SWORD };
 
-    public GameObject normalStick;
+    public GameObject normalStickAvatar;
+    public GameObject flowerStickAvatar;
+    public GameObject swordStickAvatar;
+
+    //The gameobject is different than the object shown because of a viewing bug.
     public GameObject flowerStick;
-    public GameObject swordStick;
 
     public Dropdown player1Dropdown;
     public Dropdown player2Dropdown;
@@ -26,6 +29,9 @@ public class Avatars : MonoBehaviour {
 
     private string player1AvatarModel;
     private string player2AvatarModel;
+
+    private float player1AvatarSize;
+    private float player2AvatarSize;
 
     private GameObject scoreText;
     private GameObject playerReady;
@@ -45,8 +51,8 @@ public class Avatars : MonoBehaviour {
         avatarMenu = GameObject.FindGameObjectWithTag("AvatarMenu");
         avatarMenu.SetActive(false);
 
-        player1Avatar = normalStick;
-        player2Avatar = normalStick;
+        player1Avatar = normalStickAvatar;
+        player2Avatar = normalStickAvatar;
 
         player1AvatarModel = NORMAL;
         player2AvatarModel = NORMAL;
@@ -72,6 +78,9 @@ public class Avatars : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
 
+        player1AvatarSize = 300.0f;
+        player2AvatarSize = 300.0f;
+
         PopulateLists();
     }
 
@@ -90,13 +99,14 @@ public class Avatars : MonoBehaviour {
         }
         else if (choosedModel.Equals(SWORD))
         {
-            player1Avatar = swordStick;
+            player1Avatar = swordStickAvatar;
+            Debug.Log(player1Avatar);
             camPosZ = 3000.0f;
             player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else
         {
-            player1Avatar = normalStick;
+            player1Avatar = normalStickAvatar;
             camPosZ = 2500.0f;
             player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
@@ -118,30 +128,32 @@ public class Avatars : MonoBehaviour {
         }
         else if (choosedModel.Equals(SWORD))
         {
-            player2Avatar = swordStick;
+            player2Avatar = swordStickAvatar;
             camPosZ = 3000.0f;
             player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         else
         {
-            player2Avatar = normalStick;
+            player2Avatar = normalStickAvatar;
             camPosZ = 2500.0f;
             player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         player2AvatarModel = choosedModel;
     }
 
-    public string getPlayer1Avatar(out GameObject prefab, out Color[] colors)
+    public string getPlayer1Avatar(out GameObject prefab, out Color[] colors, out float size)
     {
         prefab = player1Avatar;
         colors = player1Colors;
+        size = player1AvatarSize;
         return player1AvatarModel;
     }
 
-    public string getPlayer2Avatar(out GameObject prefab, out Color[] colors)
+    public string getPlayer2Avatar(out GameObject prefab, out Color[] colors, out float size)
     {
         prefab = player2Avatar;
         colors = player2Colors;
+        size = player2AvatarSize;
         return player2AvatarModel;
     }
 
@@ -187,37 +199,59 @@ public class Avatars : MonoBehaviour {
             if (colorNumber == 1)
             {
                 GameObject.FindGameObjectWithTag("StickAvatarExemple").GetComponent<Renderer>().material.color = color;
-                GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Renderer>().materials[0].color = color;
             }
-            if (colorNumber == 2)
+
+            var flowerChildren = GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponentsInChildren<Transform>();
+            foreach (var child in flowerChildren)
             {
-                GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Renderer>().materials[1].color = color;
-            }
-            var children = GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponentsInChildren<Transform>();
-            foreach (var child in children)
-            {
-                if (child.name == "Blade")
+                if (child.name.Equals("Stem"))
                 {
                     if (colorNumber == 1)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Crossguard")
+                else if (child.name.Equals("Middle"))
                 {
                     if (colorNumber == 2)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Grip")
+                else if (child.name.Contains("Petal"))
                 {
                     if (colorNumber == 3)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Pomel")
+            }
+
+            var swordChildren = GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponentsInChildren<Transform>();
+            foreach (var child in swordChildren)
+            {
+                if (child.name.Equals("Blade"))
+                {
+                    if (colorNumber == 1)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Equals("Crossguard"))
+                {
+                    if (colorNumber == 2)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Equals("Grip"))
+                {
+                    if (colorNumber == 3)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Equals("Pomel"))
                 {
                     if (colorNumber == 4)
                     {
@@ -233,37 +267,59 @@ public class Avatars : MonoBehaviour {
             if (colorNumber == 1)
             {
                 GameObject.FindGameObjectWithTag("StickAvatarExemple2").GetComponent<Renderer>().material.color = color;
-                GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Renderer>().materials[0].color = color;
             }
-            if (colorNumber == 2)
+
+            var flowerChildren = GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponentsInChildren<Transform>();
+            foreach (var child in flowerChildren)
             {
-                GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Renderer>().materials[1].color = color;
-            }
-            var children = GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponentsInChildren<Transform>();
-            foreach (var child in children)
-            {
-                if (child.name == "Blade")
+                if (child.name.Equals("Stem"))
                 {
                     if (colorNumber == 1)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Crossguard")
+                else if (child.name.Equals("Middle"))
                 {
                     if (colorNumber == 2)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Grip")
+                else if (child.name.Contains("Petal"))
                 {
                     if (colorNumber == 3)
                     {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name == "Pomel")
+            }
+
+            var swordChildren = GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponentsInChildren<Transform>();
+            foreach (var child in swordChildren)
+            {
+                if (child.name.Equals("Blade"))
+                {
+                    if (colorNumber == 1)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Equals("Crossguard"))
+                {
+                    if (colorNumber == 2)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Equals("Grip"))
+                {
+                    if (colorNumber == 3)
+                    {
+                        child.GetComponent<Renderer>().material.color = color;
+                    }
+                }
+                else if (child.name.Equals("Pomel"))
                 {
                     if (colorNumber == 4)
                     {
@@ -272,5 +328,43 @@ public class Avatars : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void setPlayer1Size(float size)
+    {
+        Vector3 stickSize;
+
+        player1AvatarSize = size;
+
+        stickSize = GameObject.FindGameObjectWithTag("StickAvatarExemple").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("StickAvatarExemple").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("FlowerAvatarExemple").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("SwordAvatarExemple").GetComponent<Transform>().localScale = stickSize;
+    }
+
+    public void setPlayer2Size(float size)
+    {
+        Vector3 stickSize;
+
+        player2AvatarSize = size;
+
+        stickSize = GameObject.FindGameObjectWithTag("StickAvatarExemple2").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("StickAvatarExemple2").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("FlowerAvatarExemple2").GetComponent<Transform>().localScale = stickSize;
+
+        stickSize = GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponent<Transform>().localScale;
+        stickSize.z = size;
+        GameObject.FindGameObjectWithTag("SwordAvatarExemple2").GetComponent<Transform>().localScale = stickSize;
     }
 }
