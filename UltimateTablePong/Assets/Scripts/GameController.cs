@@ -128,6 +128,7 @@ public class GameController : MonoBehaviour {
         GameObject ball = balls;
         ball.AddComponent<AudioSource>();
         ball.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("wallHit");
+        ball.GetComponent<AudioSource>().playOnAwake = false;
         Vector3 spawnPosition;
         if (player1turn)
         {
@@ -429,7 +430,7 @@ public class GameController : MonoBehaviour {
         stick1.tag = "Stick";
         stick1.AddComponent<AudioSource>();
         stick1.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("palletHit");
-
+        stick1.GetComponent<AudioSource>().playOnAwake = false;
         if (model1.Equals("Flower"))
         {
             if (!colors1[0].Equals(Color.clear))
@@ -504,7 +505,7 @@ public class GameController : MonoBehaviour {
         stick2.tag = "Stick2";
         stick2.AddComponent<AudioSource>();
         stick2.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("palletHit");
-
+        stick2.GetComponent<AudioSource>().playOnAwake = false;
         if (model2.Equals("Flower"))
         {
             if (!colors2[0].Equals(Color.clear))

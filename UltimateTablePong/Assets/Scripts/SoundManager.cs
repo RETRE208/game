@@ -16,9 +16,9 @@ public class SoundManager : MonoBehaviour
     private Dictionary<string, AudioSource> musicSources;
     private Dictionary<string, AudioSource> ambiantSources;
 
-    private float sfxVolume = 0.5F;
-    private float musicVolume = 0.5F;
-    private float ambiantVolume = 0.5F;
+    public float sfxVolume = 0.5F;
+    public float musicVolume = 0.5F;
+    public float ambiantVolume = 0.5F;
 
     System.Random rnd;
 
@@ -49,7 +49,6 @@ public class SoundManager : MonoBehaviour
 
     public void playMusic(string name)
     {
-        musicSource.volume = musicVolume;
         musicSource.pitch = 1f;
         switch (name)
         {
@@ -69,6 +68,6 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        musicSource.volume = musicVolume;
     }
 }

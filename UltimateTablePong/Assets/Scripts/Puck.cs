@@ -102,6 +102,7 @@ public class Puck : MonoBehaviour {
             Vector3 collisionPosition = getNewDirectionAfterCollisionWithObstacle(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size.x);
             particuleController.ObstacleCollision(position);
         }
+        other.GetComponent<AudioSource>().volume = soundManager.sfxVolume;
         other.GetComponent<AudioSource>().Play();
     }
 

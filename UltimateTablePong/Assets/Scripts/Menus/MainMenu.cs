@@ -12,6 +12,9 @@ public class MainMenu : MonoBehaviour {
     private GameObject mainKeybindButton;
     private GameObject mainAvatarsButton;
     private GameObject mainInitialKeyText;
+    private GameObject sfxSlider;
+    private GameObject musicSlider;
+    private GameObject ambiantSlider;
 
     private GameObject scoreText;
     private GameObject playerReady;
@@ -54,6 +57,9 @@ public class MainMenu : MonoBehaviour {
         mainKeybindButton = GameObject.Find("MainKeybindButton");
         mainInitialKeyText = GameObject.Find("MainInitialKeyText");
         mainAvatarsButton = GameObject.Find("MainAvatarsButton");
+        sfxSlider = GameObject.Find("SFXSlider");
+        musicSlider = GameObject.Find("MusicSlider");
+        ambiantSlider = GameObject.Find("AmbiantSlider");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -72,6 +78,9 @@ public class MainMenu : MonoBehaviour {
         mainQuitButton.transform.localScale = new Vector3(0, 0, 0);
         mainKeybindButton.transform.localScale = new Vector3(0, 0, 0);
         mainAvatarsButton.transform.localScale = new Vector3(0, 0, 0);
+        sfxSlider.transform.localScale = new Vector3(0, 0, 0);
+        musicSlider.transform.localScale = new Vector3(0, 0, 0);
+        ambiantSlider.transform.localScale = new Vector3(0, 0, 0);
 
         soundManager.playMusic("mainMenu");
     }
@@ -86,7 +95,13 @@ public class MainMenu : MonoBehaviour {
             mainQuitButton.transform.localScale = new Vector3(1, 1, 1);
             mainKeybindButton.transform.localScale = new Vector3(1, 1, 1);
             mainAvatarsButton.transform.localScale = new Vector3(1, 1, 1);
+            sfxSlider.transform.localScale = new Vector3(1, 1, 1);
+            musicSlider.transform.localScale = new Vector3(1, 1, 1);
+            ambiantSlider.transform.localScale = new Vector3(1, 1, 1);
         }
+        ChangeSfxVolume();
+        ChangeMusicVolume();
+        ChangeAmbiantVolume();
     }
 
     public void DisplayMainMenu()
@@ -98,11 +113,29 @@ public class MainMenu : MonoBehaviour {
         mainQuitButton.SetActive(true);
         mainKeybindButton.SetActive(true);
         mainAvatarsButton.SetActive(true);
+        sfxSlider.SetActive(true);
+        musicSlider.SetActive(true);
+        ambiantSlider.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
         soundManager.playMusic("mainMenu");
+    }
+
+    public void ChangeSfxVolume()
+    {
+        soundManager.changeSfxVolume(sfxSlider.GetComponent<Slider>().value);
+    }
+
+    public void ChangeMusicVolume()
+    {
+        soundManager.changeMusicVolume(musicSlider.GetComponent<Slider>().value);
+    }
+
+    public void ChangeAmbiantVolume()
+    {
+        soundManager.changeAmbiantVolume(ambiantSlider.GetComponent<Slider>().value);
     }
 
     public void HideMainMenu()
@@ -114,10 +147,15 @@ public class MainMenu : MonoBehaviour {
         mainQuitButton.SetActive(false);
         mainKeybindButton.SetActive(false);
         mainAvatarsButton.SetActive(false);
+        sfxSlider.SetActive(false);
+        musicSlider.SetActive(false);
+        ambiantSlider.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);
         gameInfo.transform.localScale = new Vector3(1, 1, 1);
+
+
     }
 
    void DisplaySettingsMenu()
