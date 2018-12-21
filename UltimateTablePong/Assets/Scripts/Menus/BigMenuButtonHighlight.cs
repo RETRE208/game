@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class BigMenuButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     private Vector2 buttonNormalSize;
@@ -57,6 +57,12 @@ public class ButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        AudioSource audio = gameObject.GetComponent<AudioSource>();
+        if (audio != null)
+        {
+            audio.Play();
+        }
+
         shrink = false;
         grow = true;
     }

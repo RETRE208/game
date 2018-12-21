@@ -16,7 +16,7 @@ public class SmallMenuButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPo
     private void Start()
     {
         buttonNormalSize = gameObject.GetComponent<RectTransform>().sizeDelta;
-        buttonBigSize = new Vector2(buttonNormalSize.x + DELTA, buttonNormalSize.y + DELTA);
+        buttonBigSize = new Vector2(buttonNormalSize.x + DELTA, buttonNormalSize.y);
         grow = false;
         shrink = false;
     }
@@ -55,6 +55,12 @@ public class SmallMenuButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        AudioSource audio = gameObject.GetComponent<AudioSource>();
+        if (audio != null)
+        {
+            audio.Play();
+        }
+
         shrink = false;
         grow = true;
     }
