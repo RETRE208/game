@@ -126,6 +126,8 @@ public class GameController : MonoBehaviour {
     void SpawnBall()
     {
         GameObject ball = balls;
+        ball.AddComponent<AudioSource>();
+        ball.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("wallHit");
         Vector3 spawnPosition;
         if (player1turn)
         {
@@ -210,7 +212,6 @@ public class GameController : MonoBehaviour {
 
     public void PuckIsDestroy(Puck puck)
     {
-        soundManager.playSfxNoise("destroyedSound");
         ballCount -= 1;
         numberOfHit = 0;
         if (ballCount <= 0)
@@ -250,7 +251,6 @@ public class GameController : MonoBehaviour {
 
     public void hitStick()
     {
-        soundManager.playSfxNoise("palletHitSound");
         if (!isOnlineMode)
         {
             numberOfHit += 1;
@@ -427,6 +427,8 @@ public class GameController : MonoBehaviour {
         GameObject stick1 = Instantiate(prefab1, new Vector3(), new Quaternion(0.0f, rot1, rot1, 0.0f));
         stick1.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, 42.0f);
         stick1.tag = "Stick";
+        stick1.AddComponent<AudioSource>();
+        stick1.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("palletHit");
 
         if (model1.Equals("Flower"))
         {
@@ -500,6 +502,8 @@ public class GameController : MonoBehaviour {
         GameObject stick2 = Instantiate(prefab2, new Vector3(), new Quaternion(0.0f, rot2, rot2, 0.0f));
         stick2.GetComponent<Rigidbody>().position = new Vector3(-1500.0f, 0.0f, -7745.6f);
         stick2.tag = "Stick2";
+        stick2.AddComponent<AudioSource>();
+        stick2.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("palletHit");
 
         if (model2.Equals("Flower"))
         {

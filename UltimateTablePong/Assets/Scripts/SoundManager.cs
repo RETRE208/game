@@ -34,80 +34,22 @@ public class SoundManager : MonoBehaviour
 
     public void changeSfxVolume(float volume)
     {
-        changeVolumeToDictionary(volume, sfxSources);
+        sfxVolume = volume;
     }
 
     public void changeMusicVolume(float volume)
     {
-        changeVolumeToDictionary(volume, musicSources);
+        musicVolume = volume;
     }
 
     public void changeAmbiantVolume(float volume)
     {
-        changeVolumeToDictionary(volume, ambiantSources);
-    }
-
-    private void changeVolumeToDictionary(float volume, Dictionary<string, AudioSource> dictionary)
-    {
-        foreach (KeyValuePair<string, AudioSource> entry in dictionary)
-        {
-            entry.Value.volume = volume;
-        }
-    }
-
-    private void AddSound(AudioSource audioSource, float volume, bool loop)
-    {
-        audioSource.volume = volume;
-        audioSource.loop = loop;
-    }
-
-    private void AddSoundToDictionary(string name, AudioSource audioSource, Dictionary<string, AudioSource> dictionary)
-    {
-        dictionary.Add(name, audioSource);
-    }
-
-    public void playSfxNoise(string name)
-    {
-        /*switch (name)
-        {
-            case "bumperHit":
-                int random = rnd.Next(1,3);
-                switch (random)
-                {
-                    case 1:
-                        sfxSource.pitch = 1.0f;
-                        break;
-                    case 2:
-                        sfxSource.pitch = 0.90f;
-                        break;
-                }
-                sfxSource.clip = Resources.Load<AudioClip>("bumperHit");
-                break;
-            case "wallHitSound":
-                sfxSource.pitch = 1.0f;
-                sfxSource.clip = Resources.Load<AudioClip>("wallHit");
-                break;
-            case "palletHitSound":
-                sfxSource.pitch = 1.0f;
-                sfxSource.clip = Resources.Load<AudioClip>("palletHit");
-                break;
-            case "destroyedSound":
-                sfxSource.pitch = 0.80f;
-                sfxSource.clip = Resources.Load<AudioClip>("wallHit");
-                break;
-        }
-        sfxSource.Play();
-        //sfxSource.pitch = 1.0f;*/
-    }
-
-    public void playSfxNoiseAtPosition(string name, Vector3 position)
-    {
-        playSoundAtPosition(name, position, sfxSources);
+        ambiantVolume = volume;
     }
 
     public void playMusic(string name)
     {
-        musicSource.volume = 0.5f;
+        musicSource.volume = musicVolume;
         musicSource.pitch = 1f;
         switch (name)
         {
@@ -122,11 +64,6 @@ public class SoundManager : MonoBehaviour
                 break;
         }
         musicSource.Play();
-    }
-
-    private void playSoundAtPosition(string name, Vector3 position, Dictionary<string, AudioSource> discionary)
-    {
-        AudioSource.PlayClipAtPoint(discionary[name].clip, position);
     }
 
     // Update is called once per frame

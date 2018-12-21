@@ -40,7 +40,6 @@ public class ParticuleController : MonoBehaviour {
 
     public void ObstacleCollision(Vector3 collisionPosition)
     {
-        soundManager.playSfxNoise("bumperHit1Sound");
         if (currentObstacleParticle >= OBSTACLE_PARTICULES_IN_POOL) currentObstacleParticle = 0;
 
         ParticleSystem.ShapeModule shape = obstacleCollisionParticles[currentObstacleParticle].GetComponent<ParticleSystem>().shape;
