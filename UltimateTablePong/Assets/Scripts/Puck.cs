@@ -12,10 +12,13 @@ public class Puck : MonoBehaviour {
     private GameController gameController;
     private ParticuleController particuleController;
 
+    private SoundManager soundManager;
+
     public float speed;
 
 	// Use this for initialization
 	void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -99,6 +102,8 @@ public class Puck : MonoBehaviour {
             Vector3 collisionPosition = getNewDirectionAfterCollisionWithObstacle(other.gameObject.GetComponent<Rigidbody>().position, other.bounds.size.x);
             particuleController.ObstacleCollision(position);
         }
+        other.GetComponent<AudioSource>().volume = soundManager.sfxVolume;
+        other.GetComponent<AudioSource>().Play();
     }
 
     void AddScore(int newScoreValue)

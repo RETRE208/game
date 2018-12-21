@@ -8,6 +8,7 @@ public class LoadingScreen : MonoBehaviour {
     private GameObject loadingPanel;
     private GameObject loadingText;
     private GameObject loadingProgress;
+    private GameObject arcadeAmbiance;
 
     private GameObject scoreText;
     private GameObject playerReady;
@@ -16,8 +17,12 @@ public class LoadingScreen : MonoBehaviour {
     private float progressionValue;
     private bool loadingStatus;
 
+    private SoundManager soundManager;
+
 	// Use this for initialization
 	void Start () {
+        arcadeAmbiance = GameObject.Find("ArcadeAmbiance");
+        soundManager = FindObjectOfType<SoundManager>();
         loadingStatus = false;
         progressionValue = 0;
 
@@ -88,5 +93,9 @@ public class LoadingScreen : MonoBehaviour {
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(1, 1, 1);
         gameInfo.transform.localScale = new Vector3(1, 1, 1);
+
+        soundManager.playMusic("inGame");
+        arcadeAmbiance.GetComponent<AudioSource>().volume = soundManager.ambiantVolume;
+        arcadeAmbiance.GetComponent<AudioSource>().Play();
     }
 }
