@@ -95,6 +95,7 @@ public class LoadingScreen : MonoBehaviour {
         gameInfo.transform.localScale = new Vector3(1, 1, 1);
 
         soundManager.playMusic("inGame");
+        arcadeAmbiance.GetComponent<AudioSource>().volume = soundManager.ambiantVolume;
         arcadeAmbiance.GetComponent<AudioSource>().Play();
     }
 }

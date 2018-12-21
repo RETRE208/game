@@ -129,7 +129,7 @@ public class MainMenu : MonoBehaviour {
         ChangeAmbiantVolume();
 
         sfxVolumeValue.GetComponent<Text>().text = ((int)(sfxSlider.GetComponent<Slider>().value * 100)).ToString();
-        musicVolumeValue.GetComponent<Text>().text = ((int)(musicSlider.GetComponent<Slider>().value * 100)).ToString();
+        musicVolumeValue.GetComponent<Text>().text = ((int)(musicSlider.GetComponent<Slider>().value * 200)).ToString();
         ambiantVolumeValue.GetComponent<Text>().text = ((int)(ambiantSlider.GetComponent<Slider>().value * 100)).ToString();
     }
 
@@ -170,7 +170,7 @@ public class MainMenu : MonoBehaviour {
 
     public void ChangeAmbiantVolume()
     {
-        soundManager.changeAmbiantVolume(ambiantSlider.GetComponent<Slider>().value);
+        soundManager.changeAmbiantVolume(ambiantSlider.GetComponent<Slider>().value * 2);
     }
 
     public void HideMainMenu()
