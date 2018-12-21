@@ -16,6 +16,13 @@ public class MainMenu : MonoBehaviour {
     private GameObject musicSlider;
     private GameObject ambiantSlider;
 
+    private GameObject sfxVolumeText;
+    private GameObject sfxVolumeValue;
+    private GameObject musicVolumeText;
+    private GameObject musicVolumeValue;
+    private GameObject ambiantVolumeText;
+    private GameObject ambiantVolumeValue;
+
     private GameObject scoreText;
     private GameObject playerReady;
     private GameObject gameInfo;
@@ -60,6 +67,12 @@ public class MainMenu : MonoBehaviour {
         sfxSlider = GameObject.Find("SFXSlider");
         musicSlider = GameObject.Find("MusicSlider");
         ambiantSlider = GameObject.Find("AmbiantSlider");
+        sfxVolumeText = GameObject.Find("SFXVolumeText");
+        sfxVolumeValue = GameObject.Find("SFXVolumeValue");
+        musicVolumeText = GameObject.Find("MusicVolumeText");
+        musicVolumeValue = GameObject.Find("MusicVolumeValue");
+        ambiantVolumeText = GameObject.Find("AmbiantVolumeText");
+        ambiantVolumeValue = GameObject.Find("AmbiantVolumeValue");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -81,6 +94,12 @@ public class MainMenu : MonoBehaviour {
         sfxSlider.transform.localScale = new Vector3(0, 0, 0);
         musicSlider.transform.localScale = new Vector3(0, 0, 0);
         ambiantSlider.transform.localScale = new Vector3(0, 0, 0);
+        sfxVolumeText.transform.localScale = new Vector3(0, 0, 0);
+        sfxVolumeValue.transform.localScale = new Vector3(0, 0, 0);
+        musicVolumeText.transform.localScale = new Vector3(0, 0, 0);
+        musicVolumeValue.transform.localScale = new Vector3(0, 0, 0);
+        ambiantVolumeText.transform.localScale = new Vector3(0, 0, 0);
+        ambiantVolumeValue.transform.localScale = new Vector3(0, 0, 0);
 
         soundManager.playMusic("mainMenu");
     }
@@ -98,10 +117,20 @@ public class MainMenu : MonoBehaviour {
             sfxSlider.transform.localScale = new Vector3(1, 1, 1);
             musicSlider.transform.localScale = new Vector3(1, 1, 1);
             ambiantSlider.transform.localScale = new Vector3(1, 1, 1);
+            sfxVolumeText.transform.localScale = new Vector3(1, 1, 1);
+            sfxVolumeValue.transform.localScale = new Vector3(1, 1, 1);
+            musicVolumeText.transform.localScale = new Vector3(1, 1, 1);
+            musicVolumeValue.transform.localScale = new Vector3(1, 1, 1);
+            ambiantVolumeText.transform.localScale = new Vector3(1, 1, 1);
+            ambiantVolumeValue.transform.localScale = new Vector3(1, 1, 1);
         }
         ChangeSfxVolume();
         ChangeMusicVolume();
         ChangeAmbiantVolume();
+
+        sfxVolumeValue.GetComponent<Text>().text = ((int)(sfxSlider.GetComponent<Slider>().value * 100)).ToString();
+        musicVolumeValue.GetComponent<Text>().text = ((int)(musicSlider.GetComponent<Slider>().value * 100)).ToString();
+        ambiantVolumeValue.GetComponent<Text>().text = ((int)(ambiantSlider.GetComponent<Slider>().value * 100)).ToString();
     }
 
     public void DisplayMainMenu()
@@ -116,6 +145,12 @@ public class MainMenu : MonoBehaviour {
         sfxSlider.SetActive(true);
         musicSlider.SetActive(true);
         ambiantSlider.SetActive(true);
+        sfxVolumeText.SetActive(true);
+        sfxVolumeValue.SetActive(true);
+        musicVolumeText.SetActive(true);
+        musicVolumeValue.SetActive(true);
+        ambiantVolumeText.SetActive(true);
+        ambiantVolumeValue.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
@@ -150,6 +185,12 @@ public class MainMenu : MonoBehaviour {
         sfxSlider.SetActive(false);
         musicSlider.SetActive(false);
         ambiantSlider.SetActive(false);
+        sfxVolumeText.SetActive(false);
+        sfxVolumeValue.SetActive(false);
+        musicVolumeText.SetActive(false);
+        musicVolumeValue.SetActive(false);
+        ambiantVolumeText.SetActive(false);
+        ambiantVolumeValue.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);
