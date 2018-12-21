@@ -23,6 +23,9 @@ public class MainMenu : MonoBehaviour {
     private GameObject ambiantVolumeText;
     private GameObject ambiantVolumeValue;
 
+    private GameObject musicChoiceText;
+    private GameObject musicDropdown;
+
     private GameObject scoreText;
     private GameObject playerReady;
     private GameObject gameInfo;
@@ -73,6 +76,8 @@ public class MainMenu : MonoBehaviour {
         musicVolumeValue = GameObject.Find("MusicVolumeValue");
         ambiantVolumeText = GameObject.Find("AmbiantVolumeText");
         ambiantVolumeValue = GameObject.Find("AmbiantVolumeValue");
+        musicChoiceText = GameObject.Find("MusicChoiceText");
+        musicDropdown = GameObject.Find("MusicDropdown");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -100,6 +105,8 @@ public class MainMenu : MonoBehaviour {
         musicVolumeValue.transform.localScale = new Vector3(0, 0, 0);
         ambiantVolumeText.transform.localScale = new Vector3(0, 0, 0);
         ambiantVolumeValue.transform.localScale = new Vector3(0, 0, 0);
+        musicChoiceText.transform.localScale = new Vector3(0, 0, 0);
+        musicDropdown.transform.localScale = new Vector3(0, 0, 0);
 
         soundManager.playMusic("mainMenu");
     }
@@ -123,6 +130,9 @@ public class MainMenu : MonoBehaviour {
             musicVolumeValue.transform.localScale = new Vector3(1, 1, 1);
             ambiantVolumeText.transform.localScale = new Vector3(1, 1, 1);
             ambiantVolumeValue.transform.localScale = new Vector3(1, 1, 1);
+            musicChoiceText.transform.localScale = new Vector3(1, 1, 1);
+            musicDropdown.transform.localScale = new Vector3(1, 1, 1);
+
         }
         ChangeSfxVolume();
         ChangeMusicVolume();
@@ -131,6 +141,7 @@ public class MainMenu : MonoBehaviour {
         sfxVolumeValue.GetComponent<Text>().text = ((int)(sfxSlider.GetComponent<Slider>().value * 100)).ToString();
         musicVolumeValue.GetComponent<Text>().text = ((int)(musicSlider.GetComponent<Slider>().value * 200)).ToString();
         ambiantVolumeValue.GetComponent<Text>().text = ((int)(ambiantSlider.GetComponent<Slider>().value * 100)).ToString();
+        soundManager.chooseInGameMusic(musicDropdown.GetComponent<Dropdown>().options[musicDropdown.GetComponent<Dropdown>().value].text);
     }
 
     public void DisplayMainMenu()
@@ -151,6 +162,8 @@ public class MainMenu : MonoBehaviour {
         musicVolumeValue.SetActive(true);
         ambiantVolumeText.SetActive(true);
         ambiantVolumeValue.SetActive(true);
+        musicChoiceText.SetActive(true);
+        musicDropdown.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
@@ -191,12 +204,12 @@ public class MainMenu : MonoBehaviour {
         musicVolumeValue.SetActive(false);
         ambiantVolumeText.SetActive(false);
         ambiantVolumeValue.SetActive(false);
+        musicChoiceText.SetActive(false);
+        musicDropdown.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);
         gameInfo.transform.localScale = new Vector3(1, 1, 1);
-
-
     }
 
    void DisplaySettingsMenu()

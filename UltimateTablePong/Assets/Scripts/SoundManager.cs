@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     public float sfxVolume = 0.5F;
     public float musicVolume = 0.5F;
     public float ambiantVolume = 0.5F;
+    private string chosenSong = "";
 
     System.Random rnd;
 
@@ -47,6 +48,11 @@ public class SoundManager : MonoBehaviour
         ambiantVolume = volume;
     }
 
+    public void chooseInGameMusic(string songName)
+    {
+        chosenSong = songName;
+    }
+
     public void playMusic(string name)
     {
         musicSource.pitch = 1f;
@@ -56,7 +62,15 @@ public class SoundManager : MonoBehaviour
                 musicSource.clip = Resources.Load<AudioClip>("Kick_Shock");
                 break;
             case "inGame":
-                musicSource.clip = Resources.Load<AudioClip>("Barge");
+                switch (chosenSong)
+                {
+                    case "Barge":
+                        musicSource.clip = Resources.Load<AudioClip>("Barge");
+                        break;
+                    case "Moskito":
+                        musicSource.clip = Resources.Load<AudioClip>("Moskito");
+                        break;
+                }
                 break;
             case "gameEnd":
                 musicSource.clip = Resources.Load<AudioClip>("Detour_Sting");
@@ -68,6 +82,7 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(musicVolume);
         musicSource.volume = musicVolume;
     }
 }
