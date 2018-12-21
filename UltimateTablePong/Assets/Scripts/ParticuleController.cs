@@ -23,7 +23,10 @@ public class ParticuleController : MonoBehaviour {
     private int currentStickParticle;
     private int currentBallParticle;
 
+    private SoundManager soundManager;
+
     void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         obstacleCollisionParticles = new List<GameObject>();
         stickCollisionParticles = new List<GameObject>();
         ballCollisionParticles = new List<GameObject>();

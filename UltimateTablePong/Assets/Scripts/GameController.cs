@@ -31,12 +31,15 @@ public class GameController : MonoBehaviour {
     private bool isPlayer2Connected;
     private BallSpawner ballSpawner;
 
+    private SoundManager soundManager;
+
     public bool aiMode;
 
     public GameObject stickPrefab;
 
     // Use this for initialization
     void Start () {
+        soundManager = FindObjectOfType<SoundManager>();
         pauseMenu = FindObjectOfType<PauseMenu>();
         endMenu = FindObjectOfType<EndMenu>();
 
@@ -124,6 +127,9 @@ public class GameController : MonoBehaviour {
     void SpawnBall()
     {
         GameObject ball = balls;
+        ball.AddComponent<AudioSource>();
+        ball.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("wallHit");
+        ball.GetComponent<AudioSource>().playOnAwake = false;
         Vector3 spawnPosition;
         if (player1turn)
         {
@@ -437,6 +443,9 @@ public class GameController : MonoBehaviour {
         stickSize.z = size1;
         stick1.GetComponent<Transform>().localScale = stickSize;
 
+        stick1.AddComponent<AudioSource>();
+        stick1.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("palletHit");
+        stick1.GetComponent<AudioSource>().playOnAwake = false;
         if (model1.Equals("Flower"))
         {
             var children = stick1.GetComponentsInChildren<Transform>();
@@ -540,6 +549,9 @@ public class GameController : MonoBehaviour {
         stickSize.z = size2;
         stick2.GetComponent<Transform>().localScale = stickSize;
 
+        stick2.AddComponent<AudioSource>();
+        stick2.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("palletHit");
+        stick2.GetComponent<AudioSource>().playOnAwake = false;
         if (model2.Equals("Flower"))
         {
             var children = stick2.GetComponentsInChildren<Transform>();
