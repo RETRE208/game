@@ -628,11 +628,13 @@ public class GameController : MonoBehaviour {
         stick2Script.UpdateControls();
     }
 
-    public void SpawnObstacles(float width)
+    public void SpawnObstacles()
     {
         Vector3 spawnPosition;
+        float playerOneZ = -530.0f;
+        float playerTwoZ = -8250.0f;
         float x = -132.0f;
-        float z = width;
+        float z = 0.0f;
         spawnPosition = new Vector3(x, 100.0f, z);
         float randomX = 0.0f;
         float randomZ = 0.0f;
@@ -643,15 +645,19 @@ public class GameController : MonoBehaviour {
             {
                 randomX = UnityEngine.Random.Range(-430.0f, 430.0f);
                 randomZ = UnityEngine.Random.Range(-250.0f, 250.0f);
-                spawnPosition = new Vector3(x + randomX, 100.0f, z + randomZ);
+                spawnPosition = new Vector3(x + randomX, 100.0f, playerOneZ + randomZ);
                 GameObject obst = obstacle;
+                GameObject obst2 = obstacle;
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(obst, spawnPosition, spawnRotation);
-
-                z += 543;
+                spawnPosition = new Vector3(x + randomX, 100.0f, playerTwoZ + randomZ);
+                Instantiate(obst2, spawnPosition, spawnRotation);
+                playerOneZ += 543;
+                playerTwoZ += 543;
             }
             x += 936;
-            z = width;
+            playerOneZ = -530.0f;
+            playerTwoZ = -8250.0f;
         }
     }
    
