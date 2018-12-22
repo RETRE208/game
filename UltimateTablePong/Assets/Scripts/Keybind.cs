@@ -49,8 +49,6 @@ public class Keybind : MonoBehaviour {
             Debug.Log("Cannot find 'MainMenu' object");
         }
 
-        Time.timeScale = 0;
-
         keybindsMenu = GameObject.Find("SettingKeybinds");
         keybindsMenu.SetActive(false);
 
@@ -67,7 +65,6 @@ public class Keybind : MonoBehaviour {
 
     public void DisplayKeybindMenu()
     {
-        Time.timeScale = 0;
         keybindsMenu.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
@@ -78,7 +75,6 @@ public class Keybind : MonoBehaviour {
 
     public void HideKeybindMenu()
     {
-        Time.timeScale = 1;
         keybindsMenu.SetActive(false);
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);

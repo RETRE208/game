@@ -107,7 +107,7 @@ public class Avatars : MonoBehaviour {
         else
         {
             player1Avatar = normalStickAvatar;
-            camPosZ = 2500.0f;
+            camPosZ = 4000.0f;
             player1Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         player1AvatarModel = choosedModel;
@@ -135,7 +135,7 @@ public class Avatars : MonoBehaviour {
         else
         {
             player2Avatar = normalStickAvatar;
-            camPosZ = 2500.0f;
+            camPosZ = 4000.0f;
             player2Cam.transform.position = new Vector3(camPosX, camPosY, camPosZ);
         }
         player2AvatarModel = choosedModel;
@@ -166,7 +166,6 @@ public class Avatars : MonoBehaviour {
 
     public void DisplayMenu()
     {
-        Time.timeScale = 0;
         avatarMenu.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
@@ -176,7 +175,6 @@ public class Avatars : MonoBehaviour {
 
     public void HideAvatarMenu()
     {
-        Time.timeScale = 1;
         avatarMenu.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);

@@ -12,7 +12,6 @@ public class ColorModifier : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Time.timeScale = 0;
         colorPicker = GameObject.FindGameObjectWithTag("ColorPicker");
         cUIColorPicker = colorPicker.GetComponent<CUIColorPicker>();
 
@@ -21,14 +20,12 @@ public class ColorModifier : MonoBehaviour {
 
     public void EnableColorPicker(string name)
     {
-        Time.timeScale = 1;
         currentColorBeingModified = name;
         colorPicker.SetActive(true);
     }
 
     public void DisableColorPicker()
     {
-        Time.timeScale = 1;
         GameObject button = GameObject.FindGameObjectWithTag(currentColorBeingModified);
 
         cUIColorPicker = colorPicker.GetComponent<CUIColorPicker>();

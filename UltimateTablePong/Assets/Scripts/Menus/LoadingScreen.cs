@@ -74,7 +74,6 @@ public class LoadingScreen : MonoBehaviour {
 
     public void displayLoadingScreen()
     {
-        Time.timeScale = 0;
         loadingPanel.SetActive(true);
         loadingText.SetActive(true);
         loadingProgress.SetActive(true);
@@ -86,7 +85,6 @@ public class LoadingScreen : MonoBehaviour {
 
     public void hideLoadingScreen()
     {
-        Time.timeScale = 1;
         loadingPanel.SetActive(false);
         loadingText.SetActive(false);
         loadingProgress.SetActive(false);
