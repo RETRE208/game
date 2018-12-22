@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour {
     private BallSpawner ballSpawner;
 
     private SoundManager soundManager;
+    private GameObject oneUpSound;
 
     public bool aiMode;
 
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        oneUpSound = GameObject.Find("OneUpSound");
         soundManager = FindObjectOfType<SoundManager>();
         pauseMenu = FindObjectOfType<PauseMenu>();
         endMenu = FindObjectOfType<EndMenu>();
@@ -254,18 +256,21 @@ public class GameController : MonoBehaviour {
 
     public void hitStick()
     {
+        oneUpSound.GetComponent<AudioSource>().volume = soundManager.sfxVolume;
         if (!isOnlineMode)
         {
             numberOfHit += 1;
             if (ballCount == 1 && numberOfHit == 3)
             {
                 soundManager.changeMusicPitch(1.1f);
+                oneUpSound.GetComponent<AudioSource>().Play();
                 SpawnBall();
                 numberOfHit = 0;
             }
             if (ballCount == 2 && numberOfHit == 5)
             {
                 soundManager.changeMusicPitch(1.2f);
+                oneUpSound.GetComponent<AudioSource>().Play();
                 SpawnBall();
                 numberOfHit = 0;
             }
@@ -276,6 +281,7 @@ public class GameController : MonoBehaviour {
             if (numberOfHit == 4)
             {
                 soundManager.changeMusicPitch(1.1f);
+                oneUpSound.GetComponent<AudioSource>().Play();
                 SpawnBall();
                 numberOfHit = 0;
             }

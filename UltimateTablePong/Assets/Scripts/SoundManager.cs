@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
     private string chosenSong = "";
 
     private float lastDesiredPitch = 1F;
+    private bool musicPlaying = false;
 
     System.Random rnd;
 
@@ -60,6 +61,11 @@ public class SoundManager : MonoBehaviour
         chosenSong = songName;
     }
 
+    public void changeMusic(string songName)
+    {
+
+    }
+
     public void playMusic(string name)
     {
         switch (name)
@@ -82,6 +88,7 @@ public class SoundManager : MonoBehaviour
                 musicSource.clip = Resources.Load<AudioClip>("Detour_Sting");
                 break;
         }
+        musicPlaying = true;
         musicSource.Play();
     }
 
