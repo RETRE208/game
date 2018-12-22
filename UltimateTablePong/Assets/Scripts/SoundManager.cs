@@ -8,6 +8,13 @@ public class SoundManager : MonoBehaviour
 
     private AudioClip sfxHitPin1Clip;
 
+    private AudioSource introMusic;
+    private AudioSource inGame1;
+    private AudioSource inGame2;
+    private AudioSource endGame;
+
+    private AudioSource currentSong;
+
     private AudioSource sfxSource;
     private AudioSource musicSource;
     private AudioSource ambiantSource;
@@ -23,17 +30,14 @@ public class SoundManager : MonoBehaviour
     private string chosenSong = "";
 
     private float lastDesiredPitch = 1F;
-    private bool musicPlaying = false;
-
-    System.Random rnd;
 
     // Use this for initialization
     void Start()
     {
-        sfxSource = GetComponent<AudioSource>();
-        musicSource = GetComponent<AudioSource>();
-
-        rnd = new System.Random();
+        introMusic = GameObject.Find("IntroMusic").GetComponent<AudioSource>();
+        inGame1 = GameObject.Find("InGame1Music").GetComponent<AudioSource>();
+        inGame2 = GameObject.Find("InGame2Music").GetComponent<AudioSource>();
+        endGame = GameObject.Find("EndClipMusic").GetComponent<AudioSource>();
     }
 
     public void changeMusicPitch(float pitch)
@@ -61,49 +65,57 @@ public class SoundManager : MonoBehaviour
         chosenSong = songName;
     }
 
-    public void changeMusic(string songName)
-    {
-
-    }
-
     public void playMusic(string name)
     {
+        introMusic.Stop();
+        inGame1.Stop();
+        inGame2.Stop();
+        endGame.Stop();
         switch (name)
         {
             case "mainMenu":
-                musicSource.clip = Resources.Load<AudioClip>("Kick_Shock");
+                introMusic.Play();
+                currentSong = introMusic;
                 break;
             case "inGame":
                 switch (chosenSong)
                 {
                     case "Barge":
-                        musicSource.clip = Resources.Load<AudioClip>("Barge");
+                        inGame1.Play();
+                        currentSong = inGame1;
                         break;
                     case "Moskito":
-                        musicSource.clip = Resources.Load<AudioClip>("Moskito");
+                        inGame2.Play();
+                        currentSong = inGame2;
                         break;
                 }
                 break;
             case "gameEnd":
-                musicSource.clip = Resources.Load<AudioClip>("Detour_Sting");
+                endGame.Play();
+                currentSong = endGame;
                 break;
         }
-        musicPlaying = true;
-        musicSource.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (musicSource.pitch < lastDesiredPitch)
+        if (musicPitch < lastDesiredPitch)
         {
-            musicSource.pitch += 0.01F;
+            musicPitch += 0.01F;
         }
-        else if (musicSource.pitch > lastDesiredPitch)
+        else if (musicPitch > lastDesiredPitch)
         {
-            musicSource.pitch -= 0.01F;
+            musicPitch -= 0.01F;
         }
+        introMusic.pitch = musicPitch;
+        inGame1.pitch = musicPitch;
+        inGame2.pitch = musicPitch;
+        endGame.pitch = musicPitch;
 
-        musicSource.volume = musicVolume;
+        introMusic.volume = musicVolume;
+        inGame1.volume = musicVolume;
+        inGame2.volume = musicVolume;
+        endGame.volume = musicVolume;
     }
 }
