@@ -5249,6 +5249,42 @@ Prefab:
       propertyPath: m_Name
       value: SwordStick2
       objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54122010363964620, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
     - {fileID: 65722732412994244, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
@@ -5454,6 +5490,55 @@ Prefab:
     - target: {fileID: 1222926493103104, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
       propertyPath: m_Name
       value: SwordStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 33022550663374840, guid: 41770c08e7f12864b9dc0fbb28be169b,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758255409964720, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54122010363964620, guid: 41770c08e7f12864b9dc0fbb28be169b, type: 2}
