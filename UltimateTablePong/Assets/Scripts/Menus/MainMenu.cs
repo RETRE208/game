@@ -35,11 +35,15 @@ public class MainMenu : MonoBehaviour {
     private Avatars avatars;
 
     private SoundManager soundManager;
+
+    private GameObject arcadeAmbiance;
+    
     
     private bool onTitleScreen = true;
 
     // Use this for initialization
     void Start () {
+        arcadeAmbiance = GameObject.Find("ArcadeAmbiance");
         soundManager = FindObjectOfType<SoundManager>();
         settingsMenu = GameObject.FindObjectOfType<SettingsMenu>();
         GameObject keybindController = GameObject.FindGameObjectWithTag("KeybindController");
@@ -169,6 +173,7 @@ public class MainMenu : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
         soundManager.playMusic("mainMenu");
+        arcadeAmbiance.GetComponent<AudioSource>().Stop();
     }
 
     public void ChangeSfxVolume()

@@ -19,18 +19,25 @@ public class SoundManager : MonoBehaviour
     public float sfxVolume = 0.5F;
     public float musicVolume = 0.5F;
     public float ambiantVolume = 0.5F;
+    public float musicPitch = 1F;
     private string chosenSong = "";
+
+    private float lastDesiredPitch = 1F;
 
     System.Random rnd;
 
     // Use this for initialization
     void Start()
     {
-
         sfxSource = GetComponent<AudioSource>();
         musicSource = GetComponent<AudioSource>();
 
         rnd = new System.Random();
+    }
+
+    public void changeMusicPitch(float pitch)
+    {
+        lastDesiredPitch = pitch;
     }
 
     public void changeSfxVolume(float volume)
@@ -55,7 +62,6 @@ public class SoundManager : MonoBehaviour
 
     public void playMusic(string name)
     {
-        musicSource.pitch = 1f;
         switch (name)
         {
             case "mainMenu":
@@ -82,7 +88,15 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(musicVolume);
+        if (musicSource.pitch < lastDesiredPitch)
+        {
+            musicSource.pitch += 0.01F;
+        }
+        else if (musicSource.pitch > lastDesiredPitch)
+        {
+            musicSource.pitch -= 0.01F;
+        }
+
         musicSource.volume = musicVolume;
     }
 }
