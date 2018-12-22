@@ -665,6 +665,8 @@ public class GameController : MonoBehaviour {
             playerOneZ = -530.0f;
             playerTwoZ = -8250.0f;
         }
+        string id = GenerateSeed();
+        SaveSeed(id);
     }
 
     private void DestroyAllObstacles()
@@ -682,12 +684,13 @@ public class GameController : MonoBehaviour {
         DestroyAllObstacles();
     }
 
-    private string CreateSeed()
+    private string GenerateSeed()
     {
-        string seed;
-        DateTime d = DateTime.Now;
-        seed = d.ToLongTimeString();
-        return seed;
+        return DateTime.Now.ToString("yyyyMMddHHmmssf");
     }
 
+    public void SaveSeed(string id)
+    {
+
+    }
 }
