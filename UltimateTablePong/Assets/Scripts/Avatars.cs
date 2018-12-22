@@ -166,7 +166,6 @@ public class Avatars : MonoBehaviour {
 
     public void DisplayMenu()
     {
-        Time.timeScale = 0;
         avatarMenu.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
@@ -176,7 +175,6 @@ public class Avatars : MonoBehaviour {
 
     public void HideAvatarMenu()
     {
-        Time.timeScale = 1;
         avatarMenu.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);

@@ -109,6 +109,8 @@ public class MainMenu : MonoBehaviour {
         musicDropdown.transform.localScale = new Vector3(0, 0, 0);
 
         soundManager.playMusic("mainMenu");
+
+        Time.timeScale = 1;
     }
 	
 	// Update is called once per frame
@@ -169,6 +171,8 @@ public class MainMenu : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
         soundManager.playMusic("mainMenu");
+
+        Time.timeScale = 1;
     }
 
     public void ChangeSfxVolume()

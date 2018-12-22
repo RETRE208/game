@@ -51,7 +51,6 @@ public class SettingsMenu : MonoBehaviour {
         loadingScreen = GameObject.FindObjectOfType<LoadingScreen>();
         ai = GameObject.FindObjectOfType<AI>();
 
-        Time.timeScale = 0;
         settingsPanel = GameObject.Find("SettingsPanel");
         settingsText = GameObject.Find("SettingsText");
         settingsStartButton = GameObject.Find("SettingsStartButton");
@@ -122,7 +121,7 @@ public class SettingsMenu : MonoBehaviour {
 
     public void DisplaySettingsMenu()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         settingsPanel.SetActive(true);
         settingsText.SetActive(true);
         settingsStartButton.SetActive(true);
