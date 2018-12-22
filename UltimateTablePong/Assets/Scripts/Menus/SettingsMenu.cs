@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 public class SettingsMenu : MonoBehaviour {
 
     private GameObject settingsPanel;
+    private GameObject settingsBackground;
     private GameObject settingsText;
     private GameObject settingsStartButton;
     private GameObject settingsCreateOnlineButton;
@@ -52,6 +53,7 @@ public class SettingsMenu : MonoBehaviour {
         ai = GameObject.FindObjectOfType<AI>();
 
         settingsPanel = GameObject.Find("SettingsPanel");
+        settingsBackground = GameObject.Find("SettingsBackground");
         settingsText = GameObject.Find("SettingsText");
         settingsStartButton = GameObject.Find("SettingsStartButton");
         settingsCreateOnlineButton = GameObject.Find("SettingsCreateOnlineButton");
@@ -123,6 +125,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         Time.timeScale = 1;
         settingsPanel.SetActive(true);
+        settingsBackground.SetActive(true);
         settingsText.SetActive(true);
         settingsStartButton.SetActive(true);
         settingsCreateOnlineButton.SetActive(true);
@@ -143,6 +146,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         Time.timeScale = 1;
         settingsPanel.SetActive(false);
+        settingsBackground.SetActive(false);
         settingsText.SetActive(false);
         settingsStartButton.SetActive(false);
         settingsCreateOnlineButton.SetActive(false);
