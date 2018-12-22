@@ -23,6 +23,10 @@ public class MainMenu : MonoBehaviour {
     private GameObject musicVolumeValue;
     private GameObject ambiantVolumeText;
     private GameObject ambiantVolumeValue;
+    private GameObject seedText;
+    private GameObject OkSeed;
+    private GameObject InputFieldSeed;
+    private GameObject InputSeedIDText;
 
     private GameObject musicChoiceText;
     private GameObject musicDropdown;
@@ -34,6 +38,8 @@ public class MainMenu : MonoBehaviour {
     private SettingsMenu settingsMenu;
     private Keybind keybindsMenu;
     private Avatars avatars;
+    private GameController gameController;
+    public InputField inputSeed;
 
     private SoundManager soundManager;
     
@@ -47,17 +53,10 @@ public class MainMenu : MonoBehaviour {
         if (keybindController != null)
         {
             keybindsMenu = keybindController.GetComponent<Keybind>();
-            if (keybindsMenu == null)
-            {
-                Debug.Log("Cannot find 'Keybind' script");
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot find 'KeybindController' object");
         }
 
         avatars = GameObject.FindObjectOfType<Avatars>();
+        gameController = GameObject.FindObjectOfType<GameController>();
 
         Time.timeScale = 0;
         
@@ -80,6 +79,10 @@ public class MainMenu : MonoBehaviour {
         ambiantVolumeValue = GameObject.Find("AmbiantVolumeValue");
         musicChoiceText = GameObject.Find("MusicChoiceText");
         musicDropdown = GameObject.Find("MusicDropdown");
+        seedText = GameObject.Find("SeedText");
+        OkSeed = GameObject.Find("OkSeed");
+        InputFieldSeed = GameObject.Find("InputFieldSeed");
+        InputSeedIDText = GameObject.Find("InputSeedIDText");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -109,6 +112,10 @@ public class MainMenu : MonoBehaviour {
         ambiantVolumeValue.transform.localScale = new Vector3(0, 0, 0);
         musicChoiceText.transform.localScale = new Vector3(0, 0, 0);
         musicDropdown.transform.localScale = new Vector3(0, 0, 0);
+        seedText.transform.localScale = new Vector3(0, 0, 0);
+        OkSeed.transform.localScale = new Vector3(0, 0, 0);
+        InputFieldSeed.transform.localScale = new Vector3(0, 0, 0);
+        InputSeedIDText.transform.localScale = new Vector3(0, 0, 0);
 
         soundManager.playMusic("mainMenu");
 
@@ -136,7 +143,10 @@ public class MainMenu : MonoBehaviour {
             ambiantVolumeValue.transform.localScale = new Vector3(1, 1, 1);
             musicChoiceText.transform.localScale = new Vector3(1, 1, 1);
             musicDropdown.transform.localScale = new Vector3(1, 1, 1);
-
+            seedText.transform.localScale = new Vector3(1, 1, 1);
+            OkSeed.transform.localScale = new Vector3(1, 1, 1);
+            InputFieldSeed.transform.localScale = new Vector3(1, 1, 1);
+            InputSeedIDText.transform.localScale = new Vector3(1, 1, 1);
         }
         ChangeSfxVolume();
         ChangeMusicVolume();
@@ -169,12 +179,17 @@ public class MainMenu : MonoBehaviour {
         ambiantVolumeValue.SetActive(true);
         musicChoiceText.SetActive(true);
         musicDropdown.SetActive(true);
+        seedText.SetActive(true);
+        OkSeed.SetActive(true);
+        InputFieldSeed.SetActive(true);
+        InputSeedIDText.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
         soundManager.playMusic("mainMenu");
 
+        
         Time.timeScale = 1;
     }
 
@@ -214,6 +229,10 @@ public class MainMenu : MonoBehaviour {
         ambiantVolumeValue.SetActive(false);
         musicChoiceText.SetActive(false);
         musicDropdown.SetActive(false);
+        seedText.SetActive(false);
+        OkSeed.SetActive(false);
+        InputFieldSeed.SetActive(false);
+        InputSeedIDText.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);
@@ -236,5 +255,16 @@ public class MainMenu : MonoBehaviour {
     {
         HideMainMenu();
         avatars.DisplayMenu();
+    }
+
+    public void SpawnObstaclesWithSeed()
+    {
+        string id = inputSeed.text.ToString();
+        string coord = PlayerPrefs.GetString(id, "");
+        if (coord != "")
+        {
+            gameController.SpawnObstaclesWithSeed(id, coord);
+        }
+        
     }
 }

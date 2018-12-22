@@ -32,7 +32,6 @@ public class ObstacleScript : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hit!");
         rend.material.color = startColor;
         speed = 0;
         collision = true;

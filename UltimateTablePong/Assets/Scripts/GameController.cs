@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
     private int currentRound;
     private int numberOfHit;
     private KeyCode startButton;
+    private string seed;
 
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
@@ -32,7 +33,7 @@ public class GameController : MonoBehaviour {
     private BallSpawner ballSpawner;
 
     private SoundManager soundManager;
-
+    public Text seedText;
     public bool aiMode;
 
     public GameObject stickPrefab;
@@ -667,8 +668,9 @@ public class GameController : MonoBehaviour {
             playerOneZ = -530.0f;
             playerTwoZ = -8250.0f;
         }
-        string id = GenerateSeed();
-        SaveSeed(id, coord);
+        seed = GenerateSeed();
+        SaveSeed(seed, coord);
+        seedText.text = "Current map seed : " + seed;
     }
 
     private void DestroyAllObstacles()
@@ -694,5 +696,28 @@ public class GameController : MonoBehaviour {
     public void SaveSeed(string id, string coord)
     {
        PlayerPrefs.SetString(id, coord);
+    }
+
+    public void SpawnObstaclesWithSeed(string id, string coord)
+    {
+        if (coord != "")
+        {
+            Debug.Log(coord);
+            DestroyAllObstacles();
+            string[] coords = coord.Split('/');
+            for (int i = 0; i < 9; i++)
+            {
+                Debug.Log("c = " + coords[i]);
+                string[] values = coords[i].Split(';');
+                Vector3 spawnPosition = new Vector3(float.Parse(values[0]), 100.0f, float.Parse(values[1]));
+                GameObject obst = obstacle;
+                GameObject obst2 = obstacle;
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(obst, spawnPosition, spawnRotation);
+                spawnPosition = new Vector3(float.Parse(values[0]), 100.0f, float.Parse(values[2]));
+                Instantiate(obst2, spawnPosition, spawnRotation);
+            }
+            seedText.text = "Current map seed : " + id;
+        }
     }
 }
