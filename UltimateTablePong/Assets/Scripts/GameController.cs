@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour {
         {
             avatars = avatarModifier.GetComponent<Avatars>();
         }
+        SpawnObstacles();
     }
 
     public void UpdateStartButton()
@@ -638,19 +639,24 @@ public class GameController : MonoBehaviour {
         spawnPosition = new Vector3(x, 100.0f, z);
         float randomX = 0.0f;
         float randomZ = 0.0f;
-
+        float positionX = 0.0f;
+        float positionZ = 0.0f;
+        float positionZ2 = 0.0f;
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
                 randomX = UnityEngine.Random.Range(-430.0f, 430.0f);
                 randomZ = UnityEngine.Random.Range(-250.0f, 250.0f);
-                spawnPosition = new Vector3(x + randomX, 100.0f, playerOneZ + randomZ);
+                positionX = x + randomX;
+                positionZ = playerOneZ + randomZ;
+                positionZ2 = playerTwoZ + randomZ;
+                spawnPosition = new Vector3(positionX, 100.0f, positionZ);
                 GameObject obst = obstacle;
                 GameObject obst2 = obstacle;
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(obst, spawnPosition, spawnRotation);
-                spawnPosition = new Vector3(x + randomX, 100.0f, playerTwoZ + randomZ);
+                spawnPosition = new Vector3(x + randomX, 100.0f, positionZ2);
                 Instantiate(obst2, spawnPosition, spawnRotation);
                 playerOneZ += 543;
                 playerTwoZ += 543;
@@ -660,5 +666,28 @@ public class GameController : MonoBehaviour {
             playerTwoZ = -8250.0f;
         }
     }
-   
+
+    private void DestroyAllObstacles()
+    {
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        foreach (GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
+    }
+
+    public void ChangeMap()
+    {
+        DestroyAllObstacles();
+    }
+
+    private string CreateSeed()
+    {
+        string seed;
+        DateTime d = DateTime.Now;
+        seed = d.ToLongTimeString();
+        return seed;
+    }
+
 }
