@@ -58,7 +58,6 @@ public class EndMenu : MonoBehaviour {
 
     public void DisplayEndMenu(string displayText)
     {
-        Time.timeScale = 0;
         endContextText.GetComponent<Text>().text = displayText;
         endPanel.SetActive(true);
         endText.SetActive(true);
@@ -74,7 +73,6 @@ public class EndMenu : MonoBehaviour {
 
     public void HideEndMenu()
     {
-        Time.timeScale = 1;
         endPanel.SetActive(false);
         endText.SetActive(false);
         endContextText.SetActive(false);

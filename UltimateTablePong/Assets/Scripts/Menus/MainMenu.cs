@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour {
 
     private GameObject mainPanel;
+    private GameObject mainBackground;
     private GameObject mainText;
     private GameObject mainStartButton;
     private GameObject mainQuitButton;
@@ -61,6 +62,7 @@ public class MainMenu : MonoBehaviour {
         Time.timeScale = 0;
         
         mainPanel = GameObject.Find("MainPanel");
+        mainBackground = GameObject.Find("MainBackground");
         mainText = GameObject.Find("MainText");
         mainStartButton = GameObject.Find("MainStartButton");
         mainQuitButton = GameObject.Find("MainQuitButton");
@@ -109,6 +111,8 @@ public class MainMenu : MonoBehaviour {
         musicDropdown.transform.localScale = new Vector3(0, 0, 0);
 
         soundManager.playMusic("mainMenu");
+
+        Time.timeScale = 1;
     }
 	
 	// Update is called once per frame
@@ -148,6 +152,7 @@ public class MainMenu : MonoBehaviour {
     {
         Time.timeScale = 0;
         mainPanel.SetActive(true);
+        mainBackground.SetActive(true);
         mainText.SetActive(true);
         mainStartButton.SetActive(true);
         mainQuitButton.SetActive(true);
@@ -169,6 +174,8 @@ public class MainMenu : MonoBehaviour {
         playerReady.transform.localScale = new Vector3(0, 0, 0);
         gameInfo.transform.localScale = new Vector3(0, 0, 0);
         soundManager.playMusic("mainMenu");
+
+        Time.timeScale = 1;
     }
 
     public void ChangeSfxVolume()
@@ -190,6 +197,7 @@ public class MainMenu : MonoBehaviour {
     {
         Time.timeScale = 1;
         mainPanel.SetActive(false);
+        mainBackground.SetActive(false);
         mainText.SetActive(false);
         mainStartButton.SetActive(false);
         mainQuitButton.SetActive(false);
