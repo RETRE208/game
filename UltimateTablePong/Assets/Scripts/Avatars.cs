@@ -216,7 +216,7 @@ public class Avatars : MonoBehaviour {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name.Contains("Petal"))
+                else if (child.name.Equals("Petals"))
                 {
                     if (colorNumber == 3)
                     {
@@ -284,7 +284,7 @@ public class Avatars : MonoBehaviour {
                         child.GetComponent<Renderer>().material.color = color;
                     }
                 }
-                else if (child.name.Contains("Petal"))
+                else if (child.name.Equals("Petals"))
                 {
                     if (colorNumber == 3)
                     {
