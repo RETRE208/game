@@ -642,6 +642,7 @@ public class GameController : MonoBehaviour {
         float positionX = 0.0f;
         float positionZ = 0.0f;
         float positionZ2 = 0.0f;
+        string coord = "";
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -656,17 +657,18 @@ public class GameController : MonoBehaviour {
                 GameObject obst2 = obstacle;
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(obst, spawnPosition, spawnRotation);
-                spawnPosition = new Vector3(x + randomX, 100.0f, positionZ2);
+                spawnPosition = new Vector3(positionX, 100.0f, positionZ2);
                 Instantiate(obst2, spawnPosition, spawnRotation);
                 playerOneZ += 543;
                 playerTwoZ += 543;
+                coord += positionX.ToString() + ";" + positionZ + ";" + positionZ2 + "/";
             }
             x += 936;
             playerOneZ = -530.0f;
             playerTwoZ = -8250.0f;
         }
         string id = GenerateSeed();
-        SaveSeed(id);
+        SaveSeed(id, coord);
     }
 
     private void DestroyAllObstacles()
@@ -689,8 +691,8 @@ public class GameController : MonoBehaviour {
         return DateTime.Now.ToString("yyyyMMddHHmmssf");
     }
 
-    public void SaveSeed(string id)
+    public void SaveSeed(string id, string coord)
     {
-
+       PlayerPrefs.SetString(id, coord);
     }
 }
