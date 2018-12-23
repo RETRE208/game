@@ -9,7 +9,7 @@ public class LoadingScreen : MonoBehaviour {
     private GameObject loadingText;
     private GameObject loadingProgress;
     private GameObject arcadeAmbiance;
-
+    
     private GameObject scoreText;
     private GameObject playerReady;
     private GameObject gameInfo;
