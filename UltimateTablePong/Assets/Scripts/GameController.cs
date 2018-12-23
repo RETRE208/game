@@ -13,12 +13,14 @@ public class GameController : MonoBehaviour {
     private int scorePlayer2;
     private int ballCount;
     public GameObject balls;
+    public GameObject obstacle;
     public Vector3 spawnValues;
     private bool player1turn;
     public int numberOfRounds;
     private int currentRound;
     private int numberOfHit;
     private KeyCode startButton;
+    private string seed;
 
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
@@ -31,7 +33,7 @@ public class GameController : MonoBehaviour {
     private BallSpawner ballSpawner;
 
     private SoundManager soundManager;
-
+    public Text seedText;
     public bool aiMode;
 
     public GameObject stickPrefab;
@@ -73,6 +75,7 @@ public class GameController : MonoBehaviour {
         {
             avatars = avatarModifier.GetComponent<Avatars>();
         }
+        SpawnObstacles();
     }
 
     public void UpdateStartButton()
@@ -311,7 +314,6 @@ public class GameController : MonoBehaviour {
     {
         endMenu.HideEndMenu();
         destroyAllBalls();
-
         player1turn = false;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
@@ -359,7 +361,6 @@ public class GameController : MonoBehaviour {
             Destroy(ball);
         }
     }
-
 
     public void setOnlineMode(bool onlineMode, bool host)
     {
@@ -597,5 +598,102 @@ public class GameController : MonoBehaviour {
         Stick stick2Script = stick2.GetComponent<Stick>();
         stick2Script.setStickOptions(leftLimit2, rightLimit2, false);
         stick2Script.UpdateControls();
+    }
+
+    public void SpawnObstacles()
+    {
+        Vector3 spawnPosition;
+        float playerOneZ = -530.0f;
+        float playerTwoZ = -8250.0f;
+        float x = -132.0f;
+        float z = 0.0f;
+        spawnPosition = new Vector3(x, 100.0f, z);
+        float randomX = 0.0f;
+        float randomZ = 0.0f;
+        float positionX = 0.0f;
+        float positionZ = 0.0f;
+        float positionZ2 = 0.0f;
+        string coord = "";
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                randomX = UnityEngine.Random.Range(-430.0f, 430.0f);
+                randomZ = UnityEngine.Random.Range(-250.0f, 250.0f);
+                positionX = x + randomX;
+                positionZ = playerOneZ + randomZ;
+                positionZ2 = playerTwoZ + randomZ;
+                spawnPosition = new Vector3(positionX, 100.0f, positionZ);
+                GameObject obst = obstacle;
+                GameObject obst2 = obstacle;
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(obst, spawnPosition, spawnRotation);
+                spawnPosition = new Vector3(positionX, 100.0f, positionZ2);
+                Instantiate(obst2, spawnPosition, spawnRotation);
+                playerOneZ += 543;
+                playerTwoZ += 543;
+                coord += positionX.ToString() + ";" + positionZ + ";" + positionZ2 + "/";
+            }
+            x += 936;
+            playerOneZ = -530.0f;
+            playerTwoZ = -8250.0f;
+        }
+        seed = GenerateSeed();
+        SaveSeed(seed, coord);
+        seedText.text = "Current map seed : " + seed;
+    }
+
+    private void DestroyAllObstacles()
+    {
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        foreach (GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
+    }
+
+    public void ChangeMap()
+    {
+        DestroyAllObstacles();
+    }
+
+    private string GenerateSeed()
+    {
+        return DateTime.Now.ToString("yyyyMMddHHmmssf");
+    }
+
+    public void SaveSeed(string id, string coord)
+    {
+       PlayerPrefs.SetString(id, coord);
+    }
+
+    public void SpawnObstaclesWithSeed(string id, string coord)
+    {
+        if (coord != "")
+        {
+            Debug.Log(coord);
+            DestroyAllObstacles();
+            string[] coords = coord.Split('/');
+            for (int i = 0; i < 9; i++)
+            {
+                Debug.Log("c = " + coords[i]);
+                string[] values = coords[i].Split(';');
+                Vector3 spawnPosition = new Vector3(float.Parse(values[0]), 100.0f, float.Parse(values[1]));
+                GameObject obst = obstacle;
+                GameObject obst2 = obstacle;
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(obst, spawnPosition, spawnRotation);
+                spawnPosition = new Vector3(float.Parse(values[0]), 100.0f, float.Parse(values[2]));
+                Instantiate(obst2, spawnPosition, spawnRotation);
+            }
+            seedText.text = "Current map seed : " + id;
+        }
+    }
+
+    public void RandomSeed()
+    {
+        DestroyAllObstacles();
+        SpawnObstacles();
     }
 }

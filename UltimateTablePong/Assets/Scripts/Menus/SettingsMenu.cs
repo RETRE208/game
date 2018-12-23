@@ -214,7 +214,18 @@ public class SettingsMenu : MonoBehaviour {
     void DisplayMainMenu()
     {
         turnsSlider.GetComponent<Slider>().value = turnsSlider.GetComponent<Slider>().minValue;
-        HideSettingsMenu();
+        Time.timeScale = 1;
+        settingsPanel.SetActive(false);
+        settingsText.SetActive(false);
+        settingsStartButton.SetActive(false);
+        settingsCreateOnlineButton.SetActive(false);
+        settingsJoinOnlineButton.SetActive(false);
+        settingsStartAiEasyButton.SetActive(false);
+        settingsStartAiHardButton.SetActive(false);
+        settingsBackButton.SetActive(false);
+        turnsSlider.SetActive(false);
+        turnsText.SetActive(false);
+        turnNumberText.SetActive(false);
         mainMenu.DisplayMainMenu();
     }
 
