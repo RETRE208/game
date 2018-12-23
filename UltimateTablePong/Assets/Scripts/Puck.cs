@@ -14,39 +14,32 @@ public class Puck : MonoBehaviour {
 
     private SoundManager soundManager;
 
-    public float speed;
+    private Renderer rend;
+    private bool collision = true;
+    private bool collision2 = false;
+    private bool collision3 = false;
 
-	// Use this for initialization
-	void Start () {
+    public float speed;
+    public float speedColor;
+    public Color yellow = Color.green;
+    public Color red = Color.red;
+    public Color bleu = Color.blue;
+
+    // Use this for initialization
+    void Start () {
         soundManager = FindObjectOfType<SoundManager>();
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
         if (gameControllerObject != null)
         {
             gameController = gameControllerObject.GetComponent<GameController>();
-            if (gameController == null)
-            {
-                Debug.Log("Cannot find 'GameController' script");
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot find 'GameController' object");
         }
 
         GameObject particuleControllerObject = GameObject.FindGameObjectWithTag("ParticuleController");
         if (particuleControllerObject != null)
         {
             particuleController = particuleControllerObject.GetComponent<ParticuleController>();
-            if (particuleController == null)
-            {
-                Debug.Log("Cannot find 'ParticuleController' script");
-            }
         }
-        else
-        {
-            Debug.Log("Cannot find 'ParticuleController' object");
-        }
-
+        rend = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
         moveRandomDirection();
         gravity = new Vector3(-50.0f, 0.0f, 0.0f);
@@ -57,7 +50,46 @@ public class Puck : MonoBehaviour {
         addGravity();
         position = rb.position;
         rb.velocity = direction;
+
+        if (collision)
+        {
+            rend.material.color = Color.Lerp(yellow, red, speedColor);
+            speedColor += 0.01f;
+            if (speedColor >= 1.0f)
+            {
+                collision = false;
+                collision2 = true;
+                speedColor = 0.0f;
+                rend.material.color = red;
+            }
+        }
+        if (collision2)
+        {
+            rend.material.color = Color.Lerp(red, bleu, speedColor);
+            speedColor += 0.01f;
+            if (speedColor >= 1.0f)
+            {
+                collision2 = false;
+                collision3 = true;
+                speedColor = 0.0f;
+                rend.material.color = bleu;
+            }
+        }
+        if (collision3)
+        {
+            rend.material.color = Color.Lerp(bleu, yellow, speedColor);
+            speedColor += 0.01f;
+            if (speedColor >= 1.0f)
+            {
+                collision3 = false;
+                collision = true;
+                speedColor = 0.0f;
+                rend.material.color = yellow;
+            }
+        }
     }
+
+
 
     void OnTriggerEnter(Collider other)
     {
