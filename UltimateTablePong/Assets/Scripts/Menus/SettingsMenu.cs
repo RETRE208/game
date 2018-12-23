@@ -43,6 +43,9 @@ public class SettingsMenu : MonoBehaviour {
     public GameObject stick1OnlinePrefab;
     public GameObject stick2OnlinePrefab;
 
+    private bool aiModeEasy;
+    private bool aiModeHard;
+
     // Use this for initialization
     void Start()
     {
@@ -113,6 +116,9 @@ public class SettingsMenu : MonoBehaviour {
         }
 
         playerReadyText = playerReady.GetComponent<Text>();
+
+        aiModeEasy = false;
+        aiModeHard = false;
     }
 
     // Update is called once per frame
@@ -188,6 +194,21 @@ public class SettingsMenu : MonoBehaviour {
         }
 
         loadingScreen.displayLoadingScreen();
+
+        if (aiModeEasy)
+        {
+            gameController.aiMode = true;
+            ai.activateAI();
+            ai.UnpauseAI();
+            ai.setSimulationEasy();
+        }
+        else if (aiModeHard)
+        {
+            gameController.aiMode = true;
+            ai.activateAI();
+            ai.UnpauseAI();
+            ai.setSimulationHard();
+        }
     }
 
     void DisplayMainMenu()
@@ -210,6 +231,9 @@ public class SettingsMenu : MonoBehaviour {
 
     void StartGameLocalPvP()
     {
+        aiModeEasy = false;
+        aiModeHard = false;
+
         setGameSettings();
         gameController.createPlayersSticks();
         HideSettingsMenu();
@@ -217,6 +241,9 @@ public class SettingsMenu : MonoBehaviour {
 
     void CreateOnlineGame()
     {
+        aiModeEasy = false;
+        aiModeHard = false;
+
         //Create online game
         HideSettingsMenu();
 
@@ -231,6 +258,9 @@ public class SettingsMenu : MonoBehaviour {
 
     public void JoinOnlineGame(string ip)
     {
+        aiModeEasy = false;
+        aiModeHard = false;
+
         //Join online game
         HideSettingsMenu();
 
@@ -289,23 +319,23 @@ public class SettingsMenu : MonoBehaviour {
 
     void StartVsAiEasy()
     {
+        aiModeEasy = true;
+        aiModeHard = false;
+
         setGameSettings();
         gameController.createPlayersSticks();
-        gameController.aiMode = true;
-        ai.activateAI();
-        ai.UnpauseAI();
-        ai.setSimulationEasy();
+
         HideSettingsMenu();
     }
 
     void StartVsAiHard()
     {
+        aiModeEasy = false;
+        aiModeHard = true;
+
         setGameSettings();
         gameController.createPlayersSticks();
-        gameController.aiMode = true;
-        ai.activateAI();
-        ai.UnpauseAI();
-        ai.setSimulationHard();
+
         HideSettingsMenu();
     }
 

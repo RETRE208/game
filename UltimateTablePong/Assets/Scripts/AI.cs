@@ -13,6 +13,8 @@ public class AI : MonoBehaviour {
     private bool firstMove;
     private bool activated;
 
+    private GameObject Stick;
+
     // Use this for initialization
     void Start() {
         activated = false;
@@ -96,23 +98,41 @@ public class AI : MonoBehaviour {
 
     void ApplyEasyAI()
     {
+        if (stick == null)
+        {
+            Stick = GameObject.FindGameObjectWithTag("Stick2");
+            stick = Stick.GetComponent<Stick>();
+            stick.ai = true;
+            Debug.Log(Stick);
+        }
+        Debug.Log("test");
         if (firstMove)
         {
+            Debug.Log("left");
             stick.moveLeft();
             firstMove = false;
         }
         else if (stick.transform.position.z < -8624)
         {
+            Debug.Log("left");
             stick.moveLeft();
         }
         else if (stick.transform.position.z > -6987)
         {
+            Debug.Log("right");
             stick.moveRight();
         }
     }
 
     void ApplyHardAI()
     {
+        if (stick == null)
+        {
+            Stick = GameObject.FindGameObjectWithTag("Stick2");
+            stick = Stick.GetComponent<Stick>();
+            stick.ai = true;
+            Debug.Log(Stick);
+        }
         if (puck.transform.position.z < (stick.transform.position.z + 150) && puck.transform.position.z > (stick.transform.position.z - 150))
         {
             stick.moveNeutral();
@@ -133,6 +153,12 @@ public class AI : MonoBehaviour {
 
     public void PauseAIAndReturnToMiddle()
     {
+        if (stick == null)
+        {
+            Stick = GameObject.FindGameObjectWithTag("Stick2");
+            stick = Stick.GetComponent<Stick>();
+            stick.ai = true;
+        }
         stick.moveNeutral();
         pause = true;
     }
@@ -145,8 +171,9 @@ public class AI : MonoBehaviour {
 
     public void activateAI()
     {
-        Debug.Log(stick);
-        stick = GameObject.FindGameObjectWithTag("Stick2").GetComponent<Stick>();
+        Stick = GameObject.FindGameObjectWithTag("Stick2");
+        stick = Stick.GetComponent<Stick>();
+        Debug.Log(Stick);
         Debug.Log(stick);
         activated = true;
     }
