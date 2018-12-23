@@ -135,18 +135,20 @@ public class SoundManager : MonoBehaviour
         {
             if (previousSong.GetComponent<AudioSource>().volume > 0)
             {
-                Debug.Log("going down");
-                previousSong.GetComponent<AudioSource>().volume -= 0.005F;
+                previousSong.GetComponent<AudioSource>().volume -= 0.01F;
             }
             else if (previousSong.GetComponent<AudioSource>().volume == 0)
             {
-                Debug.Log("Stop");
                 previousSong.GetComponent<AudioSource>().Stop();
             }
             if (currentSong.GetComponent<AudioSource>().volume < musicVolume)
             {
-                Debug.Log("going up");
-                currentSong.GetComponent<AudioSource>().volume += 0.005F;
+                currentSong.GetComponent<AudioSource>().volume += 0.01F;
+            }
+            else if (currentSong == introMusic)
+            {
+                introMusic.GetComponent<AudioSource>().volume = musicVolume;
+                previousSong = null;
             }
         }
     }
@@ -156,5 +158,9 @@ public class SoundManager : MonoBehaviour
     {
         changePitchCurrentSong();
         changePitchOnSongChange();
+        if (previousSong == null)
+        {
+            currentSong.GetComponent<AudioSource>().volume = musicVolume;
+        }
     }
 }
