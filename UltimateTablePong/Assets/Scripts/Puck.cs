@@ -21,7 +21,7 @@ public class Puck : MonoBehaviour {
 
     public float speed;
     public float speedColor;
-    public Color yellow = Color.green;
+    public Color yellow = Color.yellow;
     public Color red = Color.red;
     public Color bleu = Color.blue;
 

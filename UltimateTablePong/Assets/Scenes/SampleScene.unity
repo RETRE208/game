@@ -6301,6 +6301,7 @@ MonoBehaviour:
   numberOfRounds: 1
   seedText: {fileID: 1007089187}
   aiMode: 0
+  material: {fileID: 2100000, guid: 2de8de38416273644acc499b254203d3, type: 2}
   stickPrefab: {fileID: 1001781927663870, guid: 9cbca6943ff445346824067d370c9d2d,
     type: 2}
 --- !u!4 &485884260

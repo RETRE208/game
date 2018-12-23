@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour {
     private int numberOfHit;
     private KeyCode startButton;
     private string seed;
+    private int scoreColor;
 
     private EndMenu endMenu;
     private PauseMenu pauseMenu;
@@ -38,6 +39,8 @@ public class GameController : MonoBehaviour {
     public Text seedText;
     public bool aiMode;
 
+    public Material material;
+
     public GameObject stickPrefab;
 
     // Use this for initialization
@@ -51,6 +54,7 @@ public class GameController : MonoBehaviour {
         player1turn = true;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
+        scoreColor = 0;
         ballCount = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         UpdateScore();
@@ -79,6 +83,7 @@ public class GameController : MonoBehaviour {
             avatars = avatarModifier.GetComponent<Avatars>();
         }
         SpawnObstacles();
+        material.color = Color.red;
     }
 
     public void UpdateStartButton()
@@ -88,6 +93,47 @@ public class GameController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (player1turn)
+        {
+            scoreColor = scorePlayer1;
+            if(scoreColor < 35)
+            {
+                material.color = Color.red;
+            }
+            if (scoreColor > 35 && scoreColor < 100)
+            {
+                material.color = Color.blue;
+            }
+            if (scoreColor > 100 && scoreColor < 200)
+            {
+                material.color = Color.green;
+            }
+            if (scoreColor > 200)
+            {
+                material.color = Color.black;
+            }
+        }
+        else
+        {
+            scoreColor = scorePlayer2;
+            if (scoreColor < 35)
+            {
+                material.color = Color.red;
+            }
+            if (scoreColor > 35 && scoreColor < 100)
+            {
+                material.color = Color.blue;
+            }
+            if (scoreColor > 100 && scoreColor < 200)
+            {
+                material.color = Color.green;
+            }
+            if (scoreColor > 200)
+            {
+                material.color = Color.black;
+            }
+        }
+
         if (playerReadyText.gameObject.activeSelf && isOnlineMode && !isHost)
         {
             playerReadyText.gameObject.SetActive(false);
@@ -335,6 +381,7 @@ public class GameController : MonoBehaviour {
         getGameInfo();
         UpdateScore();
         ChangeSides();
+        scoreColor = 0;
     }
 
     private void getGameInfo()
@@ -707,5 +754,10 @@ public class GameController : MonoBehaviour {
     {
         DestroyAllObstacles();
         SpawnObstacles();
+    }
+
+    public void ChangeColor()
+    {
+        
     }
 }
