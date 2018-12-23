@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour {
     private GameObject OkSeed;
     private GameObject InputFieldSeed;
     private GameObject InputSeedIDText;
+    private GameObject RandomSeed;
 
     private GameObject musicChoiceText;
     private GameObject musicDropdown;
@@ -83,6 +84,7 @@ public class MainMenu : MonoBehaviour {
         OkSeed = GameObject.Find("OkSeed");
         InputFieldSeed = GameObject.Find("InputFieldSeed");
         InputSeedIDText = GameObject.Find("InputSeedIDText");
+        RandomSeed = GameObject.Find("RandomButton");
 
         scoreText = GameObject.Find("ScoreText");
         playerReady = GameObject.Find("PlayerReady");
@@ -116,7 +118,8 @@ public class MainMenu : MonoBehaviour {
         OkSeed.transform.localScale = new Vector3(0, 0, 0);
         InputFieldSeed.transform.localScale = new Vector3(0, 0, 0);
         InputSeedIDText.transform.localScale = new Vector3(0, 0, 0);
-
+        RandomSeed.transform.localScale = new Vector3(0, 0, 0);
+        
         soundManager.playMusic("mainMenu");
 
         Time.timeScale = 1;
@@ -147,6 +150,7 @@ public class MainMenu : MonoBehaviour {
             OkSeed.transform.localScale = new Vector3(1, 1, 1);
             InputFieldSeed.transform.localScale = new Vector3(1, 1, 1);
             InputSeedIDText.transform.localScale = new Vector3(1, 1, 1);
+            RandomSeed.transform.localScale = new Vector3(1, 1, 1);
         }
         ChangeSfxVolume();
         ChangeMusicVolume();
@@ -183,6 +187,7 @@ public class MainMenu : MonoBehaviour {
         OkSeed.SetActive(true);
         InputFieldSeed.SetActive(true);
         InputSeedIDText.SetActive(true);
+        RandomSeed.SetActive(true);
 
         scoreText.transform.localScale = new Vector3(0, 0, 0);
         playerReady.transform.localScale = new Vector3(0, 0, 0);
@@ -233,6 +238,7 @@ public class MainMenu : MonoBehaviour {
         OkSeed.SetActive(false);
         InputFieldSeed.SetActive(false);
         InputSeedIDText.SetActive(false);
+        RandomSeed.SetActive(false);
 
         scoreText.transform.localScale = new Vector3(1, 1, 1);
         playerReady.transform.localScale = new Vector3(2, 2, 2);

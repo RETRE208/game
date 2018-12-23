@@ -720,4 +720,10 @@ public class GameController : MonoBehaviour {
             seedText.text = "Current map seed : " + id;
         }
     }
+
+    public void RandomSeed()
+    {
+        DestroyAllObstacles();
+        SpawnObstacles();
+    }
 }
