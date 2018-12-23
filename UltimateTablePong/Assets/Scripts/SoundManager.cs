@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     private GameObject inGame2;
     private GameObject endGame;
 
+    private GameObject previousSong = null;
     private GameObject currentSong = null;
 
     private AudioSource sfxSource;
@@ -34,10 +35,16 @@ public class SoundManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        previousSong = null;
+        currentSong = null;
         introMusic = GameObject.Find("IntroMusic");
         inGame1 = GameObject.Find("InGame1Music");
         inGame2 = GameObject.Find("InGame2Music");
         endGame = GameObject.Find("EndClipMusic");
+
+        inGame1.GetComponent<AudioSource>().volume = 0;
+        inGame2.GetComponent<AudioSource>().volume = 0;
+        endGame.GetComponent<AudioSource>().volume = 0;
     }
 
     public void changeMusicPitch(float pitch)
@@ -67,10 +74,23 @@ public class SoundManager : MonoBehaviour
 
     public void playMusic(string name)
     {
-        introMusic.GetComponent<AudioSource>().Stop();
-        inGame1.GetComponent<AudioSource>().Stop();
-        inGame2.GetComponent<AudioSource>().Stop();
-        endGame.GetComponent<AudioSource>().Stop();
+        if (introMusic != previousSong)
+        {
+            introMusic.GetComponent<AudioSource>().Stop();
+        }
+        if (inGame1 != previousSong)
+        {
+            inGame1.GetComponent<AudioSource>().Stop();
+        }
+        if (inGame2 != previousSong)
+        {
+            inGame2.GetComponent<AudioSource>().Stop();
+        }
+        if (endGame != previousSong)
+        {
+            endGame.GetComponent<AudioSource>().Stop();
+        }
+        previousSong = currentSong;
         switch (name)
         {
             case "mainMenu":
@@ -101,13 +121,33 @@ public class SoundManager : MonoBehaviour
     {
         if (currentSong.GetComponent<AudioSource>().pitch < lastDesiredPitch)
         {
-            Debug.Log("Nice");
-            currentSong.GetComponent<AudioSource>().pitch = currentSong.GetComponent<AudioSource>().pitch + 0.1F;
+            currentSong.GetComponent<AudioSource>().pitch += 0.01F * Time.deltaTime;
         }
         else if (currentSong.GetComponent<AudioSource>().pitch > lastDesiredPitch)
         {
-            Debug.Log("Nicr");
-            currentSong.GetComponent<AudioSource>().pitch  = currentSong.GetComponent<AudioSource>().pitch - 0.1F;
+            currentSong.GetComponent<AudioSource>().pitch  -= 0.01F * Time.deltaTime;
+        }
+    }
+
+    private void changePitchOnSongChange()
+    {
+        if (previousSong != null)
+        {
+            if (previousSong.GetComponent<AudioSource>().volume > 0)
+            {
+                Debug.Log("going down");
+                previousSong.GetComponent<AudioSource>().volume -= 0.005F;
+            }
+            else if (previousSong.GetComponent<AudioSource>().volume == 0)
+            {
+                Debug.Log("Stop");
+                previousSong.GetComponent<AudioSource>().Stop();
+            }
+            if (currentSong.GetComponent<AudioSource>().volume < musicVolume)
+            {
+                Debug.Log("going up");
+                currentSong.GetComponent<AudioSource>().volume += 0.005F;
+            }
         }
     }
 
@@ -115,10 +155,6 @@ public class SoundManager : MonoBehaviour
     void Update()
     {
         changePitchCurrentSong();
-
-        introMusic.GetComponent<AudioSource>().volume = musicVolume;
-        inGame1.GetComponent<AudioSource>().volume = musicVolume;
-        inGame2.GetComponent<AudioSource>().volume = musicVolume;
-        endGame.GetComponent<AudioSource>().volume = musicVolume;
+        changePitchOnSongChange();
     }
 }
