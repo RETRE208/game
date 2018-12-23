@@ -28,8 +28,6 @@ public class ObstacleScript : MonoBehaviour {
                 speed = 0.0f;
                 rend.material.color = endColor;
             }
-            Debug.Log(transform.position.y);
-            
         }
         if (collision2)
         {
