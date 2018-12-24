@@ -178,7 +178,6 @@ public class GameController : MonoBehaviour {
     void SpawnBall()
     {
         GameObject ball = balls;
-        ball.AddComponent<AudioSource>();
         ball.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("wallHit");
         ball.GetComponent<AudioSource>().playOnAwake = false;
         Vector3 spawnPosition;

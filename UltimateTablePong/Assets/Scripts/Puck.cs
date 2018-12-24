@@ -153,7 +153,7 @@ public class Puck : MonoBehaviour {
     void moveRandomDirection()
     {
         float randomZ = Random.Range(1, 10);
-        int signZ = 1; //Disabled randomness for the simulation (Random.value > 0.5f) ? 1 : -1;
+        int signZ = (Random.value > 0.5f) ? 1 : -1;
         direction.x = 0;
         direction.y = 0;
         direction.z = 100 * randomZ * signZ;
