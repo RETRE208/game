@@ -13,8 +13,12 @@ public class SmallMenuButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPo
     private bool grow;
     private bool shrink;
 
+    private SoundManager soundManager;
+
     private void Start()
     {
+        soundManager = FindObjectOfType<SoundManager>();
+
         buttonNormalSize = gameObject.GetComponent<RectTransform>().sizeDelta;
         buttonBigSize = new Vector2(buttonNormalSize.x + DELTA, buttonNormalSize.y);
         grow = false;
@@ -58,6 +62,7 @@ public class SmallMenuButtonHighlight : MonoBehaviour, IPointerEnterHandler, IPo
         AudioSource audio = gameObject.GetComponent<AudioSource>();
         if (audio != null)
         {
+            audio.volume = soundManager.sfxVolume;
             audio.Play();
         }
 

@@ -13,7 +13,7 @@ public class MeshCombiner : MonoBehaviour {
         CombineMeshes();
     }
 
-    public void CombineMeshes()
+    private void CombineMeshes()
     {
         Quaternion oldRot = transform.rotation;
         Vector3 oldPos = transform.position;
